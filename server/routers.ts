@@ -3,7 +3,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, publicProcedure, protectedProcedure, router } from "./_core/trpc";
-import { createCashOnDeliveryOrder, listActiveProducts, listAllProductsForAdmin, listCommissionSettings, listOrdersForAdmin, listSellers, updateCommissionCollectionStatus, upsertCommissionSetting } from "./db";
+import { createCashOnDeliveryOrder, createProduct, listActiveProducts, listAllProductsForAdmin, listCommissionSettings, listOrdersForAdmin, listSellers, updateCommissionCollectionStatus, updateProduct, updateProductStatus, upsertCommissionSetting } from "./db";
 
 export const appRouter = router({
   system: systemRouter,
@@ -20,6 +20,9 @@ export const appRouter = router({
     sellers: adminProcedure.query(() => listSellers()),
     adminOrders: adminProcedure.query(() => listOrdersForAdmin()),
     adminProducts: adminProcedure.query(() => listAllProductsForAdmin()),
+    createProduct: adminProcedure.input(z.object({ sellerId: z.number().int().positive(), name: z.string().trim().min(2).max(180), category: z.string().trim().min(1).max(80), description: z.string().trim().max(10000).optional(), imageUrl: z.string().url().optional().or(z.literal("")), location: z.string().trim().max(180).optional(), priceCents: z.number().int().positive(), status: z.enum(["draft", "active", "archived"]).default("draft") })).mutation(({ input }) => createProduct(input)),
+    updateProduct: adminProcedure.input(z.object({ productId: z.number().int().positive(), sellerId: z.number().int().positive(), name: z.string().trim().min(2).max(180), category: z.string().trim().min(1).max(80), description: z.string().trim().max(10000).optional(), imageUrl: z.string().url().optional().or(z.literal("")), location: z.string().trim().max(180).optional(), priceCents: z.number().int().positive() })).mutation(({ input }) => { const { productId, ...product } = input; return updateProduct(productId, product); }),
+    updateProductStatus: adminProcedure.input(z.object({ productId: z.number().int().positive(), status: z.enum(["draft", "active", "archived"]) })).mutation(({ input }) => updateProductStatus(input.productId, input.status)),
     commissionSettings: adminProcedure.query(() => listCommissionSettings()),
     updateCommissionSetting: adminProcedure.input(z.object({ category: z.string().trim().min(1).max(80), sellerRateBps: z.number().int().min(0).max(5000), buyerRateBps: z.number().int().min(0).max(3000) })).mutation(({ input }) => upsertCommissionSetting(input.category, input.sellerRateBps, input.buyerRateBps)),
     updateCommissionStatus: adminProcedure.input(z.object({ orderId: z.number().int().positive(), status: z.enum(["pending", "collected", "waived"]) })).mutation(({ input }) => updateCommissionCollectionStatus(input.orderId, input.status)),

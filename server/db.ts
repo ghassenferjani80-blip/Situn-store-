@@ -118,3 +118,35 @@ export async function createCashOnDeliveryOrder(input: NewOrder) {
     return { orderId };
   });
 }
+
+export type ProductInput = {
+  sellerId: number;
+  name: string;
+  category: string;
+  description?: string;
+  imageUrl?: string;
+  location?: string;
+  priceCents: number;
+  status?: "draft" | "active" | "archived";
+};
+
+export async function createProduct(input: ProductInput) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  const result = await db.insert(products).values({ ...input, description: input.description || null, imageUrl: input.imageUrl || null, location: input.location || null, status: input.status ?? "draft" });
+  return { success: true as const, productId: Number(result[0].insertId) };
+}
+
+export async function updateProduct(productId: number, input: Omit<ProductInput, "status">) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(products).set({ ...input, description: input.description || null, imageUrl: input.imageUrl || null, location: input.location || null }).where(eq(products.id, productId));
+  return { success: true as const, productId };
+}
+
+export async function updateProductStatus(productId: number, status: "draft" | "active" | "archived") {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(products).set({ status }).where(eq(products.id, productId));
+  return { success: true as const, productId, status };
+}

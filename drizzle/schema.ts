@@ -28,6 +28,7 @@ export const products = mysqlTable("products", {
   category: varchar("category", { length: 80 }).notNull(),
   description: text("description"),
   imageUrl: text("imageUrl"),
+  location: varchar("location", { length: 180 }),
   priceCents: int("priceCents").notNull(),
   status: mysqlEnum("status", ["draft", "active", "archived"]).default("active").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
