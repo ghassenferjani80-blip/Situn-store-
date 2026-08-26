@@ -129,3 +129,4 @@
 - [ ] التحقق من robots.txt وsitemap.xml وSEO للرابط المجاني وإعداد خطوات Google Search Console
 - [ ] اختبار نهائي للغات والصلاحيات والاستجابة والكتالوج ثم حفظ الإصدار النهائي
 - [ ] نشر ملف تحقق Google `google2968c9990e7f75c3.html` على الرابط المجاني ثم إعادة التحقق من الملكية وإرسال sitemap.xml
+- [ ] إضافة علامة Google Search Console Meta إلى index.html كطريقة تحقق بديلة، ثم التحقق من رابط SITUN وإرسال sitemap.xml
