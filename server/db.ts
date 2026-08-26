@@ -1,6 +1,6 @@
 import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, orderItems, orders, products, sellers, users } from "../drizzle/schema";
+import { commissionSettings, InsertUser, orderItems, orders, products, sellers, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -53,6 +53,19 @@ export async function listSellers() {
   const db = await getDb();
   if (!db) return [];
   return db.select().from(sellers);
+}
+
+export async function listCommissionSettings() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(commissionSettings).orderBy(commissionSettings.category);
+}
+
+export async function upsertCommissionSetting(category: string, sellerRateBps: number, buyerRateBps: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.insert(commissionSettings).values({ category, sellerRateBps, buyerRateBps }).onDuplicateKeyUpdate({ set: { sellerRateBps, buyerRateBps } });
+  return { success: true as const, category, sellerRateBps, buyerRateBps };
 }
 
 export type NewOrder = {

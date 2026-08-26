@@ -3,7 +3,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, publicProcedure, protectedProcedure, router } from "./_core/trpc";
-import { createCashOnDeliveryOrder, listActiveProducts, listAllProductsForAdmin, listOrdersForAdmin, listSellers, updateCommissionCollectionStatus } from "./db";
+import { createCashOnDeliveryOrder, listActiveProducts, listAllProductsForAdmin, listCommissionSettings, listOrdersForAdmin, listSellers, updateCommissionCollectionStatus, upsertCommissionSetting } from "./db";
 
 export const appRouter = router({
   system: systemRouter,
@@ -20,6 +20,8 @@ export const appRouter = router({
     sellers: adminProcedure.query(() => listSellers()),
     adminOrders: adminProcedure.query(() => listOrdersForAdmin()),
     adminProducts: adminProcedure.query(() => listAllProductsForAdmin()),
+    commissionSettings: adminProcedure.query(() => listCommissionSettings()),
+    updateCommissionSetting: adminProcedure.input(z.object({ category: z.string().trim().min(1).max(80), sellerRateBps: z.number().int().min(0).max(5000), buyerRateBps: z.number().int().min(0).max(3000) })).mutation(({ input }) => upsertCommissionSetting(input.category, input.sellerRateBps, input.buyerRateBps)),
     updateCommissionStatus: adminProcedure.input(z.object({ orderId: z.number().int().positive(), status: z.enum(["pending", "collected", "waived"]) })).mutation(({ input }) => updateCommissionCollectionStatus(input.orderId, input.status)),
     createOrder: publicProcedure.input(z.object({
       customerName: z.string().trim().min(2),

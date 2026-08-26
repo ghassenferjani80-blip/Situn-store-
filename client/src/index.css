@@ -149,3 +149,10 @@ h2 { margin-bottom: 0; font-size: clamp(48px, 6vw, 82px); font-weight: 600; line
 .status-pill.waived { background: #ececec; color: #666; }
 .admin-empty { padding: 2rem 0; text-align: center; }
 @media (max-width: 700px) { .admin-page { padding: 1.5rem 1rem; } .admin-header { display: block; } .admin-actions { margin-top: 1rem; } .admin-card { padding: 1rem; } }
+
+.admin-help { margin: 0 0 1rem; font-size: .85rem; }
+.fee-settings { display: grid; gap: .75rem; }
+.fee-row { display: grid; grid-template-columns: minmax(8rem, 1fr) repeat(2, minmax(8rem, 1fr)); gap: .75rem; align-items: center; border-bottom: 1px solid #eee7dc; padding: .65rem 0; }
+.fee-row label { display: grid; gap: .35rem; color: #685f54; font-size: .75rem; }
+.fee-row input { width: 100%; border: 1px solid #d6c7ae; background: #fffdf8; padding: .5rem; color: #171513; }
+@media (max-width: 560px) { .fee-row { grid-template-columns: 1fr 1fr; gap: .55rem; } .fee-row > strong { grid-column: 1 / -1; color: #8a6a3e; } .fee-row label { font-size: .68rem; } }

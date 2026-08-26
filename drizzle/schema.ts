@@ -52,6 +52,14 @@ export const orders = mysqlTable("orders", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const commissionSettings = mysqlTable("commissionSettings", {
+  id: int("id").autoincrement().primaryKey(),
+  category: varchar("category", { length: 80 }).notNull().unique(),
+  sellerRateBps: int("sellerRateBps").notNull(),
+  buyerRateBps: int("buyerRateBps").notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export const orderItems = mysqlTable("orderItems", {
   id: int("id").autoincrement().primaryKey(),
   orderId: int("orderId").notNull(),
@@ -69,3 +77,4 @@ export type Seller = typeof sellers.$inferSelect;
 export type Product = typeof products.$inferSelect;
 export type Order = typeof orders.$inferSelect;
 export type OrderItem = typeof orderItems.$inferSelect;
+export type CommissionSetting = typeof commissionSettings.$inferSelect;

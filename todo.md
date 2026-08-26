@@ -64,7 +64,7 @@
 - [x] Vérifier البناء ووجود ملفات SEO العامة قبل النشر
 - [x] Définir des taux de commission par catégorie : immobilier, automobile, luxe et transport (2,5% immobilier, 4% automobile, 8% luxe, 5% transport)
 - [x] Afficher clairement les frais vendeur et acheteur avant toute mise en relation
-- [ ] Garder le taux modifiable par le propriétaire et documenter une révision périodique
+- [x] Garder le taux modifiable par le propriétaire et documenter une révision périodique
 - [ ] شراء أو تسجيل النطاق situnshop.com باسم المستخدم إن لم يكن مسجلًا مسبقًا
 - [ ] ربط www.situnshop.com وsitunshop.com بالموقع بعد إتمام DNS
 - [x] تأكيد أن /admin لا يظهر إلا لحساب المالك/admin (اختبارات الصلاحيات والخادم)
@@ -80,9 +80,13 @@
 - [x] توضيح أن الحساب المستخدم يجب أن يكون الحساب الذي أنشأ مشروع SITUN
 - [x] إعادة اختبار صفحة /admin على الهاتف بعد إصلاح تجربة الدخول
 - [x] Vérifier visuellement la page /admin على الهاتف بعد إضافة زر تسجيل الدخول، في حالة عدم تسجيل الدخول والحالة المحمية
-- [ ] Confirmer que le bouton « Se connecter comme propriétaire » fonctionne correctement sur /admin ثم حفظ checkpoint جديد
+- [x] Confirmer que le bouton « Se connecter comme propriétaire » fonctionne correctement sur /admin؛ وسيُحفظ checkpoint بعد تثبيت النشر
 - [x] Vérifier visuellement la page /admin sur الهاتف للحالة غير المسجلة، مع تحقق الخادم من الحالة المحمية/non-admin
-- [ ] Sauvegarder un nouveau checkpoint après validation finale de la page /admin avec le bouton de connexion propriétaire
-- [ ] Ajouter une configuration/procédure admin permettant au propriétaire de modifier les taux de commission par catégorie sans éditer le code
-- [ ] Documenter explicitement dans le projet la révision périodique des taux et le processus de mise à jour
-- [ ] Ajouter dans une page interne ou le README une explication claire entre lien de prévisualisation local et lien public publié
+- [ ] Sauvegarder un nouveau checkpoint بعد نشر زر دخول المالك وإعدادات العمولة
+- [x] Ajouter une configuration/procédure admin permettant au propriétaire de modifier les taux de commission par catégorie sans éditer le code
+- [x] Documenter explicitement dans le projet la révision périodique des taux et le processus de mise à jour
+- [x] Ajouter dans une page interne ou le README une explication claire entre lien de prévisualisation local et lien public publié
+- [x] تحديد سبب استمرار عرض صفحة /admin القديمة على الرابط العام (الرابط العام كان على نسخة منشورة أقدم من معاينة المشروع)
+- [ ] إعادة نشر نسخة /admin التي تحتوي زر تسجيل الدخول وإعدادات العمولة بعد تثبيت الملفات
+- [ ] اختبار الرابط العام من جهاز خارجي مع cache-busting قبل تسليمه للمستخدم
+- [x] تحسين تخطيط حقول إعدادات العمولة في /admin على الهاتف لمنع تداخل التسميات والحقول
