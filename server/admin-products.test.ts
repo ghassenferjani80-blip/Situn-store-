@@ -26,7 +26,7 @@ const productInput = {
   name: "Villa testée",
   category: "Immobilier",
   description: "Description vérifiée pour le test.",
-  imageUrl: "",
+  imageUrl: "/manus-storage/situn-listings/owner/photo.heic",
   location: "Carpentras, Vaucluse",
   priceCents: 250000,
 };
