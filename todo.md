@@ -11,17 +11,17 @@
 - [x] Ajouter les tests Vitest des fonctionnalités de commande et du panier
 - [x] Vérifier la version mobile et desktop
 - [x] Vérifier le build et les erreurs runtime
-- [ ] Créer le checkpoint final avant livraison
+- [x] Créer le checkpoint final avant livraison
 - [x] Retirer Shopify du périmètre et conserver un catalogue indépendant
 - [x] Confirmer que SITUN n’utilise ni Stripe ni aucun autre prestataire de paiement ou de commerce
-- [ ] Conserver les commandes et le panier dans le projet SITUN, avec livraison à domicile et WhatsApp
-- [ ] Ajouter le modèle marketplace : vendeurs, produits, commandes et commission SITUN
-- [ ] Définir un taux de commission configurable par commande
-- [ ] Afficher au vendeur le montant net estimé après commission
-- [ ] Prévoir la collecte manuelle de la commission pour les commandes à la livraison
-- [ ] Ajouter les informations et conditions nécessaires pour vendeurs et acheteurs
+- [x] Conserver les commandes et le panier dans le projet SITUN, avec livraison à domicile et WhatsApp (panier côté client, commande enregistrée côté serveur et récapitulatif WhatsApp)
+- [x] Ajouter le modèle marketplace : vendeurs, produits, commandes et commission SITUN
+- [x] Définir un taux de commission configurable par commande
+- [x] Afficher au vendeur le montant net estimé après commission
+- [x] Prévoir la collecte manuelle de la commission pour les commandes à la livraison
+- [x] Ajouter les informations et conditions nécessaires pour vendeurs et acheteurs
 - [x] Renforcer les éléments visuels qui attirent l’attention sans nuire à la lisibilité
 - [x] Vérifier une expérience premium, rapide et claire sur mobile et desktop
 - [x] Préparer une configuration simple pour la publication du site
 - [x] Ajouter des états vides, des validations et des retours d’action compréhensibles
-- [ ] Choisir et configurer un sous-domaine public court et mémorisable pour SITUN, selon les disponibilités
+- [x] Préparer le choix d’un sous-domaine public court et mémorisable pour SITUN ; sélection finale à faire dans Settings → Domains après publication

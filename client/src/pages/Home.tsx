@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { buildWhatsAppMessage, calculateCommission, calculateSellerNet, calculateSubtotal, DEFAULT_COMMISSION_RATE, SITUN_WHATSAPP, validateCheckout } from "@shared/marketplace";
+import { trpc } from "@/lib/trpc";
 import {
   ArrowRight,
   ChevronDown,
@@ -14,6 +15,7 @@ import {
 
 type Product = {
   id: number;
+  sellerId: number;
   name: string;
   category: string;
   price: number;
@@ -28,12 +30,12 @@ const WHATSAPP = SITUN_WHATSAPP;
 const categories = ["Tous", "Beauté", "Maison", "Accessoires", "Éditions"];
 
 const products: Product[] = [
-  { id: 1, name: "Noir Élixir", category: "Beauté", price: 49, seller: "Maison N°7", image: "/manus-storage/beauty-clean_bdafaddb.jpg", accent: "gold" },
-  { id: 2, name: "Salon Lumière", category: "Maison", price: 129, seller: "Atelier Serein", image: "/manus-storage/home_2a32ca0b.jpg", accent: "cream" },
-  { id: 3, name: "Ligne Héritage", category: "Accessoires", price: 79, seller: "Éclat Paris", image: "/manus-storage/accessories_3e65735f.jpg", accent: "rose" },
-  { id: 4, name: "Chrono Orbe", category: "Accessoires", price: 189, seller: "Temps Rare", image: "/manus-storage/watch_b3ee929e.jpg", accent: "black" },
-  { id: 5, name: "Bougie Minuit", category: "Maison", price: 35, seller: "Maison N°7", image: "/manus-storage/beauty-clean_bdafaddb.jpg", accent: "gold" },
-  { id: 6, name: "Objet Sculpté", category: "Éditions", price: 95, seller: "Atelier Serein", image: "/manus-storage/home_2a32ca0b.jpg", accent: "cream" },
+  { id: 1, sellerId: 1, name: "Noir Élixir", category: "Beauté", price: 49, seller: "Maison N°7", image: "/manus-storage/beauty-clean_bdafaddb.jpg", accent: "gold" },
+  { id: 2, sellerId: 2, name: "Salon Lumière", category: "Maison", price: 129, seller: "Atelier Serein", image: "/manus-storage/home_2a32ca0b.jpg", accent: "cream" },
+  { id: 3, sellerId: 3, name: "Ligne Héritage", category: "Accessoires", price: 79, seller: "Éclat Paris", image: "/manus-storage/accessories_3e65735f.jpg", accent: "rose" },
+  { id: 4, sellerId: 4, name: "Chrono Orbe", category: "Accessoires", price: 189, seller: "Temps Rare", image: "/manus-storage/watch_b3ee929e.jpg", accent: "black" },
+  { id: 5, sellerId: 1, name: "Bougie Minuit", category: "Maison", price: 35, seller: "Maison N°7", image: "/manus-storage/beauty-clean_bdafaddb.jpg", accent: "gold" },
+  { id: 6, sellerId: 2, name: "Objet Sculpté", category: "Éditions", price: 95, seller: "Atelier Serein", image: "/manus-storage/home_2a32ca0b.jpg", accent: "cream" },
 ];
 
 const money = (value: number) => `${value.toFixed(2).replace(".", ",")} €`;
@@ -48,6 +50,8 @@ export default function Home() {
   const [checkoutError, setCheckoutError] = useState("");
   const [sellerPrice, setSellerPrice] = useState("100");
   const [sellerRate, setSellerRate] = useState(String(DEFAULT_COMMISSION_RATE * 100));
+  const [orderSaved, setOrderSaved] = useState(false);
+  const createOrderMutation = trpc.marketplace.createOrder.useMutation();
 
   const filteredProducts = useMemo(() => products.filter((product) => {
     const matchesCategory = activeCategory === "Tous" || product.category === activeCategory;
@@ -76,16 +80,30 @@ export default function Home() {
     }));
   };
 
-  const createWhatsAppOrder = () => {
+  const createWhatsAppOrder = async () => {
     const errors = validateCheckout(customer);
     if (Object.keys(errors).length > 0) {
       setCheckoutError(Object.values(errors)[0] || "Vérifiez les champs obligatoires.");
       return;
     }
-    const message = encodeURIComponent(buildWhatsAppMessage(cart, subtotal, customer));
-    const popup = window.open(`https://wa.me/${WHATSAPP}?text=${message}`, "_blank", "noopener,noreferrer");
-    if (!popup) setCheckoutError("WhatsApp n’a pas pu s’ouvrir. Autorisez les fenêtres pop-up puis réessayez.");
-    else setCheckoutError("");
+    try {
+      await createOrderMutation.mutateAsync({
+        customerName: customer.name,
+        customerPhone: customer.phone,
+        deliveryAddress: customer.city,
+        note: customer.note || undefined,
+        subtotalCents: Math.round(subtotal * 100),
+        commissionCents: Math.round(calculateCommission(subtotal, DEFAULT_COMMISSION_RATE) * 100),
+        sellerNetCents: Math.round(calculateSellerNet(subtotal, DEFAULT_COMMISSION_RATE) * 100),
+        items: cart.map((item) => ({ productId: item.id, sellerId: item.sellerId, productName: item.name, quantity: item.quantity, unitPriceCents: Math.round(item.price * 100), lineTotalCents: Math.round(item.price * item.quantity * 100) })),
+      });
+      const message = encodeURIComponent(buildWhatsAppMessage(cart, subtotal, customer));
+      const popup = window.open(`https://wa.me/${WHATSAPP}?text=${message}`, "_blank", "noopener,noreferrer");
+      if (!popup) setCheckoutError("La commande est enregistrée, mais WhatsApp n’a pas pu s’ouvrir. Autorisez les fenêtres pop-up puis réessayez.");
+      else { setCheckoutError(""); setOrderSaved(true); }
+    } catch {
+      setCheckoutError("La commande n’a pas pu être enregistrée. Vérifiez votre connexion puis réessayez.");
+    }
   };
 
   return (
@@ -124,7 +142,7 @@ export default function Home() {
 
       {cartOpen && <div className="overlay" onClick={() => setCartOpen(false)}><aside className="cart-drawer" onClick={(event) => event.stopPropagation()}><div className="drawer-header"><div><p className="eyebrow">VOTRE SÉLECTION</p><h2>Le panier <em>({totalItems})</em></h2></div><button className="icon-button" onClick={() => setCartOpen(false)} aria-label="Fermer"><X /></button></div>{cart.length === 0 ? <div className="cart-empty"><ShoppingBag size={32} /><p>Votre sélection vous attend.</p><button className="outline-button" onClick={() => setCartOpen(false)}>Voir le catalogue</button></div> : <><div className="cart-items">{cart.map((item) => <div className="cart-item" key={item.id}><img src={item.image} alt="" /><div className="cart-item-info"><h3>{item.name}</h3><p>{money(item.price)}</p><div className="quantity"><button onClick={() => changeQuantity(item.id, -1)}><Minus size={13} /></button><span>{item.quantity}</span><button onClick={() => changeQuantity(item.id, 1)}><Plus size={13} /></button></div></div><button className="remove-item" onClick={() => setCart((current) => current.filter((entry) => entry.id !== item.id))} aria-label={`Supprimer ${item.name}`}><Trash2 size={16} /></button></div>)}</div><div className="cart-summary"><div><span>Sous-total</span><strong>{money(subtotal)}</strong></div><small>Paiement à la livraison · frais de livraison confirmés par WhatsApp</small><button className="gold-button full" onClick={() => { setCartOpen(false); setCheckoutOpen(true); }}>Valider la commande <ArrowRight size={17} /></button></div></>}</aside></div>}
 
-      {checkoutOpen && <div className="overlay" onClick={() => setCheckoutOpen(false)}><div className="checkout-modal" onClick={(event) => event.stopPropagation()}><div className="drawer-header"><div><p className="eyebrow">DERNIÈRE ÉTAPE</p><h2>Confirmer <em>la commande</em></h2></div><button className="icon-button" onClick={() => setCheckoutOpen(false)} aria-label="Fermer"><X /></button></div><p className="checkout-lead">Remplissez vos coordonnées. Un récapitulatif sera préparé dans WhatsApp pour confirmer votre livraison et le paiement à la réception.</p><div className="checkout-form"><label>Nom complet<input value={customer.name} onChange={(event) => setCustomer({ ...customer, name: event.target.value })} placeholder="Votre nom" /></label><label>Téléphone<input value={customer.phone} onChange={(event) => setCustomer({ ...customer, phone: event.target.value })} placeholder="06 00 00 00 00" /></label><label>Ville et adresse de livraison<textarea value={customer.city} onChange={(event) => setCustomer({ ...customer, city: event.target.value })} placeholder="Votre adresse" rows={2} /></label><label>Note pour le vendeur <span>(facultatif)</span><textarea value={customer.note} onChange={(event) => setCustomer({ ...customer, note: event.target.value })} placeholder="Une précision ?" rows={2} /></label></div>{checkoutError && <p className="checkout-error" role="alert">{checkoutError}</p>}<div className="checkout-total"><span>Total estimé</span><strong>{money(subtotal)}</strong></div><button className="gold-button full" onClick={createWhatsAppOrder}>Envoyer sur WhatsApp <ArrowRight size={17} /></button><p className="form-note">Aucun paiement en ligne. Vous paierez à la livraison.</p></div></div>}
+      {checkoutOpen && <div className="overlay" onClick={() => setCheckoutOpen(false)}><div className="checkout-modal" onClick={(event) => event.stopPropagation()}><div className="drawer-header"><div><p className="eyebrow">DERNIÈRE ÉTAPE</p><h2>Confirmer <em>la commande</em></h2></div><button className="icon-button" onClick={() => setCheckoutOpen(false)} aria-label="Fermer"><X /></button></div><p className="checkout-lead">Remplissez vos coordonnées. Un récapitulatif sera préparé dans WhatsApp pour confirmer votre livraison et le paiement à la réception.</p><div className="checkout-form"><label>Nom complet<input value={customer.name} onChange={(event) => setCustomer({ ...customer, name: event.target.value })} placeholder="Votre nom" /></label><label>Téléphone<input value={customer.phone} onChange={(event) => setCustomer({ ...customer, phone: event.target.value })} placeholder="06 00 00 00 00" /></label><label>Ville et adresse de livraison<textarea value={customer.city} onChange={(event) => setCustomer({ ...customer, city: event.target.value })} placeholder="Votre adresse" rows={2} /></label><label>Note pour le vendeur <span>(facultatif)</span><textarea value={customer.note} onChange={(event) => setCustomer({ ...customer, note: event.target.value })} placeholder="Une précision ?" rows={2} /></label></div>{checkoutError && <p className="checkout-error" role="alert">{checkoutError}</p>}<div className="checkout-total"><span>Total estimé</span><strong>{money(subtotal)}</strong></div><button className="gold-button full" disabled={createOrderMutation.isPending || orderSaved} onClick={createWhatsAppOrder}>{createOrderMutation.isPending ? "Enregistrement..." : orderSaved ? "Commande enregistrée" : "Envoyer sur WhatsApp"} {!createOrderMutation.isPending && !orderSaved && <ArrowRight size={17} />}</button><p className="form-note">Aucun paiement en ligne. Vous paierez à la livraison.</p></div></div>}
     </div>
   );
 }
