@@ -25,3 +25,9 @@
 - [x] Préparer une configuration simple pour la publication du site
 - [x] Ajouter des états vides, des validations et des retours d’action compréhensibles
 - [x] Préparer le choix d’un sous-domaine public court et mémorisable pour SITUN ; sélection finale à faire dans Settings → Domains après publication
+- [x] Générer une image hero automobile premium pour SITUN, sans texte ni logo inventé (prototype remplacé par une direction multi-catégories)
+- [x] Remplacer l’image hero actuelle par une image marketplace multi-catégories
+- [x] Adapter le langage et les catégories visibles pour un marketplace généraliste
+- [x] Revalider l’affichage de l’image sur mobile et desktop
+- [x] Remplacer l’orientation automobile exclusive par une image hero de marketplace généraliste multi-catégories
+- [x] Conserver les catégories voitures, immobilier, mobilier et produits variés dans l’identité visuelle

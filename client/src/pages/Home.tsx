@@ -27,15 +27,15 @@ type Product = {
 type CartItem = Product & { quantity: number };
 
 const WHATSAPP = SITUN_WHATSAPP;
-const categories = ["Tous", "Beauté", "Maison", "Accessoires", "Éditions"];
+const categories = ["Tous", "Automobile", "Immobilier", "Mobilier", "Maison", "Mode", "Électronique"];
 
 const products: Product[] = [
-  { id: 1, sellerId: 1, name: "Noir Élixir", category: "Beauté", price: 49, seller: "Maison N°7", image: "/manus-storage/beauty-clean_bdafaddb.jpg", accent: "gold" },
-  { id: 2, sellerId: 2, name: "Salon Lumière", category: "Maison", price: 129, seller: "Atelier Serein", image: "/manus-storage/home_2a32ca0b.jpg", accent: "cream" },
-  { id: 3, sellerId: 3, name: "Ligne Héritage", category: "Accessoires", price: 79, seller: "Éclat Paris", image: "/manus-storage/accessories_3e65735f.jpg", accent: "rose" },
-  { id: 4, sellerId: 4, name: "Chrono Orbe", category: "Accessoires", price: 189, seller: "Temps Rare", image: "/manus-storage/watch_b3ee929e.jpg", accent: "black" },
-  { id: 5, sellerId: 1, name: "Bougie Minuit", category: "Maison", price: 35, seller: "Maison N°7", image: "/manus-storage/beauty-clean_bdafaddb.jpg", accent: "gold" },
-  { id: 6, sellerId: 2, name: "Objet Sculpté", category: "Éditions", price: 95, seller: "Atelier Serein", image: "/manus-storage/home_2a32ca0b.jpg", accent: "cream" },
+  { id: 1, sellerId: 1, name: "Coupé Grand Touring", category: "Automobile", price: 49000, seller: "Garage Héritage", image: "/manus-storage/situn-marketplace-hero_04d4d232.jpg", accent: "black" },
+  { id: 2, sellerId: 2, name: "Villa Horizon", category: "Immobilier", price: 780000, seller: "Agence Ligne Claire", image: "/manus-storage/home_2a32ca0b.jpg", accent: "cream" },
+  { id: 3, sellerId: 3, name: "Fauteuil Ligne 01", category: "Mobilier", price: 790, seller: "Atelier Serein", image: "/manus-storage/accessories_3e65735f.jpg", accent: "rose" },
+  { id: 4, sellerId: 4, name: "Montre Chrono Orbe", category: "Mode", price: 1890, seller: "Temps Rare", image: "/manus-storage/watch_b3ee929e.jpg", accent: "black" },
+  { id: 5, sellerId: 1, name: "Console Minuit", category: "Maison", price: 1350, seller: "Maison N°7", image: "/manus-storage/beauty-clean_bdafaddb.jpg", accent: "gold" },
+  { id: 6, sellerId: 2, name: "Système Audio Atelier", category: "Électronique", price: 1290, seller: "Studio Sonore", image: "/manus-storage/home_2a32ca0b.jpg", accent: "cream" },
 ];
 
 const money = (value: number) => `${value.toFixed(2).replace(".", ",")} €`;
@@ -119,14 +119,14 @@ export default function Home() {
         <section className="hero-section">
           <div className="hero-copy">
             <p className="eyebrow"><Sparkles size={14} /> L'ART DE CHOISIR AUTREMENT</p>
-            <h1>Des pièces<br /><em>avec présence.</em></h1>
-            <p className="hero-intro">SITUN réunit des créateurs singuliers et des objets qui donnent du caractère au quotidien. Une marketplace curatée, sans bruit, sans détour.</p>
+            <h1>Tout un monde<br /><em>à portée de main.</em></h1>
+            <p className="hero-intro">SITUN réunit voitures, adresses, mobilier et objets choisis par des vendeurs indépendants. Une marketplace ouverte, élégante et simple à explorer.</p>
             <a className="gold-button" href="#catalogue">Découvrir la sélection <ArrowRight size={17} /></a>
           </div>
-          <div className="hero-visual"><div className="hero-arch"><div className="hero-image" /><div className="hero-stamp">S<br />I<br />T<br />U<br />N</div></div><div className="hero-caption">01 / 04 &nbsp; — &nbsp; OBJETS CHOISIS AVEC INTENTION</div></div>
+          <div className="hero-visual"><div className="hero-arch"><div className="hero-image" /><div className="hero-stamp">S<br />I<br />T<br />U<br />N</div></div><div className="hero-caption">01 / 04 &nbsp; — &nbsp; UN MONDE CHOISI AVEC INTENTION</div></div>
         </section>
 
-        <section className="manifesto" id="maison"><span className="ornament">◆</span><p>Nous croyons que le beau n'a pas besoin de permission.<br /><strong>SITUN, la nouvelle adresse des esprits libres.</strong></p><span className="ornament">◆</span></section>
+        <section className="manifesto" id="maison"><span className="ornament">◆</span><p>Nous croyons que les bonnes trouvailles méritent une belle place.<br />SITUN, la marketplace des choix qui comptent.</p><span className="ornament">◆</span></section>
 
         <section className="catalogue-section" id="catalogue">
           <div className="section-heading"><div><p className="eyebrow">LA COLLECTION / 01</p><h2>Le choix <em>curaté</em></h2></div><p className="section-note">Des trouvailles pour celles et ceux qui préfèrent l'exception à l'évidence.</p></div>
