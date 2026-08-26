@@ -65,12 +65,12 @@
 - [x] Définir des taux de commission par catégorie : immobilier, automobile, luxe et transport (2,5% immobilier, 4% automobile, 8% luxe, 5% transport)
 - [x] Afficher clairement les frais vendeur et acheteur avant toute mise en relation
 - [x] Garder le taux modifiable par le propriétaire et documenter une révision périodique
-- [ ] شراء أو تسجيل النطاق situnshop.com باسم المستخدم إن لم يكن مسجلًا مسبقًا
+- [x] شراء أو تسجيل النطاق situnshop.com باسم المستخدم إن لم يكن مسجلًا مسبقًا (مؤجل بقرار المستخدم؛ استعمال الرابط المجاني حاليًا)
 - [ ] ربط www.situnshop.com وsitunshop.com بالموقع بعد إتمام DNS
 - [x] تأكيد أن /admin لا يظهر إلا لحساب المالك/admin (اختبارات الصلاحيات والخادم)
 - [ ] إضافة الموقع إلى Google Search Console والتحقق من الملكية
 - [ ] إرسال sitemap.xml إلى Google Search Console
-- [ ] حل خطأ NXDOMAIN للنطاق www.situnshop.com بعد معرفة جهة التسجيل أو شراء النطاق
+- [x] حل خطأ NXDOMAIN للنطاق www.situnshop.com بعد معرفة جهة التسجيل أو شراء النطاق (مؤجل بقرار المستخدم مع النطاق المخصص)
 - [ ] إضافة سجلات CNAME أو A المطلوبة من لوحة Manus في DNS
 - [ ] التحقق من عمل www.situnshop.com وsitunshop.com قبل إرسال النطاق إلى Google
 - [x] استخدام الرابط العام المنشور فقط في مشاركة SITUN، وعدم استخدام 127.0.0.1:3000
@@ -123,3 +123,9 @@
 - [x] التحقق بصريًا من قسم الثقة والنصوص الجديدة بعد التبديل فعليًا إلى FR وAR وEN على الهاتف والكمبيوتر
 - [ ] حفظ checkpoint جديد بعد تعديلات الثقة وهوية المؤسس وإدارة الإعلانات ثم اختبار الرابط المنشور إن لزم
 - [ ] مزامنة النطاق العام مع آخر checkpoint والتحقق من ظهور قسم الثقة وصفحة /informations بدل النسخة القديمة
+- [x] اعتماد الرابط المجاني `https://situnshop-b3hmcevz.manus.space` كرابط التشغيل الحالي وتأجيل شراء `situnshop.com` إلى قرار لاحق
+- [ ] مواصلة إضافة محتوى وإعلانات المالك فقط حسب المعلومات والصور التي يرسلها Ghassen Ferjani
+- [ ] تدقيق نهائي لوظائف المالك والمحتوى والصفحات العامة والرابط المجاني قبل التسليم النهائي
+- [ ] التحقق من robots.txt وsitemap.xml وSEO للرابط المجاني وإعداد خطوات Google Search Console
+- [ ] اختبار نهائي للغات والصلاحيات والاستجابة والكتالوج ثم حفظ الإصدار النهائي
+- [ ] نشر ملف تحقق Google `google2968c9990e7f75c3.html` على الرابط المجاني ثم إعادة التحقق من الملكية وإرسال sitemap.xml
