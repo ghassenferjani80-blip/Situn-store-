@@ -254,3 +254,8 @@ h2 { margin-bottom: 0; font-size: clamp(48px, 6vw, 82px); font-weight: 600; line
   .trust-section { padding-top: 60px; padding-bottom: 64px; }
   .seller-section { padding-top: 58px; padding-bottom: 62px; }
 }
+
+.image-upload-field input[type="file"] { border: 1px dashed var(--gold); background: #fffaf0; padding: .9rem; cursor: pointer; }
+.image-upload-field small { color: #756c60; font-size: .72rem; line-height: 1.5; }
+.image-preview { display: block; width: min(100%, 280px); max-height: 190px; margin-top: .75rem; border: 1px solid #d6c7ae; object-fit: cover; }
+@media (max-width: 560px) { .image-upload-field input[type="file"] { min-height: 48px; font-size: .9rem; } .image-preview { width: 100%; max-height: 220px; } }

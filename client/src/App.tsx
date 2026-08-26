@@ -14,6 +14,10 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/admin"} component={Admin} />
+      {/* Backward-compatible owner links; Admin still enforces server-side access. */}
+      <Route path={"/owner"} component={Admin} />
+      <Route path={"/owner-dashboard"} component={Admin} />
+      <Route path={"/dashboard"} component={Admin} />
       <Route path={"/informations"} component={Legal} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
