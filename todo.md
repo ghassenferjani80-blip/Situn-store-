@@ -82,11 +82,18 @@
 - [x] Vérifier visuellement la page /admin على الهاتف بعد إضافة زر تسجيل الدخول، في حالة عدم تسجيل الدخول والحالة المحمية
 - [x] Confirmer que le bouton « Se connecter comme propriétaire » fonctionne correctement sur /admin؛ وسيُحفظ checkpoint بعد تثبيت النشر
 - [x] Vérifier visuellement la page /admin sur الهاتف للحالة غير المسجلة، مع تحقق الخادم من الحالة المحمية/non-admin
-- [ ] Sauvegarder un nouveau checkpoint بعد نشر زر دخول المالك وإعدادات العمولة
+- [x] Sauvegarder un nouveau checkpoint بعد نشر زر دخول المالك وإعدادات العمولة (e3425039)
 - [x] Ajouter une configuration/procédure admin permettant au propriétaire de modifier les taux de commission par catégorie sans éditer le code
 - [x] Documenter explicitement dans le projet la révision périodique des taux et le processus de mise à jour
 - [x] Ajouter dans une page interne ou le README une explication claire entre lien de prévisualisation local et lien public publié
 - [x] تحديد سبب استمرار عرض صفحة /admin القديمة على الرابط العام (الرابط العام كان على نسخة منشورة أقدم من معاينة المشروع)
-- [ ] إعادة نشر نسخة /admin التي تحتوي زر تسجيل الدخول وإعدادات العمولة بعد تثبيت الملفات
-- [ ] اختبار الرابط العام من جهاز خارجي مع cache-busting قبل تسليمه للمستخدم
+- [x] إعادة نشر نسخة /admin التي تحتوي زر تسجيل الدخول وإعدادات العمولة بعد تثبيت الملفات (e3425039)
+- [x] اختبار الرابط العام من جهاز خارجي مع cache-busting قبل تسليمه للمستخدم (ظهر زر دخول المالك)
 - [x] تحسين تخطيط حقول إعدادات العمولة في /admin على الهاتف لمنع تداخل التسميات والحقول
+- [x] توسيع تموضع SITUN المحلي ليغطي Vaucluse مع إبقاء Carpentras مركز الانطلاق وتحديث المدن والرسائل والفلاتر المحلية
+- [x] توضيح أن التغطية المحلية تشمل جميع مدن وبلديات إقليم Vaucluse، لا Carpentras وحدها، مع إبقاء Carpentras مركز الانطلاق
+- [x] إضافة مصدر بيانات منظم يغطي جميع بلديات Vaucluse أو قائمة شاملة موثقة ومتحقق منها (151 بلدية من INSEE)
+- [x] تنفيذ آلية اقتراح/إكمال تلقائي وفلترة محلية على مستوى Vaucluse بدل أزرار أمثلة فقط (datalist لجميع البلديات)
+- [x] إعادة صياغة النصوص العامة لتمييز التغطية المستهدفة عن قائمة البلديات المدعومة فعليًا ثم التحقق من النشر
+- [ ] إعادة نشر النسخة التي تتضمن قائمة 151 بلدية وdatalist لجميع بلديات Vaucluse ثم التحقق من الرابط العام مع cache-busting
+- [ ] التأكد بصريًا على الرابط العام من ظهور نص 151 بلدية وميزة الإكمال التلقائي في حقل الموقع ثم حفظ checkpoint جديد

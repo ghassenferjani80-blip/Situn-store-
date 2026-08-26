@@ -1,0 +1,606 @@
+[
+  {
+    "name": "Althen-des-Paluds",
+    "code": "84001"
+  },
+  {
+    "name": "Ansouis",
+    "code": "84002"
+  },
+  {
+    "name": "Apt",
+    "code": "84003"
+  },
+  {
+    "name": "Aubignan",
+    "code": "84004"
+  },
+  {
+    "name": "Aurel",
+    "code": "84005"
+  },
+  {
+    "name": "Auribeau",
+    "code": "84006"
+  },
+  {
+    "name": "Avignon",
+    "code": "84007"
+  },
+  {
+    "name": "Beaumes-de-Venise",
+    "code": "84012"
+  },
+  {
+    "name": "Beaumettes",
+    "code": "84013"
+  },
+  {
+    "name": "Beaumont-de-Pertuis",
+    "code": "84014"
+  },
+  {
+    "name": "Beaumont-du-Ventoux",
+    "code": "84015"
+  },
+  {
+    "name": "Blauvac",
+    "code": "84018"
+  },
+  {
+    "name": "Bollène",
+    "code": "84019"
+  },
+  {
+    "name": "Bonnieux",
+    "code": "84020"
+  },
+  {
+    "name": "Brantes",
+    "code": "84021"
+  },
+  {
+    "name": "Buisson",
+    "code": "84022"
+  },
+  {
+    "name": "Buoux",
+    "code": "84023"
+  },
+  {
+    "name": "Bédarrides",
+    "code": "84016"
+  },
+  {
+    "name": "Bédoin",
+    "code": "84017"
+  },
+  {
+    "name": "Cabrières-d'Aigues",
+    "code": "84024"
+  },
+  {
+    "name": "Cabrières-d'Avignon",
+    "code": "84025"
+  },
+  {
+    "name": "Cadenet",
+    "code": "84026"
+  },
+  {
+    "name": "Caderousse",
+    "code": "84027"
+  },
+  {
+    "name": "Cairanne",
+    "code": "84028"
+  },
+  {
+    "name": "Camaret-sur-Aigues",
+    "code": "84029"
+  },
+  {
+    "name": "Caromb",
+    "code": "84030"
+  },
+  {
+    "name": "Carpentras",
+    "code": "84031"
+  },
+  {
+    "name": "Caseneuve",
+    "code": "84032"
+  },
+  {
+    "name": "Castellet-en-Luberon",
+    "code": "84033"
+  },
+  {
+    "name": "Caumont-sur-Durance",
+    "code": "84034"
+  },
+  {
+    "name": "Cavaillon",
+    "code": "84035"
+  },
+  {
+    "name": "Cheval-Blanc",
+    "code": "84038"
+  },
+  {
+    "name": "Châteauneuf-de-Gadagne",
+    "code": "84036"
+  },
+  {
+    "name": "Châteauneuf-du-Pape",
+    "code": "84037"
+  },
+  {
+    "name": "Courthézon",
+    "code": "84039"
+  },
+  {
+    "name": "Crestet",
+    "code": "84040"
+  },
+  {
+    "name": "Crillon-le-Brave",
+    "code": "84041"
+  },
+  {
+    "name": "Cucuron",
+    "code": "84042"
+  },
+  {
+    "name": "Entraigues-sur-la-Sorgue",
+    "code": "84043"
+  },
+  {
+    "name": "Entrechaux",
+    "code": "84044"
+  },
+  {
+    "name": "Faucon",
+    "code": "84045"
+  },
+  {
+    "name": "Flassan",
+    "code": "84046"
+  },
+  {
+    "name": "Fontaine-de-Vaucluse",
+    "code": "84139"
+  },
+  {
+    "name": "Gargas",
+    "code": "84047"
+  },
+  {
+    "name": "Gignac",
+    "code": "84048"
+  },
+  {
+    "name": "Gigondas",
+    "code": "84049"
+  },
+  {
+    "name": "Gordes",
+    "code": "84050"
+  },
+  {
+    "name": "Goult",
+    "code": "84051"
+  },
+  {
+    "name": "Grambois",
+    "code": "84052"
+  },
+  {
+    "name": "Grillon",
+    "code": "84053"
+  },
+  {
+    "name": "Jonquerettes",
+    "code": "84055"
+  },
+  {
+    "name": "Jonquières",
+    "code": "84056"
+  },
+  {
+    "name": "Joucas",
+    "code": "84057"
+  },
+  {
+    "name": "L'Isle-sur-la-Sorgue",
+    "code": "84054"
+  },
+  {
+    "name": "La Bastide-des-Jourdans",
+    "code": "84009"
+  },
+  {
+    "name": "La Bastidonne",
+    "code": "84010"
+  },
+  {
+    "name": "La Motte-d'Aigues",
+    "code": "84084"
+  },
+  {
+    "name": "La Roque-Alric",
+    "code": "84100"
+  },
+  {
+    "name": "La Roque-sur-Pernes",
+    "code": "84101"
+  },
+  {
+    "name": "La Tour-d'Aigues",
+    "code": "84133"
+  },
+  {
+    "name": "Lacoste",
+    "code": "84058"
+  },
+  {
+    "name": "Lafare",
+    "code": "84059"
+  },
+  {
+    "name": "Lagarde-Paréol",
+    "code": "84061"
+  },
+  {
+    "name": "Lagarde-d'Apt",
+    "code": "84060"
+  },
+  {
+    "name": "Lagnes",
+    "code": "84062"
+  },
+  {
+    "name": "Lamotte-du-Rhône",
+    "code": "84063"
+  },
+  {
+    "name": "Lapalud",
+    "code": "84064"
+  },
+  {
+    "name": "Lauris",
+    "code": "84065"
+  },
+  {
+    "name": "Le Barroux",
+    "code": "84008"
+  },
+  {
+    "name": "Le Beaucet",
+    "code": "84011"
+  },
+  {
+    "name": "Le Pontet",
+    "code": "84092"
+  },
+  {
+    "name": "Le Thor",
+    "code": "84132"
+  },
+  {
+    "name": "Lioux",
+    "code": "84066"
+  },
+  {
+    "name": "Loriol-du-Comtat",
+    "code": "84067"
+  },
+  {
+    "name": "Lourmarin",
+    "code": "84068"
+  },
+  {
+    "name": "Malaucène",
+    "code": "84069"
+  },
+  {
+    "name": "Malemort-du-Comtat",
+    "code": "84070"
+  },
+  {
+    "name": "Maubec",
+    "code": "84071"
+  },
+  {
+    "name": "Mazan",
+    "code": "84072"
+  },
+  {
+    "name": "Mirabeau",
+    "code": "84076"
+  },
+  {
+    "name": "Modène",
+    "code": "84077"
+  },
+  {
+    "name": "Mondragon",
+    "code": "84078"
+  },
+  {
+    "name": "Monieux",
+    "code": "84079"
+  },
+  {
+    "name": "Monteux",
+    "code": "84080"
+  },
+  {
+    "name": "Morières-lès-Avignon",
+    "code": "84081"
+  },
+  {
+    "name": "Mormoiron",
+    "code": "84082"
+  },
+  {
+    "name": "Mornas",
+    "code": "84083"
+  },
+  {
+    "name": "Murs",
+    "code": "84085"
+  },
+  {
+    "name": "Ménerbes",
+    "code": "84073"
+  },
+  {
+    "name": "Mérindol",
+    "code": "84074"
+  },
+  {
+    "name": "Méthamis",
+    "code": "84075"
+  },
+  {
+    "name": "Oppède",
+    "code": "84086"
+  },
+  {
+    "name": "Orange",
+    "code": "84087"
+  },
+  {
+    "name": "Pernes-les-Fontaines",
+    "code": "84088"
+  },
+  {
+    "name": "Pertuis",
+    "code": "84089"
+  },
+  {
+    "name": "Peypin-d'Aigues",
+    "code": "84090"
+  },
+  {
+    "name": "Piolenc",
+    "code": "84091"
+  },
+  {
+    "name": "Puget",
+    "code": "84093"
+  },
+  {
+    "name": "Puyméras",
+    "code": "84094"
+  },
+  {
+    "name": "Puyvert",
+    "code": "84095"
+  },
+  {
+    "name": "Rasteau",
+    "code": "84096"
+  },
+  {
+    "name": "Richerenches",
+    "code": "84097"
+  },
+  {
+    "name": "Roaix",
+    "code": "84098"
+  },
+  {
+    "name": "Robion",
+    "code": "84099"
+  },
+  {
+    "name": "Roussillon",
+    "code": "84102"
+  },
+  {
+    "name": "Rustrel",
+    "code": "84103"
+  },
+  {
+    "name": "Sablet",
+    "code": "84104"
+  },
+  {
+    "name": "Saignon",
+    "code": "84105"
+  },
+  {
+    "name": "Saint-Christol",
+    "code": "84107"
+  },
+  {
+    "name": "Saint-Didier",
+    "code": "84108"
+  },
+  {
+    "name": "Saint-Hippolyte-le-Graveyron",
+    "code": "84109"
+  },
+  {
+    "name": "Saint-Léger-du-Ventoux",
+    "code": "84110"
+  },
+  {
+    "name": "Saint-Marcellin-lès-Vaison",
+    "code": "84111"
+  },
+  {
+    "name": "Saint-Martin-de-Castillon",
+    "code": "84112"
+  },
+  {
+    "name": "Saint-Martin-de-la-Brasque",
+    "code": "84113"
+  },
+  {
+    "name": "Saint-Pantaléon",
+    "code": "84114"
+  },
+  {
+    "name": "Saint-Pierre-de-Vassols",
+    "code": "84115"
+  },
+  {
+    "name": "Saint-Romain-en-Viennois",
+    "code": "84116"
+  },
+  {
+    "name": "Saint-Roman-de-Malegarde",
+    "code": "84117"
+  },
+  {
+    "name": "Saint-Saturnin-lès-Apt",
+    "code": "84118"
+  },
+  {
+    "name": "Saint-Saturnin-lès-Avignon",
+    "code": "84119"
+  },
+  {
+    "name": "Saint-Trinit",
+    "code": "84120"
+  },
+  {
+    "name": "Sainte-Cécile-les-Vignes",
+    "code": "84106"
+  },
+  {
+    "name": "Sannes",
+    "code": "84121"
+  },
+  {
+    "name": "Sarrians",
+    "code": "84122"
+  },
+  {
+    "name": "Sault",
+    "code": "84123"
+  },
+  {
+    "name": "Saumane-de-Vaucluse",
+    "code": "84124"
+  },
+  {
+    "name": "Savoillan",
+    "code": "84125"
+  },
+  {
+    "name": "Sivergues",
+    "code": "84128"
+  },
+  {
+    "name": "Sorgues",
+    "code": "84129"
+  },
+  {
+    "name": "Suzette",
+    "code": "84130"
+  },
+  {
+    "name": "Séguret",
+    "code": "84126"
+  },
+  {
+    "name": "Sérignan-du-Comtat",
+    "code": "84127"
+  },
+  {
+    "name": "Taillades",
+    "code": "84131"
+  },
+  {
+    "name": "Travaillan",
+    "code": "84134"
+  },
+  {
+    "name": "Uchaux",
+    "code": "84135"
+  },
+  {
+    "name": "Vacqueyras",
+    "code": "84136"
+  },
+  {
+    "name": "Vaison-la-Romaine",
+    "code": "84137"
+  },
+  {
+    "name": "Valréas",
+    "code": "84138"
+  },
+  {
+    "name": "Vaugines",
+    "code": "84140"
+  },
+  {
+    "name": "Vedène",
+    "code": "84141"
+  },
+  {
+    "name": "Velleron",
+    "code": "84142"
+  },
+  {
+    "name": "Venasque",
+    "code": "84143"
+  },
+  {
+    "name": "Viens",
+    "code": "84144"
+  },
+  {
+    "name": "Villars",
+    "code": "84145"
+  },
+  {
+    "name": "Villedieu",
+    "code": "84146"
+  },
+  {
+    "name": "Villelaure",
+    "code": "84147"
+  },
+  {
+    "name": "Villes-sur-Auzon",
+    "code": "84148"
+  },
+  {
+    "name": "Violès",
+    "code": "84149"
+  },
+  {
+    "name": "Visan",
+    "code": "84150"
+  },
+  {
+    "name": "Vitrolles-en-Lubéron",
+    "code": "84151"
+  }
+]
