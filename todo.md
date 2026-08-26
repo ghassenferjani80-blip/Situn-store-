@@ -1,0 +1,27 @@
+# Project TODO
+
+- [x] Créer la vitrine publique SITUN en marketplace Art déco noir et or
+- [x] Ajouter le catalogue de produits variés avec catégories et exemples remplaçables
+- [x] Ajouter la recherche et le filtrage par catégorie
+- [x] Ajouter le panier avec ajout, quantités et suppression
+- [x] Ajouter la validation de commande avec paiement à la livraison
+- [x] Préparer le récapitulatif de commande WhatsApp vers +33 6 02 25 72 26
+- [x] Configurer l’intégration Shopify pour le catalogue, le panier et le parcours de commande (hors périmètre — choix d’un magasin indépendant)
+- [x] Ne pas utiliser Stripe
+- [x] Ajouter les tests Vitest des fonctionnalités de commande et du panier
+- [x] Vérifier la version mobile et desktop
+- [x] Vérifier le build et les erreurs runtime
+- [ ] Créer le checkpoint final avant livraison
+- [x] Retirer Shopify du périmètre et conserver un catalogue indépendant
+- [x] Confirmer que SITUN n’utilise ni Stripe ni aucun autre prestataire de paiement ou de commerce
+- [ ] Conserver les commandes et le panier dans le projet SITUN, avec livraison à domicile et WhatsApp
+- [ ] Ajouter le modèle marketplace : vendeurs, produits, commandes et commission SITUN
+- [ ] Définir un taux de commission configurable par commande
+- [ ] Afficher au vendeur le montant net estimé après commission
+- [ ] Prévoir la collecte manuelle de la commission pour les commandes à la livraison
+- [ ] Ajouter les informations et conditions nécessaires pour vendeurs et acheteurs
+- [x] Renforcer les éléments visuels qui attirent l’attention sans nuire à la lisibilité
+- [x] Vérifier une expérience premium, rapide et claire sur mobile et desktop
+- [x] Préparer une configuration simple pour la publication du site
+- [x] Ajouter des états vides, des validations et des retours d’action compréhensibles
+- [ ] Choisir et configurer un sous-domaine public court et mémorisable pour SITUN, selon les disponibilités
