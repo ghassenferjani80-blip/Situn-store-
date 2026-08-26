@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildWhatsAppMessage, calculateCommission, calculateSellerNet, calculateSubtotal, validateCheckout } from "../shared/marketplace";
+import { buildWhatsAppMessage, calculateBuyerFee, calculateBuyerTotal, calculateCommission, calculateSellerNet, calculateSubtotal, validateCheckout } from "../shared/marketplace";
 
 describe("marketplace calculations", () => {
   it("calculates the basket subtotal from quantities", () => {
@@ -14,6 +14,11 @@ describe("marketplace calculations", () => {
   it("supports a configurable commission rate", () => {
     expect(calculateCommission(200, 0.15)).toBe(30);
     expect(calculateSellerNet(200, 0.15)).toBe(170);
+  });
+
+  it("calculates the transparent buyer service fee", () => {
+    expect(calculateBuyerFee(100)).toBe(2);
+    expect(calculateBuyerTotal(100)).toBe(102);
   });
 
   it("validates the required delivery fields", () => {

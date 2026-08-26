@@ -31,3 +31,34 @@
 - [x] Revalider l’affichage de l’image sur mobile et desktop
 - [x] Remplacer l’orientation automobile exclusive par une image hero de marketplace généraliste multi-catégories
 - [x] Conserver les catégories voitures, immobilier, mobilier et produits variés dans l’identité visuelle
+- [x] Recentrer les catégories principales sur l’immobilier, l’automobile et les biens de luxe
+- [x] Ajouter un modèle de frais transparent : commission vendeur et frais de service acheteur
+- [x] Afficher le prix, les frais, le total et le revenu SITUN avant confirmation
+- [x] Décrire clairement le rôle d’intermédiaire de SITUN et le règlement manuel des commissions
+- [x] Ajouter un parcours de mise en relation vendeur-acheteur adapté aux biens à forte valeur
+- [ ] Ajouter un système d’inscription d’annonces pour vendeurs et agences autorisés
+- [x] Ajouter les catégories internationales : immobilier, automobile, transport et luxe
+- [ ] Ajouter une recherche par pays, ville, catégorie, prix et caractéristiques
+- [ ] Ajouter une fiche annonce avec contact vendeur et demande de mise en relation
+- [ ] Documenter l’interdiction de copier des annonces sans autorisation et la modération
+- [ ] Préparer l’intégration future de flux/API autorisés مع موافقة المصادر وتاريخ التحديث
+- [x] Définir un modèle de commission transparent pour vendeur et acheteur sur les mises en relation
+- [x] Ajouter un sélecteur de langue arabe, français et anglais
+- [x] Traduire les textes والعناوين الأساسية والفئات الرئيسية في SITUN (العربية والفرنسية والإنجليزية)
+- [x] Ajouter le support RTL pour l’arabe et conserver LTR pour le français et l’anglais
+- [x] Rendre multilingues les messages de commande WhatsApp وبعض محتوى الواجهة الأساسية
+- [x] Vérifier le rendu responsive du sélecteur et du support RTL/LTR على سطح المكتب والهاتف
+- [x] Ajouter une promesse de médiation claire en arabe, français et anglais : recherche du bon acheteur ou vendeur et coordination du contact
+- [x] Préciser que SITUN facilite la mise en relation sans garantir la conclusion de la transaction
+- [x] تثبيت أن عمولات SITUN وأرباحها تُسجّل وتُتابع يدويًا داخل الموقع
+- [x] توضيح أن الموقع لا يخصم أموالًا تلقائيًا ولا يستخدم Stripe أو Shopify أو بوابة دفع خارجية
+- [x] توضيح أن إدارة الإعلانات والطلبات والعمولات تتم من حساب مالك SITUN فقط
+- [ ] Ajouter un tableau de bord propriétaire/admin pour suivre les annonces, commandes et commissions
+- [ ] Protéger les opérations d’administration par des procédures owner/admin côté serveur
+- [ ] Permettre au propriétaire de marquer une commission pending, collected ou waived
+- [ ] Ajouter des tests de restriction d’accès et de mise à jour manuelle des commissions
+- [x] Ajouter un titre et une description SEO dynamique للعربية والفرنسية والإنجليزية
+- [x] Ajouter Open Graph وTwitter Cards مع صورة المشاركة العامة
+- [x] Ajouter robots.txt و sitemap.xml للرابط المنشور
+- [x] Ajouter des données structurées ItemList للمنتجات دون اختلاق تقييمات أو آراء
+- [x] Vérifier البناء ووجود ملفات SEO العامة قبل النشر

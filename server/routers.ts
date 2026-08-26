@@ -28,6 +28,9 @@ export const appRouter = router({
       note: z.string().optional(),
       subtotalCents: z.number().int().positive(),
       commissionCents: z.number().int().nonnegative(),
+      commissionRateBps: z.number().int().nonnegative(),
+      buyerFeeCents: z.number().int().nonnegative(),
+      buyerFeeRateBps: z.number().int().nonnegative(),
       sellerNetCents: z.number().int().nonnegative(),
       items: z.array(z.object({
         productId: z.number().int().positive(),

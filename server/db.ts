@@ -56,6 +56,9 @@ export type NewOrder = {
   note?: string;
   subtotalCents: number;
   commissionCents: number;
+  commissionRateBps: number;
+  buyerFeeCents: number;
+  buyerFeeRateBps: number;
   sellerNetCents: number;
   items: Array<{ productId: number; sellerId: number; productName: string; quantity: number; unitPriceCents: number; lineTotalCents: number }>;
 };
@@ -71,6 +74,9 @@ export async function createCashOnDeliveryOrder(input: NewOrder) {
       note: input.note,
       subtotalCents: input.subtotalCents,
       commissionCents: input.commissionCents,
+      commissionRateBps: input.commissionRateBps,
+      buyerFeeCents: input.buyerFeeCents,
+      buyerFeeRateBps: input.buyerFeeRateBps,
       sellerNetCents: input.sellerNetCents,
       paymentMethod: "cash_on_delivery",
       status: "received",
