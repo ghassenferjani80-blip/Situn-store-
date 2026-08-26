@@ -17,3 +17,7 @@ SITUN مفتوح لجميع البائعين والمشترين في إقليم 
 ## روابط التشغيل
 
 رابط المعاينة المحلي مثل `http://localhost:3000` أو `127.0.0.1:3000` يعمل داخل بيئة التطوير فقط ولا يصلح للمشاركة. الرابط العام المنشور هو `https://situnshop-b3hmcevz.manus.space`، بينما لوحة المالك هي `/admin` ولا تعرض بياناتها للزوار غير المصرح لهم.
+
+## Latest owner-controlled release
+
+The current owner-controlled release includes the multilingual trust page at `/informations`, owner-managed listings, and transparent service-fee language. The public domain should be rechecked after the managed deployment finishes propagating.
