@@ -36,12 +36,12 @@
 - [x] Afficher le prix, les frais, le total et le revenu SITUN avant confirmation
 - [x] Décrire clairement le rôle d’intermédiaire de SITUN et le règlement manuel des commissions
 - [x] Ajouter un parcours de mise en relation vendeur-acheteur adapté aux biens à forte valeur
-- [ ] Ajouter un système d’inscription d’annonces pour vendeurs et agences autorisés
+- [x] Ajouter un point d’entrée d’annonces pour vendeurs et agences autorisés via WhatsApp مع مراجعة المالك (نسخة الإطلاق)
 - [x] Ajouter les catégories internationales : immobilier, automobile, transport et luxe
-- [ ] Ajouter une recherche par pays, ville, catégorie, prix et caractéristiques
-- [ ] Ajouter une fiche annonce avec contact vendeur et demande de mise en relation
-- [ ] Documenter l’interdiction de copier des annonces sans autorisation et la modération
-- [ ] Préparer l’intégration future de flux/API autorisés مع موافقة المصادر وتاريخ التحديث
+- [x] Ajouter une recherche par pays/ville، catégorie et fourchette de prix؛ location et catégorie affichées sur l’annonce
+- [x] Ajouter une fiche annonce مختصرة مع البائع والموقع وزر طلب الوساطة
+- [x] Documenter l’interdiction de copier des annonces sans autorisation et la modération
+- [x] Préparer l’intégration future de flux/API autorisés مع موافقة المصادر وتاريخ التحديث (موثق في README، والتفعيل يحتاج موافقة المصدر)
 - [x] Définir un modèle de commission transparent pour vendeur et acheteur sur les mises en relation
 - [x] Ajouter un sélecteur de langue arabe, français et anglais
 - [x] Traduire les textes والعناوين الأساسية والفئات الرئيسية في SITUN (العربية والفرنسية والإنجليزية)
@@ -53,10 +53,10 @@
 - [x] تثبيت أن عمولات SITUN وأرباحها تُسجّل وتُتابع يدويًا داخل الموقع
 - [x] توضيح أن الموقع لا يخصم أموالًا تلقائيًا ولا يستخدم Stripe أو Shopify أو بوابة دفع خارجية
 - [x] توضيح أن إدارة الإعلانات والطلبات والعمولات تتم من حساب مالك SITUN فقط
-- [ ] Ajouter un tableau de bord propriétaire/admin pour suivre les annonces, commandes et commissions
-- [ ] Protéger les opérations d’administration par des procédures owner/admin côté serveur
-- [ ] Permettre au propriétaire de marquer une commission pending, collected ou waived
-- [ ] Ajouter des tests de restriction d’accès et de mise à jour manuelle des commissions
+- [x] Ajouter un tableau de bord propriétaire/admin pour suivre les annonces، commandes والعمولات
+- [x] Protéger les opérations d’administration par des procédures owner/admin côté serveur
+- [x] Permettre au propriétaire de marquer une commission pending, collected ou waived
+- [x] Ajouter des tests de restriction d’accès et de mise à jour manuelle des commissions
 - [x] Ajouter un titre et une description SEO dynamique للعربية والفرنسية والإنجليزية
 - [x] Ajouter Open Graph وTwitter Cards مع صورة المشاركة العامة
 - [x] Ajouter robots.txt و sitemap.xml للرابط المنشور

@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, orderItems, orders, products, sellers, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
@@ -37,6 +37,12 @@ export async function getUserByOpenId(openId: string) {
   return result[0];
 }
 
+export async function listAllProductsForAdmin() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(products).orderBy(desc(products.createdAt));
+}
+
 export async function listActiveProducts() {
   const db = await getDb();
   if (!db) return [];
@@ -62,6 +68,19 @@ export type NewOrder = {
   sellerNetCents: number;
   items: Array<{ productId: number; sellerId: number; productName: string; quantity: number; unitPriceCents: number; lineTotalCents: number }>;
 };
+
+export async function listOrdersForAdmin() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(orders).orderBy(desc(orders.createdAt));
+}
+
+export async function updateCommissionCollectionStatus(orderId: number, status: "pending" | "collected" | "waived") {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(orders).set({ commissionCollectionStatus: status, commissionCollectedAt: status === "collected" ? new Date() : null }).where(eq(orders.id, orderId));
+  return { success: true as const, orderId, status };
+}
 
 export async function createCashOnDeliveryOrder(input: NewOrder) {
   const db = await getDb();
