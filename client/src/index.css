@@ -191,3 +191,17 @@ h2 { margin-bottom: 0; font-size: clamp(48px, 6vw, 82px); font-weight: 600; line
 @media (max-width: 560px) { .listing-form { grid-template-columns: 1fr; } .listing-form-wide, .listing-form-actions { grid-column: auto; } .admin-row-actions { flex-direction: column; align-items: stretch; } }
 .product-description { display: -webkit-box; margin: 8px 0 0; overflow: hidden; color: #756c60; font-size: 11px; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
 .match-fee-note { margin: 11px 0 7px; color: #8a7658; font-size: 9px; line-height: 1.45; }
+
+.legal-page { min-height: 100vh; background: var(--paper); color: var(--ink); }
+.legal-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(23,21,19,.16); padding: 24px 8vw; }
+.legal-inner { max-width: 1080px; margin: 0 auto; padding: 70px 8vw 110px; }
+.legal-back { display: inline-block; margin-bottom: 42px; color: #80643a; font-size: 11px; }
+.legal-inner h1 { margin-bottom: 28px; font-size: clamp(52px, 7vw, 92px); line-height: .85; }
+.legal-intro { max-width: 690px; margin-bottom: 65px; color: #665e54; font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 2.5vw, 34px); line-height: 1.25; }
+.legal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.legal-grid article { min-height: 230px; border-top: 1px solid var(--gold); padding: 18px 20px 0 0; }
+.legal-grid article > span { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 27px; }
+.legal-grid h2 { margin: 15px 0 13px; font-size: 30px; line-height: 1; }
+.legal-grid p { max-width: 440px; margin-bottom: 18px; color: #756c60; font-size: 12px; line-height: 1.8; }
+.legal-grid .gold-button { margin-top: 4px; }
+@media (max-width: 600px) { .legal-header { padding: 20px 6vw; } .legal-inner { padding: 45px 8vw 75px; } .legal-back { margin-bottom: 30px; } .legal-inner h1 { font-size: 65px; } .legal-intro { margin-bottom: 45px; font-size: 25px; } .legal-grid { grid-template-columns: 1fr; gap: 34px; } .legal-grid article { min-height: auto; } }
