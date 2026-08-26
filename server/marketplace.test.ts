@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildWhatsAppMessage, calculateBuyerFee, calculateBuyerTotal, calculateCommission, calculateSellerNet, calculateSubtotal, validateCheckout } from "../shared/marketplace";
+import { buildWhatsAppMessage, calculateBuyerFee, calculateBuyerTotal, calculateCommission, calculateSellerNet, calculateSubtotal, getCategoryFees, validateCheckout } from "../shared/marketplace";
 
 describe("marketplace calculations", () => {
   it("calculates the basket subtotal from quantities", () => {
@@ -27,6 +27,13 @@ describe("marketplace calculations", () => {
       phone: "Le téléphone est obligatoire.",
       city: "L’adresse de livraison est obligatoire.",
     });
+  });
+
+  it("uses transparent category-specific fee defaults", () => {
+    expect(getCategoryFees("Immobilier")).toEqual({ seller: 0.025, buyer: 0.005 });
+    expect(getCategoryFees("Automobile")).toEqual({ seller: 0.04, buyer: 0.01 });
+    expect(getCategoryFees("Luxe")).toEqual({ seller: 0.08, buyer: 0.02 });
+    expect(getCategoryFees("Transport")).toEqual({ seller: 0.05, buyer: 0.01 });
   });
 
   it("builds a WhatsApp-ready order summary", () => {

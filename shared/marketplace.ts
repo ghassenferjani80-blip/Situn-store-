@@ -12,6 +12,18 @@ export type CheckoutCustomer = {
 
 export const DEFAULT_COMMISSION_RATE = 0.1;
 export const DEFAULT_BUYER_FEE_RATE = 0.02;
+
+export const CATEGORY_FEES = {
+  Immobilier: { seller: 0.025, buyer: 0.005 },
+  Automobile: { seller: 0.04, buyer: 0.01 },
+  Luxe: { seller: 0.08, buyer: 0.02 },
+  Transport: { seller: 0.05, buyer: 0.01 },
+  default: { seller: DEFAULT_COMMISSION_RATE, buyer: DEFAULT_BUYER_FEE_RATE },
+} as const;
+
+export function getCategoryFees(category: string) {
+  return CATEGORY_FEES[category as keyof typeof CATEGORY_FEES] ?? CATEGORY_FEES.default;
+}
 export const SITUN_WHATSAPP = "33602257226";
 
 export function calculateSubtotal(lines: MarketplaceLine[]) {

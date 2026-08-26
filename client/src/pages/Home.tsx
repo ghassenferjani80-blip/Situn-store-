@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { buildWhatsAppMessage, calculateBuyerFee, calculateBuyerTotal, calculateCommission, calculateSellerNet, calculateSubtotal, DEFAULT_BUYER_FEE_RATE, DEFAULT_COMMISSION_RATE, SITUN_WHATSAPP, validateCheckout } from "@shared/marketplace";
+import { buildWhatsAppMessage, calculateBuyerFee, calculateBuyerTotal, calculateCommission, calculateSellerNet, calculateSubtotal, DEFAULT_BUYER_FEE_RATE, DEFAULT_COMMISSION_RATE, getCategoryFees, SITUN_WHATSAPP, validateCheckout } from "@shared/marketplace";
 import { trpc } from "@/lib/trpc";
 import {
   ArrowRight,
@@ -29,9 +29,9 @@ type CartItem = Product & { quantity: number };
 type Language = "fr" | "ar" | "en";
 
 const copy = {
-  fr: { navCatalog: "Catalogue", navMaison: "La maison", navSellers: "Vendeurs", cart: "Panier", eyebrow: "L'ART DE CHOISIR AUTREMENT", title: "Tout un monde", titleAccent: "à portée de main.", intro: "SITUN réunit voitures, adresses, mobilier et objets choisis par des vendeurs indépendants. Une marketplace ouverte, élégante et simple à explorer.", cta: "Découvrir la sélection", collection: "LA COLLECTION / 01", curated: "Le choix", curatedAccent: "curaté", search: "Rechercher une pièce...", sellerTitle: "Votre annonce.", sellerAccent: "Notre réseau.", serviceFee: "Frais de service SITUN (2%)", send: "Envoyer sur WhatsApp" },
-  ar: { navCatalog: "الكتالوج", navMaison: "عن SITUN", navSellers: "البائعون", cart: "السلة", eyebrow: "فن الاختيار بطريقة مختلفة", title: "عالم كامل", titleAccent: "بين يديك.", intro: "يجمع SITUN السيارات والعقارات والأثاث والمنتجات المختارة من بائعين مستقلين في سوق أنيق وسهل التصفح.", cta: "اكتشف التشكيلة", collection: "التشكيلة / 01", curated: "اختيارات", curatedAccent: "منتقاة", search: "ابحث عن منتج...", sellerTitle: "إعلانك.", sellerAccent: "شبكتنا.", serviceFee: "رسوم خدمة SITUN (2٪)", send: "إرسال عبر WhatsApp" },
-  en: { navCatalog: "Catalogue", navMaison: "About SITUN", navSellers: "Sellers", cart: "Cart", eyebrow: "THE ART OF CHOOSING DIFFERENTLY", title: "A whole world", titleAccent: "within reach.", intro: "SITUN brings together cars, real estate, furniture and selected goods from independent sellers in an elegant, open marketplace.", cta: "Discover the selection", collection: "THE COLLECTION / 01", curated: "The", curatedAccent: "curated choice", search: "Search products...", sellerTitle: "Your listing.", sellerAccent: "Our network.", serviceFee: "SITUN service fee (2%)", send: "Send on WhatsApp" },
+  fr: { navCatalog: "Catalogue", navMaison: "La maison", navSellers: "Vendeurs", cart: "Panier", eyebrow: "L'ART DE CHOISIR AUTREMENT", title: "Tout un monde", titleAccent: "à portée de main.", intro: "SITUN réunit voitures, adresses, mobilier et objets choisis par des vendeurs indépendants. Une marketplace ouverte, élégante et simple à explorer.", cta: "Découvrir la sélection", collection: "LA COLLECTION / 01", curated: "Le choix", curatedAccent: "curaté", search: "Rechercher une pièce...", sellerTitle: "Votre annonce.", sellerAccent: "Notre réseau.", serviceFee: "Frais de service SITUN (selon la catégorie)", send: "Envoyer sur WhatsApp" },
+  ar: { navCatalog: "الكتالوج", navMaison: "عن SITUN", navSellers: "البائعون", cart: "السلة", eyebrow: "فن الاختيار بطريقة مختلفة", title: "عالم كامل", titleAccent: "بين يديك.", intro: "يجمع SITUN السيارات والعقارات والأثاث والمنتجات المختارة من بائعين مستقلين في سوق أنيق وسهل التصفح.", cta: "اكتشف التشكيلة", collection: "التشكيلة / 01", curated: "اختيارات", curatedAccent: "منتقاة", search: "ابحث عن منتج...", sellerTitle: "إعلانك.", sellerAccent: "شبكتنا.", serviceFee: "رسوم خدمة SITUN (حسب الفئة)", send: "إرسال عبر WhatsApp" },
+  en: { navCatalog: "Catalogue", navMaison: "About SITUN", navSellers: "Sellers", cart: "Cart", eyebrow: "THE ART OF CHOOSING DIFFERENTLY", title: "A whole world", titleAccent: "within reach.", intro: "SITUN brings together cars, real estate, furniture and selected goods from independent sellers in an elegant, open marketplace.", cta: "Discover the selection", collection: "THE COLLECTION / 01", curated: "The", curatedAccent: "curated choice", search: "Search products...", sellerTitle: "Your listing.", sellerAccent: "Our network.", serviceFee: "SITUN service fee (by category)", send: "Send on WhatsApp" },
 } as const;
 
 const WHATSAPP = SITUN_WHATSAPP;
@@ -89,6 +89,8 @@ export default function Home() {
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = calculateSubtotal(cart);
+  const commission = cart.reduce((sum, item) => sum + calculateCommission(item.price * item.quantity, getCategoryFees(item.category).seller), 0);
+  const buyerFee = cart.reduce((sum, item) => sum + calculateBuyerFee(item.price * item.quantity, getCategoryFees(item.category).buyer), 0);
 
   const addToCart = (product: Product) => {
     setCart((current) => {
@@ -121,11 +123,11 @@ export default function Home() {
         deliveryAddress: customer.city,
         note: customer.note || undefined,
         subtotalCents: Math.round(subtotal * 100),
-        commissionCents: Math.round(calculateCommission(subtotal, DEFAULT_COMMISSION_RATE) * 100),
-        commissionRateBps: Math.round(DEFAULT_COMMISSION_RATE * 10000),
-        buyerFeeCents: Math.round(calculateBuyerFee(subtotal, DEFAULT_BUYER_FEE_RATE) * 100),
-        buyerFeeRateBps: Math.round(DEFAULT_BUYER_FEE_RATE * 10000),
-        sellerNetCents: Math.round(calculateSellerNet(subtotal, DEFAULT_COMMISSION_RATE) * 100),
+        commissionCents: Math.round(commission * 100),
+        commissionRateBps: Math.round((commission / Math.max(subtotal, 1)) * 10000),
+        buyerFeeCents: Math.round(buyerFee * 100),
+        buyerFeeRateBps: Math.round((buyerFee / Math.max(subtotal, 1)) * 10000),
+        sellerNetCents: Math.round((subtotal - commission) * 100),
         items: cart.map((item) => ({ productId: item.id, sellerId: item.sellerId, productName: item.name, quantity: item.quantity, unitPriceCents: Math.round(item.price * 100), lineTotalCents: Math.round(item.price * item.quantity * 100) })),
       });
       const message = encodeURIComponent(buildWhatsAppMessage(cart, subtotal, customer, language));

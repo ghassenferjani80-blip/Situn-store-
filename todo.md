@@ -62,3 +62,27 @@
 - [x] Ajouter robots.txt و sitemap.xml للرابط المنشور
 - [x] Ajouter des données structurées ItemList للمنتجات دون اختلاق تقييمات أو آراء
 - [x] Vérifier البناء ووجود ملفات SEO العامة قبل النشر
+- [x] Définir des taux de commission par catégorie : immobilier, automobile, luxe et transport (2,5% immobilier, 4% automobile, 8% luxe, 5% transport)
+- [x] Afficher clairement les frais vendeur et acheteur avant toute mise en relation
+- [ ] Garder le taux modifiable par le propriétaire et documenter une révision périodique
+- [ ] شراء أو تسجيل النطاق situnshop.com باسم المستخدم إن لم يكن مسجلًا مسبقًا
+- [ ] ربط www.situnshop.com وsitunshop.com بالموقع بعد إتمام DNS
+- [x] تأكيد أن /admin لا يظهر إلا لحساب المالك/admin (اختبارات الصلاحيات والخادم)
+- [ ] إضافة الموقع إلى Google Search Console والتحقق من الملكية
+- [ ] إرسال sitemap.xml إلى Google Search Console
+- [ ] حل خطأ NXDOMAIN للنطاق www.situnshop.com بعد معرفة جهة التسجيل أو شراء النطاق
+- [ ] إضافة سجلات CNAME أو A المطلوبة من لوحة Manus في DNS
+- [ ] التحقق من عمل www.situnshop.com وsitunshop.com قبل إرسال النطاق إلى Google
+- [x] استخدام الرابط العام المنشور فقط في مشاركة SITUN، وعدم استخدام 127.0.0.1:3000
+- [ ] تأكيد فهرسة الرابط العام في Google بعد ربط نطاق ثابت
+- [x] توضيح للمستخدم الفرق بين رابط المعاينة والرابط العام في صفحة التشغيل
+- [x] إضافة زر تسجيل الدخول إلى صفحة /admin عند غياب جلسة المالك
+- [x] توضيح أن الحساب المستخدم يجب أن يكون الحساب الذي أنشأ مشروع SITUN
+- [x] إعادة اختبار صفحة /admin على الهاتف بعد إصلاح تجربة الدخول
+- [x] Vérifier visuellement la page /admin على الهاتف بعد إضافة زر تسجيل الدخول، في حالة عدم تسجيل الدخول والحالة المحمية
+- [ ] Confirmer que le bouton « Se connecter comme propriétaire » fonctionne correctement sur /admin ثم حفظ checkpoint جديد
+- [x] Vérifier visuellement la page /admin sur الهاتف للحالة غير المسجلة، مع تحقق الخادم من الحالة المحمية/non-admin
+- [ ] Sauvegarder un nouveau checkpoint après validation finale de la page /admin avec le bouton de connexion propriétaire
+- [ ] Ajouter une configuration/procédure admin permettant au propriétaire de modifier les taux de commission par catégorie sans éditer le code
+- [ ] Documenter explicitement dans le projet la révision périodique des taux et le processus de mise à jour
+- [ ] Ajouter dans une page interne ou le README une explication claire entre lien de prévisualisation local et lien public publié
