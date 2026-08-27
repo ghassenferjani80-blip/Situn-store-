@@ -405,3 +405,57 @@ h2 { margin-bottom: 0; font-size: clamp(48px, 6vw, 82px); font-weight: 600; line
 .admin-money-input:focus { border-color: #e4b45f; outline: 2px solid rgba(228,180,95,.25); }
 .profile-languages { margin: 8px 0 0; color: #e4b45f; font-size: 12px; }
 @media (max-width: 700px) { .admin-money-input { width: 74px; } }
+
+.header-actions { display: flex; align-items: center; gap: 14px; }
+.profile-trigger { display: inline-flex; align-items: center; gap: 7px; color: #e4b45f; font-size: 10px; letter-spacing: .05em; text-decoration: none; }
+.profile-trigger:hover { color: #fffaf2; }
+.hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.hero-secondary { display: inline-flex; align-items: center; gap: 7px; margin: 0; }
+.path-links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 22px; }
+.path-links a { color: #c9c1b4; font-size: 11px; text-decoration: none; border-bottom: 1px solid #514631; padding-bottom: 4px; }
+.path-links a:hover { color: #e4b45f; border-color: #e4b45f; }
+@media (max-width: 560px) { .header-actions { gap: 8px; } .profile-trigger span, .cart-trigger span { display: none; } .profile-trigger { padding: 8px; border: 1px solid #514631; } .hero-actions { gap: 8px; } .path-links { gap: 9px 14px; } }
+
+.section-page { min-height: 100vh; background: #090909; color: #f8f3e9; }
+.section-header { display: flex; align-items: center; gap: 34px; border-bottom: 1px solid #2c2924; padding: 21px 8vw; background: #090909; }
+.section-brand { color: #fffaf2; font: 600 25px 'Cormorant Garamond', serif; letter-spacing: .18em; text-decoration: none; }
+.section-header nav { display: flex; flex: 1; justify-content: center; gap: 26px; }
+.section-header nav a, .section-profile { color: #bdb5a8; font-size: 11px; text-decoration: none; }
+.section-header nav a:hover, .section-header nav a.active, .section-profile:hover { color: #e4b45f; }
+.section-profile { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #514631; padding: 9px 12px; color: #e4b45f; }
+.section-hero { display: grid; grid-template-columns: 1fr .8fr; gap: 8vw; align-items: center; padding: 105px 12vw 120px; background: radial-gradient(circle at 78% 35%, rgba(228,180,95,.12), transparent 31%), #090909; }
+.section-hero h1 { margin: 12px 0 20px; color: #fffaf2; font: 600 clamp(58px, 8vw, 112px)/.82 'Cormorant Garamond', serif; }
+.section-hero h1 em, .section-heading h2 em, .promo-grid h2 { color: #e4b45f; font-style: normal; }
+.section-hero > p:not(.section-kicker) { max-width: 610px; color: #c9c1b4; font-size: 15px; line-height: 1.9; }
+.section-kicker { display: inline-flex; align-items: center; gap: 8px; color: #e4b45f; font-size: 10px; letter-spacing: .14em; }
+.section-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.section-gold-button, .section-outline-button { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #e4b45f; padding: 13px 18px; color: #090909; background: #e4b45f; font-size: 11px; text-decoration: none; }
+.section-outline-button { color: #f8f3e9; background: transparent; }
+.section-outline-button:hover { color: #090909; background: #e4b45f; }
+.section-content { padding: 80px 12vw 110px; background: #11110f; }
+.section-heading { display: flex; justify-content: space-between; gap: 30px; align-items: end; margin-bottom: 42px; }
+.section-heading h2 { margin: 8px 0 0; color: #fffaf2; font: 600 clamp(45px, 6vw, 78px)/.88 'Cormorant Garamond', serif; }
+.section-search { display: flex; align-items: center; gap: 8px; min-width: 280px; border-bottom: 1px solid #6b5b3d; padding: 10px 0; color: #e4b45f; }
+.section-search input { width: 100%; border: 0; outline: 0; background: transparent; color: #fffaf2; font: inherit; }
+.market-grid, .promo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.market-card, .promo-grid article { border: 1px solid #35312a; padding: 20px; background: #171613; }
+.market-card img, .market-image-placeholder { width: 100%; height: 190px; object-fit: cover; background: #242018; }
+.market-image-placeholder { display: grid; place-items: center; color: #e4b45f; letter-spacing: .3em; }
+.market-card h3, .promo-grid h2 { margin: 14px 0 9px; color: #fffaf2; font: 600 28px 'Cormorant Garamond', serif; }
+.market-card p:not(.section-kicker), .promo-grid article p { color: #c9c1b4; font-size: 12px; line-height: 1.75; }
+.market-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; }
+.market-card-footer strong { color: #e4b45f; font: 600 23px 'Cormorant Garamond', serif; }
+.market-card-footer a, .promo-grid article a { display: inline-flex; align-items: center; gap: 6px; color: #f8f3e9; font-size: 11px; text-decoration: none; }
+.market-card-footer a:hover, .promo-grid article a:hover { color: #e4b45f; }
+.section-empty { border: 1px dashed #514631; padding: 45px; color: #c9c1b4; text-align: center; }
+.section-empty a { color: #e4b45f; }
+.promotion-hero { background: radial-gradient(circle at 80% 20%, rgba(228,180,95,.17), transparent 35%), #090909; }
+.promo-grid { padding: 0 12vw 90px; background: #11110f; }
+.promo-grid article { min-height: 250px; }
+.promo-grid article > span { color: #e4b45f; font: 20px 'Cormorant Garamond', serif; }
+.promo-grid h2 { color: #fffaf2; }
+.promo-grid article a { margin-top: 20px; color: #e4b45f; }
+.section-note-band { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; padding: 26px 8vw; background: #e4b45f; color: #090909; font-size: 12px; }
+.section-footer { display: flex; gap: 22px; flex-wrap: wrap; padding: 24px 8vw; background: #050505; color: #817a70; font-size: 10px; }
+.section-footer a { color: #bdb5a8; text-decoration: none; }
+@media (max-width: 760px) { .section-header { gap: 12px; padding: 17px 6vw; } .section-header nav { gap: 11px; justify-content: flex-start; overflow-x: auto; } .section-header nav a { white-space: nowrap; font-size: 9px; } .section-profile { padding: 8px; white-space: nowrap; } .section-profile:not(:has(svg)) { font-size: 0; } .section-hero { display: block; padding: 74px 8vw 88px; } .section-hero h1 { font-size: 68px; } .section-content { padding: 60px 8vw 80px; } .section-heading { display: block; } .section-search { margin-top: 24px; min-width: 0; } .market-grid, .promo-grid { grid-template-columns: 1fr; } .promo-grid { padding: 0 8vw 70px; } .section-note-band { text-align: center; } }

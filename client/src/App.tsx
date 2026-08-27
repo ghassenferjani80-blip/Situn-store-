@@ -9,7 +9,9 @@ import Admin from "./pages/Admin";
 import Legal from "@/pages/Legal";
 import Services from "@/pages/Services";
 import Profile from "@/pages/Profile";
-import Workspace from "@/pages/Workspace";
+import Workspace from "./pages/Workspace";
+import Marketplace from "./pages/Marketplace";
+import Promotion from "./pages/Promotion";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -23,6 +25,8 @@ function Router() {
       <Route path={"/dashboard"} component={Admin} />
       <Route path={"/informations"} component={Legal} />
       <Route path={"/services"} component={Services} />
+      <Route path={"/promotion"} component={Promotion} />
+      <Route path={"/marketplace"} component={Marketplace} />
       <Route path={"/profile/:id"} component={Profile} />
       <Route path={"/workspace"} component={Workspace} />
       <Route path={"/404"} component={NotFound} />
