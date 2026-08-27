@@ -8,6 +8,8 @@ const mocks = vi.hoisted(() => ({
   getServiceById: vi.fn(),
   createServiceRequest: vi.fn().mockResolvedValue({ success: true, requestId: 33 }),
   updateServiceStatus: vi.fn().mockResolvedValue({ success: true, serviceId: 12, status: "active" }),
+  listManualServicePayments: vi.fn().mockResolvedValue([]),
+  upsertManualServicePayment: vi.fn().mockResolvedValue({ success: true, serviceRequestId: 33 }),
 }));
 
 vi.mock("./db", async () => {
@@ -49,6 +51,15 @@ describe("independent services marketplace", () => {
     const caller = appRouter.createCaller(contextFor("admin"));
     await caller.marketplace.updateServiceStatus({ serviceId: 12, status: "active" });
     expect(mocks.updateServiceStatus).toHaveBeenCalledWith(12, "active");
+  });
+
+  it("keeps manual financial records private to the owner", async () => {
+    const userCaller = appRouter.createCaller(contextFor("user"));
+    await expect(userCaller.marketplace.saveManualServicePayment({ serviceRequestId: 33, amountReceivedCents: 10000, commissionCents: 1000, providerPayoutCents: 9000, paymentMethod: "bank_transfer", status: "received" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    const adminCaller = appRouter.createCaller(contextFor("admin"));
+    await adminCaller.marketplace.saveManualServicePayment({ serviceRequestId: 33, amountReceivedCents: 10000, commissionCents: 1000, providerPayoutCents: 9000, paymentMethod: "bank_transfer", status: "received", ownerNote: "تم التحقق يدويًا" });
+    expect(mocks.upsertManualServicePayment).toHaveBeenCalledWith(expect.objectContaining({ serviceRequestId: 33, commissionCents: 1000, providerPayoutCents: 9000 }));
+    await expect(adminCaller.marketplace.saveManualServicePayment({ serviceRequestId: 33, amountReceivedCents: 10000, commissionCents: 1000, providerPayoutCents: 8000, paymentMethod: "cash", status: "received" })).rejects.toMatchObject({ code: "BAD_REQUEST" });
   });
 
   it("records a request using the service price and commission rate", async () => {

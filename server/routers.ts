@@ -4,7 +4,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
-import { createCashOnDeliveryOrder, createProduct, createService, createServiceRequest, getPublicServiceProfile, getServiceProfile, getServiceById, listActiveProducts, listActiveServices, listAllProductsForAdmin, listAllServicesForAdmin, listCommissionSettings, listOrdersForAdmin, listServiceRequestsForAdmin, listServicesForUser, listSellers, updateCommissionCollectionStatus, updateProduct, updateProductStatus, updateServiceRequestCommissionStatus, updateServiceRequestStatus, updateServiceStatus, upsertCommissionSetting, upsertServiceProfile } from "./db";
+import { createCashOnDeliveryOrder, createProduct, createService, createServiceRequest, getPublicServiceProfile, getServiceProfile, getServiceById, listActiveProducts, listActiveServices, listAllProductsForAdmin, listAllServicesForAdmin, listCommissionSettings, listOrdersForAdmin, listServiceRequestsForAdmin, listServicesForUser, listSellers, updateCommissionCollectionStatus, updateProduct, updateProductStatus, updateServiceRequestCommissionStatus, updateServiceRequestStatus, updateServiceStatus, upsertCommissionSetting, upsertManualServicePayment, upsertServiceProfile, listManualServicePayments } from "./db";
 import { storagePut } from "./storage";
 
 export const appRouter = router({
@@ -31,6 +31,7 @@ export const appRouter = router({
     adminProducts: adminProcedure.query(() => listAllProductsForAdmin()),
     adminServices: adminProcedure.query(() => listAllServicesForAdmin()),
     adminServiceRequests: adminProcedure.query(() => listServiceRequestsForAdmin()),
+    adminServicePayments: adminProcedure.query(() => listManualServicePayments()),
     uploadProductImage: adminProcedure.input(z.object({ fileName: z.string().trim().min(1).max(180), contentType: z.string().trim().regex(/^image\/[a-z0-9.+-]+$/i), base64: z.string().min(1).max(12_000_000) })).mutation(async ({ input, ctx }) => {
       const bytes = Buffer.from(input.base64, "base64");
       if (bytes.length > 8 * 1024 * 1024) throw new TRPCError({ code: "PAYLOAD_TOO_LARGE", message: "Image must be 8 MB or smaller." });
@@ -43,6 +44,7 @@ export const appRouter = router({
     updateServiceStatus: adminProcedure.input(z.object({ serviceId: z.number().int().positive(), status: z.enum(["draft", "pending", "active", "paused", "archived"]) })).mutation(({ input }) => updateServiceStatus(input.serviceId, input.status)),
     updateServiceRequestStatus: adminProcedure.input(z.object({ requestId: z.number().int().positive(), status: z.enum(["received", "contacted", "accepted", "completed", "cancelled"]) })).mutation(({ input }) => updateServiceRequestStatus(input.requestId, input.status)),
     updateServiceRequestCommissionStatus: adminProcedure.input(z.object({ requestId: z.number().int().positive(), status: z.enum(["pending", "collected", "waived"]) })).mutation(({ input }) => updateServiceRequestCommissionStatus(input.requestId, input.status)),
+    saveManualServicePayment: adminProcedure.input(z.object({ serviceRequestId: z.number().int().positive(), amountReceivedCents: z.number().int().positive(), commissionCents: z.number().int().nonnegative(), providerPayoutCents: z.number().int().nonnegative(), paymentMethod: z.enum(["cash", "bank_transfer", "other"]), status: z.enum(["pending", "received", "provider_paid", "settled", "cancelled"]), ownerNote: z.string().trim().max(2000).optional() })).mutation(({ input }) => { if (input.commissionCents + input.providerPayoutCents !== input.amountReceivedCents) throw new TRPCError({ code: "BAD_REQUEST", message: "La commission et la part du prestataire doivent égaler le montant reçu." }); return upsertManualServicePayment(input); }),
     commissionSettings: adminProcedure.query(() => listCommissionSettings()),
     updateCommissionSetting: adminProcedure.input(z.object({ category: z.string().trim().min(1).max(80), sellerRateBps: z.number().int().min(0).max(5000), buyerRateBps: z.number().int().min(0).max(3000) })).mutation(({ input }) => upsertCommissionSetting(input.category, input.sellerRateBps, input.buyerRateBps)),
     updateCommissionStatus: adminProcedure.input(z.object({ orderId: z.number().int().positive(), status: z.enum(["pending", "collected", "waived"]) })).mutation(({ input }) => updateCommissionCollectionStatus(input.orderId, input.status)),

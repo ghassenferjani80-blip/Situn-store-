@@ -1,6 +1,6 @@
 import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { commissionSettings, InsertUser, orderItems, orders, products, sellers, serviceProfiles, serviceRequests, services, users } from "../drizzle/schema";
+import { commissionSettings, InsertUser, orderItems, orders, products, sellers, servicePayments, serviceProfiles, serviceRequests, services, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -276,4 +276,28 @@ export async function updateServiceRequestCommissionStatus(requestId: number, st
   if (!db) throw new Error("Database is not available");
   await db.update(serviceRequests).set({ commissionCollectionStatus: status, commissionCollectedAt: status === "collected" ? new Date() : null }).where(eq(serviceRequests.id, requestId));
   return { success: true as const, requestId, status };
+}
+
+export type ManualServicePaymentInput = {
+  serviceRequestId: number;
+  amountReceivedCents: number;
+  commissionCents: number;
+  providerPayoutCents: number;
+  paymentMethod: "cash" | "bank_transfer" | "other";
+  status: "pending" | "received" | "provider_paid" | "settled" | "cancelled";
+  ownerNote?: string;
+};
+
+export async function upsertManualServicePayment(input: ManualServicePaymentInput) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  const now = new Date();
+  await db.insert(servicePayments).values({ ...input, ownerNote: input.ownerNote || null, receivedAt: ["received", "provider_paid", "settled"].includes(input.status) ? now : null, providerPaidAt: ["provider_paid", "settled"].includes(input.status) ? now : null }).onDuplicateKeyUpdate({ set: { amountReceivedCents: input.amountReceivedCents, commissionCents: input.commissionCents, providerPayoutCents: input.providerPayoutCents, paymentMethod: input.paymentMethod, status: input.status, ownerNote: input.ownerNote || null, receivedAt: ["received", "provider_paid", "settled"].includes(input.status) ? now : null, providerPaidAt: ["provider_paid", "settled"].includes(input.status) ? now : null } });
+  return { success: true as const, serviceRequestId: input.serviceRequestId };
+}
+
+export async function listManualServicePayments() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ payment: servicePayments, request: serviceRequests, service: services, profile: serviceProfiles }).from(servicePayments).leftJoin(serviceRequests, eq(servicePayments.serviceRequestId, serviceRequests.id)).leftJoin(services, eq(serviceRequests.serviceId, services.id)).leftJoin(serviceProfiles, eq(serviceRequests.providerUserId, serviceProfiles.userId)).orderBy(desc(servicePayments.createdAt));
 }

@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, unique } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
@@ -104,6 +104,21 @@ export const services = mysqlTable("services", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const servicePayments = mysqlTable("servicePayments", {
+  id: int("id").autoincrement().primaryKey(),
+  serviceRequestId: int("serviceRequestId").notNull(),
+  amountReceivedCents: int("amountReceivedCents").notNull(),
+  commissionCents: int("commissionCents").notNull(),
+  providerPayoutCents: int("providerPayoutCents").notNull(),
+  paymentMethod: mysqlEnum("paymentMethod", ["cash", "bank_transfer", "other"]).default("bank_transfer").notNull(),
+  status: mysqlEnum("status", ["pending", "received", "provider_paid", "settled", "cancelled"]).default("pending").notNull(),
+  ownerNote: text("ownerNote"),
+  receivedAt: timestamp("receivedAt"),
+  providerPaidAt: timestamp("providerPaidAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({ requestUnique: unique("servicePayments_request_unique").on(table.serviceRequestId) }));
+
 export const serviceRequests = mysqlTable("serviceRequests", {
   id: int("id").autoincrement().primaryKey(),
   serviceId: int("serviceId").notNull(),
@@ -132,3 +147,4 @@ export type CommissionSetting = typeof commissionSettings.$inferSelect;
 export type ServiceProfile = typeof serviceProfiles.$inferSelect;
 export type Service = typeof services.$inferSelect;
 export type ServiceRequest = typeof serviceRequests.$inferSelect;
+export type ServicePayment = typeof servicePayments.$inferSelect;
