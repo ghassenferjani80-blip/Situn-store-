@@ -501,3 +501,20 @@ h2 { margin-bottom: 0; font-size: clamp(48px, 6vw, 82px); font-weight: 600; line
 @media (max-width: 900px) { .transaction-form { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 700px) { .tracker-heading { display: block; } .tracker-reference { display: inline-block; margin-top: 1rem; } .tracker-summary { grid-template-columns: repeat(2, 1fr); } .transaction-card-header { display: block; } .transaction-tags { justify-content: flex-start; margin-top: .8rem; } .transaction-meta { grid-template-columns: repeat(2, 1fr); row-gap: .8rem; } .transaction-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) { .tracker-summary article { min-height: 96px; padding: .75rem; } .tracker-summary strong { font-size: 1.5rem; } .tracker-toolbar, .transaction-footer { grid-template-columns: 1fr; } .transaction-form { grid-template-columns: 1fr; } .transaction-card { padding: .9rem; } }
+
+/* High-contrast trust section: keep every heading and paragraph readable on mobile. */
+.situn-shell .trust-section { background: linear-gradient(135deg, #12110f 0%, #1a1712 100%); color: #fffaf2; border-top: 1px solid #3b3020; border-bottom: 1px solid #3b3020; }
+.situn-shell .trust-section h2, .situn-shell .trust-steps h3 { color: #fffaf2; text-shadow: 0 1px 0 rgba(0,0,0,.35); }
+.situn-shell .trust-intro > p:not(.eyebrow), .situn-shell .trust-steps p { color: #e1d8ca; }
+.situn-shell .trust-contact a { color: #f0c16d; border-color: #e4b45f; font-weight: 600; }
+.situn-shell .trust-steps article { border-top-color: #e4b45f; background: rgba(255,255,255,.035); padding-left: 14px; }
+.situn-shell .trust-steps article > span { color: #f0c16d; }
+.situn-shell .trust-section .eyebrow { color: #f0c16d; }
+.situn-shell .trust-section em { color: #f0c16d; }
+@media (max-width: 560px) {
+  .situn-shell .trust-section { padding-top: 55px; padding-bottom: 58px; }
+  .situn-shell .trust-intro h2 { font-size: clamp(44px, 14vw, 64px); line-height: .9; }
+  .situn-shell .trust-steps article { padding: 16px 14px 18px; border-right: 2px solid #6d5128; border-top-width: 1px; }
+  .situn-shell .trust-steps h3 { margin-top: 12px; font-size: 27px; line-height: 1.05; }
+  .situn-shell .trust-steps p { font-size: 13px; line-height: 1.75; }
+}
