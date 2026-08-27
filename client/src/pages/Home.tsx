@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { buildWhatsAppMessage, calculateBuyerFee, calculateBuyerTotal, calculateCommission, calculateSellerNet, calculateSubtotal, DEFAULT_BUYER_FEE_RATE, DEFAULT_COMMISSION_RATE, getCategoryFees, SITUN_WHATSAPP, validateCheckout } from "@shared/marketplace";
 import { trpc } from "@/lib/trpc";
+import { applySeo, SITE_SEO } from "@/lib/seo";
 import { VAUCLUSE_COMMUNES } from "@shared/vaucluse-communes";
 import {
   ArrowRight,
@@ -85,17 +86,8 @@ export default function Home() {
   const platform = platformCopy[language];
   useEffect(() => {
     window.localStorage.setItem("situn-language", language);
-    const seo = language === "ar"
-      ? { title: "SITUN — خدمات وعروض ومنتجات من جميع أنحاء العالم", description: "منصة SITUN تربط الأشخاص حول العالم لتقديم الخدمات والترويج والبيع والشراء بطريقة واضحة." }
-      : language === "en"
-        ? { title: "SITUN — Global services, listings and marketplace", description: "SITUN connects people worldwide to offer services, promote, buy and sell with clarity." }
-        : language === "fr"
-          ? { title: "SITUN — Services, annonces et marketplace dans le monde entier", description: "SITUN met en relation les personnes du monde entier pour travailler, promouvoir, acheter et vendre." }
-          : { title: `SITUN — ${copy[language].intro.slice(0, 58)}`, description: copy[language].intro };
-    document.title = seo.title;
-    document.documentElement.lang = language;
-    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
-    document.querySelector('meta[name="description"]')?.setAttribute("content", seo.description);
+    const seo = language === "ar" || language === "fr" || language === "en" ? SITE_SEO[language] : SITE_SEO.en;
+    applySeo({ ...seo, language: language === "ar" || language === "fr" || language === "en" ? language : "en", path: `/?lang=${language}` });
   }, [language]);
 
   const [activeCategory, setActiveCategory] = useState("Tous");

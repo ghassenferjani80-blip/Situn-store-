@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { applySeo, SECTION_SEO } from "@/lib/seo";
 import { ArrowLeft, BriefcaseBusiness, Check, CircleUserRound, LogIn, MessageCircle, Plus, Search, ShieldCheck, Sparkles, X } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ const emptyProfile: ProfileForm = { displayName: "", bio: "", location: "", coun
 const emptyService: ServiceForm = { title: "", category: "Design numérique", description: "", location: "", country: "", languages: "", deliveryMode: "online", price: "" };
 
 export default function Services() {
+  useEffect(() => { const saved = window.localStorage.getItem("situn-language"); const language = saved === "ar" || saved === "fr" || saved === "en" ? saved : "en"; applySeo({ ...SECTION_SEO.services[language], language, path: "/services" }); }, []);
   const { user, isAuthenticated } = useAuth();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("Tous");

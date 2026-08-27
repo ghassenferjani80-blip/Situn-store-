@@ -1,10 +1,13 @@
 import { ArrowRight, Megaphone, UserCircle } from "lucide-react";
+import { useEffect } from "react";
+import { applySeo, SECTION_SEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { SITUN_WHATSAPP } from "@shared/marketplace";
 
 const whatsapp = (text: string) => `https://wa.me/${SITUN_WHATSAPP}?text=${encodeURIComponent(text)}`;
 
 export default function Promotion() {
+  useEffect(() => { const saved = window.localStorage.getItem("situn-language"); const language = saved === "ar" || saved === "fr" || saved === "en" ? saved : "en"; applySeo({ ...SECTION_SEO.promotion[language], language, path: "/promotion" }); }, []);
   return <main className="section-page promotion-page" dir="rtl">
     <header className="section-header"><Link href="/" className="section-brand">✦ SITUN</Link><nav><Link href="/services">الخدمات والعمل</Link><Link href="/promotion" className="active">الترويج</Link><Link href="/marketplace">التسوق والشراء</Link></nav><Link href="/workspace" className="section-profile"><UserCircle size={17} /> ملفي الشخصي</Link></header>
     <section className="section-hero promotion-hero"><p className="section-kicker"><Megaphone size={15} /> قسم الترويج والظهور</p><h1>أظهر ما تقدّم.<br /><em>واجذب فرصتك.</em></h1><p>سواء كنت مقدم خدمة أو صاحب منتج أو مشروعًا مستقلًا، يساعدك SITUN على تقديم عرضك بوضوح والوصول إلى أشخاص يبحثون عن العمل والشراء حول العالم.</p><div className="section-actions"><a className="section-gold-button" href={whatsapp("مرحبًا SITUN، أريد الترويج لخدمة أو منتج. أرجو شرح الخطوات والرسوم.")} target="_blank" rel="noreferrer">اطلب الترويج <ArrowRight size={16} /></a><Link className="section-outline-button" href="/services">أعرض مهارتي</Link></div></section>
