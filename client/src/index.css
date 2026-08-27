@@ -518,3 +518,19 @@ h2 { margin-bottom: 0; font-size: clamp(48px, 6vw, 82px); font-weight: 600; line
   .situn-shell .trust-steps h3 { margin-top: 12px; font-size: 27px; line-height: 1.05; }
   .situn-shell .trust-steps p { font-size: 13px; line-height: 1.75; }
 }
+
+/* Platform map: makes the six SITUN paths visible above the catalogue. */
+.platform-map { display: grid; grid-template-columns: .8fr 1.2fr; gap: 7vw; padding: 86px 10vw 92px; background: #151411; color: #f8f3e9; border-top: 1px solid #2c2924; border-bottom: 1px solid #2c2924; }
+.platform-map-heading { max-width: 470px; }
+.platform-map-heading h2 { margin: 0 0 24px; color: #fffaf2; font-size: clamp(48px, 6vw, 82px); line-height: .86; }
+.platform-map-heading h2 em { color: #e4b45f; font-style: normal; }
+.platform-map-heading > p:last-child { margin: 0; color: #d4cdc0; font-size: 15px; line-height: 1.85; }
+.platform-map-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-content: center; }
+.platform-route-card { display: grid; grid-template-columns: auto 1fr auto; gap: 13px; align-items: center; min-height: 116px; border: 1px solid #3b3327; padding: 18px; background: #0d0c0a; color: #fffaf2; transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+.platform-route-card:hover { transform: translateY(-3px); border-color: #e4b45f; background: #201b13; }
+.platform-route-icon { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid #80632e; border-radius: 50%; color: #e4b45f; }
+.platform-route-card strong { display: block; color: #fffaf2; font-family: 'Cormorant Garamond', serif; font-size: 23px; line-height: 1; }
+.platform-route-card small { display: block; margin-top: 7px; color: #bdb5a8; font-size: 11px; line-height: 1.45; }
+.platform-route-arrow { color: #e4b45f; }
+@media (max-width: 850px) { .platform-map { grid-template-columns: 1fr; gap: 38px; padding: 70px 8vw; } }
+@media (max-width: 560px) { .platform-map { padding: 58px 7vw 64px; } .platform-map-heading h2 { font-size: 57px; } .platform-map-heading > p:last-child { font-size: 14px; line-height: 1.75; } .platform-map-grid { grid-template-columns: 1fr; gap: 10px; } .platform-route-card { min-height: 96px; padding: 14px; } .platform-route-card strong { font-size: 22px; } }
