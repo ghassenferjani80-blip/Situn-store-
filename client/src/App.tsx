@@ -12,6 +12,8 @@ import Profile from "@/pages/Profile";
 import Workspace from "./pages/Workspace";
 import Marketplace from "./pages/Marketplace";
 import Promotion from "./pages/Promotion";
+import PostWizard from "./pages/PostWizard";
+import PostDetail from "./pages/PostDetail";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -29,6 +31,8 @@ function Router() {
       <Route path={"/marketplace"} component={Marketplace} />
       <Route path={"/profile/:id"} component={Profile} />
       <Route path={"/workspace"} component={Workspace} />
+      <Route path={"/publish"} component={PostWizard} />
+      <Route path={"/post/:id"} component={PostDetail} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

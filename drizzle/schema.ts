@@ -7,6 +7,11 @@ export const users = mysqlTable("users", {
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
+  accountType: mysqlEnum("accountType", ["customer", "seller", "service_provider", "employer", "freelancer"]).default("customer").notNull(),
+  country: varchar("country", { length: 120 }),
+  city: varchar("city", { length: 120 }),
+  preferredLanguage: varchar("preferredLanguage", { length: 12 }).default("en"),
+  preferredCurrency: varchar("preferredCurrency", { length: 8 }).default("EUR"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -104,6 +109,51 @@ export const services = mysqlTable("services", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const marketplacePosts = mysqlTable("marketplacePosts", {
+  id: int("id").autoincrement().primaryKey(),
+  ownerId: int("ownerId").notNull(),
+  postType: mysqlEnum("postType", ["product", "service", "job", "online_work", "real_estate", "vehicle", "classified"]).notNull(),
+  title: varchar("title", { length: 180 }).notNull(),
+  category: varchar("category", { length: 100 }).notNull(),
+  description: text("description").notNull(),
+  imageUrl: text("imageUrl"),
+  country: varchar("country", { length: 120 }),
+  city: varchar("city", { length: 120 }),
+  language: varchar("language", { length: 12 }).default("en").notNull(),
+  currency: varchar("currency", { length: 8 }).default("EUR").notNull(),
+  priceCents: int("priceCents"),
+  remote: mysqlEnum("remote", ["yes", "no", "hybrid"]).default("no").notNull(),
+  status: mysqlEnum("status", ["draft", "pending", "active", "paused", "rejected", "archived"]).default("pending").notNull(),
+  rejectionReason: text("rejectionReason"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const postInquiries = mysqlTable("postInquiries", {
+  id: int("id").autoincrement().primaryKey(),
+  postId: int("postId").notNull(),
+  ownerId: int("ownerId").notNull(),
+  requesterUserId: int("requesterUserId"),
+  requesterName: varchar("requesterName", { length: 160 }).notNull(),
+  requesterContact: varchar("requesterContact", { length: 160 }).notNull(),
+  message: text("message"),
+  status: mysqlEnum("status", ["new", "contacted", "closed", "cancelled"]).default("new").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const contentReports = mysqlTable("contentReports", {
+  id: int("id").autoincrement().primaryKey(),
+  reporterUserId: int("reporterUserId"),
+  postId: int("postId"),
+  reportedUserId: int("reportedUserId"),
+  reason: varchar("reason", { length: 120 }).notNull(),
+  details: text("details"),
+  status: mysqlEnum("status", ["open", "reviewing", "resolved", "dismissed"]).default("open").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export const servicePayments = mysqlTable("servicePayments", {
   id: int("id").autoincrement().primaryKey(),
   serviceRequestId: int("serviceRequestId").notNull(),
@@ -138,6 +188,9 @@ export const serviceRequests = mysqlTable("serviceRequests", {
 });
 
 export type User = typeof users.$inferSelect;
+export type MarketplacePost = typeof marketplacePosts.$inferSelect;
+export type PostInquiry = typeof postInquiries.$inferSelect;
+export type ContentReport = typeof contentReports.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type Seller = typeof sellers.$inferSelect;
 export type Product = typeof products.$inferSelect;

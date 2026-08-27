@@ -534,3 +534,53 @@ h2 { margin-bottom: 0; font-size: clamp(48px, 6vw, 82px); font-weight: 600; line
 .platform-route-arrow { color: #e4b45f; }
 @media (max-width: 850px) { .platform-map { grid-template-columns: 1fr; gap: 38px; padding: 70px 8vw; } }
 @media (max-width: 560px) { .platform-map { padding: 58px 7vw 64px; } .platform-map-heading h2 { font-size: 57px; } .platform-map-heading > p:last-child { font-size: 14px; line-height: 1.75; } .platform-map-grid { grid-template-columns: 1fr; gap: 10px; } .platform-route-card { min-height: 96px; padding: 14px; } .platform-route-card strong { font-size: 22px; } }
+
+.post-wizard { display: grid; grid-template-columns: .85fr 1.15fr; gap: 8vw; padding: 86px 12vw 110px; background: #11110f; }
+.post-wizard-heading { max-width: 440px; }
+.post-wizard-heading h1 { margin: 16px 0 22px; color: #fffaf2; font-size: clamp(58px, 8vw, 100px); line-height: .84; }
+.post-wizard-heading > p:last-child { color: #c9c1b4; font-size: 15px; line-height: 1.8; }
+.post-form { display: grid; gap: 15px; border: 1px solid #35312a; padding: 28px; background: #171613; }
+.post-form label { display: grid; gap: 7px; color: #c9c1b4; font-size: 11px; }
+.post-form input, .post-form textarea, .post-form select { width: 100%; border: 1px solid #514631; outline: 0; padding: 12px; background: #0d0c0a; color: #fffaf2; font: inherit; }
+.post-form input:focus, .post-form textarea:focus, .post-form select:focus { border-color: #e4b45f; box-shadow: 0 0 0 2px rgba(228,180,95,.14); }
+.post-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.post-form-error { margin: 0; color: #ffb19a; font-size: 12px; }
+.post-form-note { margin: 0; color: #aaa092; font-size: 10px; line-height: 1.6; }
+.workspace-post-list { display: grid; gap: 10px; margin: 18px 0; }
+.workspace-post { display: flex; justify-content: space-between; gap: 15px; border: 1px solid #35312a; padding: 14px; background: #11110f; }
+.workspace-post h3 { margin: 6px 0 4px; color: #fffaf2; font: 600 22px/1 'Cormorant Garamond', serif; }
+.workspace-post small { color: #aaa092; font-size: 10px; }
+.workspace-post-type { color: #e4b45f; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+.workspace-post-actions { display: flex; align-items: start; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+.workspace-post-actions button { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid #514631; background: transparent; color: #e4b45f; }
+.workspace-post-actions button:hover { background: #e4b45f; color: #0d0c0a; }
+.workspace-post-actions .danger-action { color: #df7657; border-color: #6f3d30; }
+.status-pill.new { background: #2d3d54; color: #b9d7ff; }
+.status-pill.contacted { background: #463a22; color: #f3ce80; }
+.status-pill.closed, .status-pill.cancelled { background: #30302d; color: #c9c1b4; }
+@media (max-width: 850px) { .post-wizard { grid-template-columns: 1fr; gap: 38px; padding: 70px 8vw 85px; } }
+@media (max-width: 560px) { .post-wizard { padding: 55px 7vw 70px; } .post-form { padding: 20px 16px; } .post-form-grid { grid-template-columns: 1fr; } .workspace-post { display: block; } .workspace-post-actions { justify-content: flex-start; margin-top: 12px; } }
+
+.market-card-title { display: block; margin: 7px 0 10px; color: #fffaf2; font: 600 27px/1 "Cormorant Garamond", serif; text-decoration: none; }
+.market-card-title:hover { color: #e4b45f; }
+.post-detail { padding: 55px 10vw 100px; background: #11110f; }
+.post-detail-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 7vw; max-width: 1120px; margin: 32px auto 0; align-items: center; }
+.post-detail-grid > img, .post-detail-grid > .market-image-placeholder { width: 100%; min-height: 420px; object-fit: cover; border: 1px solid #514631; background: #171613; }
+.post-detail h1 { margin: 14px 0 22px; color: #fffaf2; font: 600 clamp(48px, 7vw, 96px)/.9 "Cormorant Garamond", serif; }
+.post-detail-description { color: #d5cfc4; font-size: 17px; line-height: 1.9; }
+.post-detail-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 25px 0; color: #aaa092; font-size: 12px; }
+.post-detail-meta strong { color: #e4b45f; font-size: 18px; }
+.post-detail-note { margin-top: 20px; color: #9c9487; font-size: 11px; line-height: 1.7; }
+.workspace-preferences { align-items: start; }
+.workspace-preferences-form { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; width: 100%; }
+.workspace-preferences-form input, .workspace-preferences-form select { border: 1px solid #514631; padding: 10px; background: #11110f; color: #fffaf2; }
+.workspace-preferences-form .services-gold-button { border: 0; }
+@media (max-width: 700px) { .post-detail { padding: 40px 7vw 70px; } .post-detail-grid { grid-template-columns: 1fr; gap: 30px; } .post-detail-grid > img, .post-detail-grid > .market-image-placeholder { min-height: 260px; } .workspace-preferences-form { grid-template-columns: 1fr; } }
+
+.admin-stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0 0 22px; }
+.admin-stats-grid article { display: grid; gap: 7px; border: 1px solid #3a3329; padding: 18px; background: #171613; }
+.admin-stats-grid span { color: #aaa092; font-size: 11px; }
+.admin-stats-grid strong { color: #e4b45f; font: 600 34px/1 "Cormorant Garamond", serif; }
+.admin-stats-grid small { color: #81796e; font-size: 10px; }
+@media (max-width: 760px) { .admin-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 430px) { .admin-stats-grid { grid-template-columns: 1fr; } }

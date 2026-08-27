@@ -1,6 +1,6 @@
 import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { commissionSettings, InsertUser, orderItems, orders, products, sellers, servicePayments, serviceProfiles, serviceRequests, services, users } from "../drizzle/schema";
+import { commissionSettings, contentReports, InsertUser, marketplacePosts, orderItems, orders, postInquiries, products, sellers, servicePayments, serviceProfiles, serviceRequests, services, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -35,6 +35,26 @@ export async function getUserByOpenId(openId: string) {
   if (!db) return undefined;
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
   return result[0];
+}
+
+export async function listUsersForAdmin() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(users).orderBy(desc(users.createdAt));
+}
+
+export async function updateUserAccountTypeForAdmin(userId: number, accountType: "customer" | "seller" | "service_provider" | "employer" | "freelancer") {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(users).set({ accountType }).where(eq(users.id, userId));
+  return { success: true as const, userId, accountType };
+}
+
+export async function updateUserPreferences(userId: number, input: { accountType: "customer" | "seller" | "service_provider" | "employer" | "freelancer"; country?: string; city?: string; preferredLanguage: string; preferredCurrency: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(users).set({ accountType: input.accountType, country: input.country || null, city: input.city || null, preferredLanguage: input.preferredLanguage, preferredCurrency: input.preferredCurrency }).where(eq(users.id, userId));
+  return { success: true as const, userId };
 }
 
 export async function listAllProductsForAdmin() {
@@ -300,4 +320,132 @@ export async function listManualServicePayments() {
   const db = await getDb();
   if (!db) return [];
   return db.select({ payment: servicePayments, request: serviceRequests, service: services, profile: serviceProfiles }).from(servicePayments).leftJoin(serviceRequests, eq(servicePayments.serviceRequestId, serviceRequests.id)).leftJoin(services, eq(serviceRequests.serviceId, services.id)).leftJoin(serviceProfiles, eq(serviceRequests.providerUserId, serviceProfiles.userId)).orderBy(desc(servicePayments.createdAt));
+}
+
+export type MarketplacePostInput = {
+  ownerId: number;
+  postType: "product" | "service" | "job" | "online_work" | "real_estate" | "vehicle" | "classified";
+  title: string;
+  category: string;
+  description: string;
+  imageUrl?: string;
+  country?: string;
+  city?: string;
+  language: string;
+  currency: string;
+  priceCents?: number;
+  remote?: "yes" | "no" | "hybrid";
+};
+
+export async function listActiveMarketplacePosts() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(marketplacePosts).where(eq(marketplacePosts.status, "active")).orderBy(desc(marketplacePosts.createdAt));
+}
+
+export async function listMarketplacePostsForUser(ownerId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(marketplacePosts).where(eq(marketplacePosts.ownerId, ownerId)).orderBy(desc(marketplacePosts.updatedAt));
+}
+
+export async function listAllMarketplacePostsForAdmin() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ post: marketplacePosts, owner: users }).from(marketplacePosts).leftJoin(users, eq(marketplacePosts.ownerId, users.id)).orderBy(desc(marketplacePosts.updatedAt));
+}
+
+export async function getMarketplacePost(postId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(marketplacePosts).where(eq(marketplacePosts.id, postId)).limit(1);
+  return result[0];
+}
+
+export async function createMarketplacePost(input: MarketplacePostInput) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  const result = await db.insert(marketplacePosts).values({ ...input, imageUrl: input.imageUrl || null, country: input.country || null, city: input.city || null, priceCents: input.priceCents ?? null, remote: input.remote ?? "no", status: "pending" });
+  return { success: true as const, postId: Number(result[0].insertId) };
+}
+
+export async function updateMarketplacePost(postId: number, ownerId: number, input: Omit<MarketplacePostInput, "ownerId" | "postType"> & { postType: MarketplacePostInput["postType"] }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(marketplacePosts).set({ ...input, imageUrl: input.imageUrl || null, country: input.country || null, city: input.city || null, priceCents: input.priceCents ?? null, status: "pending" }).where(and(eq(marketplacePosts.id, postId), eq(marketplacePosts.ownerId, ownerId)));
+  return { success: true as const, postId };
+}
+
+export async function updateMarketplacePostStatusForUser(postId: number, ownerId: number, status: "draft" | "paused" | "archived") {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(marketplacePosts).set({ status }).where(and(eq(marketplacePosts.id, postId), eq(marketplacePosts.ownerId, ownerId)));
+  return { success: true as const, postId, status };
+}
+
+export async function updateMarketplacePostStatusForAdmin(postId: number, status: "pending" | "active" | "paused" | "rejected" | "archived", rejectionReason?: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(marketplacePosts).set({ status, rejectionReason: rejectionReason || null }).where(eq(marketplacePosts.id, postId));
+  return { success: true as const, postId, status };
+}
+
+export async function deleteMarketplacePost(postId: number, ownerId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.delete(marketplacePosts).where(and(eq(marketplacePosts.id, postId), eq(marketplacePosts.ownerId, ownerId)));
+  return { success: true as const, postId };
+}
+
+export async function createPostInquiry(input: { postId: number; ownerId: number; requesterUserId?: number; requesterName: string; requesterContact: string; message?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  const result = await db.insert(postInquiries).values({ ...input, requesterUserId: input.requesterUserId ?? null, message: input.message || null, status: "new" });
+  return { success: true as const, inquiryId: Number(result[0].insertId) };
+}
+
+export async function listPostInquiriesForOwner(ownerId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ inquiry: postInquiries, post: marketplacePosts }).from(postInquiries).leftJoin(marketplacePosts, eq(postInquiries.postId, marketplacePosts.id)).where(eq(postInquiries.ownerId, ownerId)).orderBy(desc(postInquiries.createdAt));
+}
+
+export async function listAllPostInquiriesForAdmin() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ inquiry: postInquiries, post: marketplacePosts }).from(postInquiries).leftJoin(marketplacePosts, eq(postInquiries.postId, marketplacePosts.id)).orderBy(desc(postInquiries.createdAt));
+}
+
+export async function updatePostInquiryStatus(inquiryId: number, status: "new" | "contacted" | "closed" | "cancelled") {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(postInquiries).set({ status }).where(eq(postInquiries.id, inquiryId));
+  return { success: true as const, inquiryId, status };
+}
+
+export async function updatePostInquiryStatusForOwner(inquiryId: number, ownerId: number, status: "new" | "contacted" | "closed" | "cancelled") {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(postInquiries).set({ status }).where(and(eq(postInquiries.id, inquiryId), eq(postInquiries.ownerId, ownerId)));
+  return { success: true as const, inquiryId, status };
+}
+
+export async function createContentReport(input: { reporterUserId?: number; postId?: number; reportedUserId?: number; reason: string; details?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  const result = await db.insert(contentReports).values({ reporterUserId: input.reporterUserId ?? null, postId: input.postId ?? null, reportedUserId: input.reportedUserId ?? null, reason: input.reason, details: input.details || null, status: "open" });
+  return { success: true as const, reportId: Number(result[0].insertId) };
+}
+
+export async function listContentReportsForAdmin() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ report: contentReports, post: marketplacePosts, reporter: users }).from(contentReports).leftJoin(marketplacePosts, eq(contentReports.postId, marketplacePosts.id)).leftJoin(users, eq(contentReports.reporterUserId, users.id)).orderBy(desc(contentReports.createdAt));
+}
+
+export async function updateContentReportStatus(reportId: number, status: "open" | "reviewing" | "resolved" | "dismissed") {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(contentReports).set({ status }).where(eq(contentReports.id, reportId));
+  return { success: true as const, reportId, status };
 }
