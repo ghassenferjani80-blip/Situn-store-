@@ -109,6 +109,18 @@ export const services = mysqlTable("services", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const marketplaceTaxonomies = mysqlTable("marketplaceTaxonomies", {
+  id: int("id").autoincrement().primaryKey(),
+  kind: mysqlEnum("kind", ["category", "country"]).notNull(),
+  value: varchar("value", { length: 120 }).notNull(),
+  labelAr: varchar("labelAr", { length: 160 }).notNull(),
+  labelFr: varchar("labelFr", { length: 160 }).notNull(),
+  labelEn: varchar("labelEn", { length: 160 }).notNull(),
+  active: int("active").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({ kindValueUnique: unique("marketplaceTaxonomies_kind_value_unique").on(table.kind, table.value) }));
+
 export const marketplacePosts = mysqlTable("marketplacePosts", {
   id: int("id").autoincrement().primaryKey(),
   ownerId: int("ownerId").notNull(),
@@ -189,6 +201,7 @@ export const serviceRequests = mysqlTable("serviceRequests", {
 
 export type User = typeof users.$inferSelect;
 export type MarketplacePost = typeof marketplacePosts.$inferSelect;
+export type MarketplaceTaxonomy = typeof marketplaceTaxonomies.$inferSelect;
 export type PostInquiry = typeof postInquiries.$inferSelect;
 export type ContentReport = typeof contentReports.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;

@@ -1,6 +1,6 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { commissionSettings, contentReports, InsertUser, marketplacePosts, orderItems, orders, postInquiries, products, sellers, servicePayments, serviceProfiles, serviceRequests, services, users } from "../drizzle/schema";
+import { commissionSettings, contentReports, InsertUser, marketplacePosts, marketplaceTaxonomies, orderItems, orders, postInquiries, products, sellers, servicePayments, serviceProfiles, serviceRequests, services, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -35,6 +35,26 @@ export async function getUserByOpenId(openId: string) {
   if (!db) return undefined;
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
   return result[0];
+}
+
+export async function listMarketplaceTaxonomies(kind?: "category" | "country") {
+  const db = await getDb();
+  if (!db) return [];
+  return kind ? db.select().from(marketplaceTaxonomies).where(eq(marketplaceTaxonomies.kind, kind)).orderBy(asc(marketplaceTaxonomies.value)) : db.select().from(marketplaceTaxonomies).orderBy(asc(marketplaceTaxonomies.kind), asc(marketplaceTaxonomies.value));
+}
+
+export async function createMarketplaceTaxonomy(input: { kind: "category" | "country"; value: string; labelAr: string; labelFr: string; labelEn: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  const result = await db.insert(marketplaceTaxonomies).values(input);
+  return { success: true as const, id: Number(result[0].insertId) };
+}
+
+export async function updateMarketplaceTaxonomy(id: number, input: { value: string; labelAr: string; labelFr: string; labelEn: string; active: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.update(marketplaceTaxonomies).set(input).where(eq(marketplaceTaxonomies.id, id));
+  return { success: true as const, id };
 }
 
 export async function listUsersForAdmin() {
