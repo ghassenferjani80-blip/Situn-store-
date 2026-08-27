@@ -589,3 +589,31 @@ h2 { margin-bottom: 0; font-size: clamp(48px, 6vw, 82px); font-weight: 600; line
 .taxonomy-form input, .taxonomy-form select { min-width: 0; border: 1px solid #514631; padding: 10px; background: #11110f; color: #fffaf2; }
 @media (max-width: 760px) { .taxonomy-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 430px) { .taxonomy-form { grid-template-columns: 1fr; } }
+
+/* Softer luxury dark mode: warmer charcoal instead of near-black. */
+:root { --ink: #27231f; --paper: #f7f3ec; --muted: #625b52; }
+.situn-shell { background: #211e1a; color: #fbf7ef; }
+.situn-shell .topline, .situn-shell .site-header, .situn-shell .catalogue-section, .situn-shell .hero-section { background: #211e1a; border-color: #4a4136; }
+.situn-shell .language-switcher button { color: #d1c4b3; }
+.situn-shell .brand, .situn-shell .main-nav a, .situn-shell .cart-trigger { color: #fffaf2; }
+.situn-shell .hero-intro, .situn-shell .section-note, .situn-shell .seller-copy p { color: #e0d7ca; }
+.situn-shell .coverage-strip, .situn-shell .seller-section { background: #302b25; }
+.situn-shell .coverage-strip > p:not(.eyebrow) { color: #f1e8dc; }
+.situn-shell .product-image { background: #3a332b; }
+.situn-shell .cart-drawer, .situn-shell .checkout-modal { background: #302b25; }
+.situn-shell .services-modal { background: #302b25; }
+.section-page, .profile-page, .workspace-page { background: #211e1a; color: #fbf7ef; }
+.section-header, .section-footer { background: #1b1916; border-color: #4a4136; }
+.section-hero { background: radial-gradient(circle at 78% 35%, rgba(228,180,95,.18), transparent 31%), #211e1a; }
+.section-content, .promo-grid, .profile-body, .workspace-grid { background: #2b2722; }
+.market-card, .promo-grid article, .workspace-card { background: #38322b; border-color: #625442; }
+.market-card img, .market-image-placeholder { background: #463e34; }
+.post-wizard, .post-detail { background: #211e1a; }
+.post-form { background: #38322b; border-color: #625442; }
+.post-form input, .post-form textarea, .post-form select, .workspace-preferences-form input, .workspace-preferences-form select { background: #27231f; border-color: #756145; color: #fffaf2; }
+.platform-map { background: #302b25; border-color: #4a4136; }
+.platform-route-card { background: #3a342c; border-color: #67563f; }
+.workspace-post { background: #2a2621; border-color: #625442; }
+.admin-stats-grid article { background: #38322b; border-color: #625442; }
+.taxonomy-form input, .taxonomy-form select { background: #27231f; border-color: #756145; }
+.section-footer { background: #171513; color: #b8aa98; }
