@@ -1,24 +1,25 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
-import Admin from "./pages/Admin";
-import Legal from "@/pages/Legal";
-import Services from "@/pages/Services";
-import Profile from "@/pages/Profile";
-import Workspace from "./pages/Workspace";
-import Marketplace from "./pages/Marketplace";
-import Promotion from "./pages/Promotion";
-import PostWizard from "./pages/PostWizard";
-import PostDetail from "./pages/PostDetail";
+const Home = lazy(() => import("./pages/Home"));
+const Admin = lazy(() => import("./pages/Admin"));
+const Legal = lazy(() => import("@/pages/Legal"));
+const Services = lazy(() => import("./pages/Services"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Workspace = lazy(() => import("./pages/Workspace"));
+const Marketplace = lazy(() => import("./pages/Marketplace"));
+const Promotion = lazy(() => import("./pages/Promotion"));
+const PostWizard = lazy(() => import("./pages/PostWizard"));
+const PostDetail = lazy(() => import("./pages/PostDetail"));
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
-    <Switch>
+    <Suspense fallback={<main className="section-page"><p className="section-empty">جاري تحميل SITUN...</p></main>}><Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/admin"} component={Admin} />
       {/* Backward-compatible owner links; Admin still enforces server-side access. */}
@@ -36,7 +37,7 @@ function Router() {
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
-    </Switch>
+    </Switch></Suspense>
   );
 }
 
