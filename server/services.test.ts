@@ -68,4 +68,11 @@ describe("independent services marketplace", () => {
     await caller.marketplace.requestService({ serviceId: 12, buyerName: "Client SITUN", buyerPhone: "+33600000000", message: "Je souhaite en savoir plus." });
     expect(mocks.createServiceRequest).toHaveBeenCalledWith(expect.objectContaining({ serviceId: 12, agreedPriceCents: 25000, commissionRateBps: 1000, commissionCents: 2500, buyerUserId: 2 }));
   });
+
+  it("keeps the transaction tracker query private to the owner", async () => {
+    const userCaller = appRouter.createCaller(contextFor("user"));
+    await expect(userCaller.marketplace.adminServicePayments()).rejects.toMatchObject({ code: "FORBIDDEN" });
+    const adminCaller = appRouter.createCaller(contextFor("admin"));
+    await expect(adminCaller.marketplace.adminServicePayments()).resolves.toEqual([]);
+  });
 });
