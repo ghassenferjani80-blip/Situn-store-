@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import Legal from "@/pages/Legal";
 import Services from "@/pages/Services";
+import Profile from "@/pages/Profile";
+import Workspace from "@/pages/Workspace";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -21,6 +23,8 @@ function Router() {
       <Route path={"/dashboard"} component={Admin} />
       <Route path={"/informations"} component={Legal} />
       <Route path={"/services"} component={Services} />
+      <Route path={"/profile/:id"} component={Profile} />
+      <Route path={"/workspace"} component={Workspace} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

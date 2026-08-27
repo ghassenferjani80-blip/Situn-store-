@@ -23,7 +23,7 @@ function contextFor(role: "admin" | "user"): TrpcContext {
   };
 }
 
-const serviceInput = { title: "Création de site vitrine", category: "Création de site", description: "Je crée un site clair et rapide pour présenter votre activité.", location: "À distance", priceCents: 25000 };
+const serviceInput = { title: "Création de site vitrine", category: "إنشاء مواقع", description: "Je crée un site clair et rapide pour présenter votre activité.", location: "À distance", country: "France", languages: "Français, العربية, English", deliveryMode: "online" as const, priceCents: 25000 };
 
 describe("independent services marketplace", () => {
   it("requires authentication for a public service profile", async () => {

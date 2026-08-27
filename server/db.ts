@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { commissionSettings, InsertUser, orderItems, orders, products, sellers, serviceProfiles, serviceRequests, services, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
@@ -155,6 +155,8 @@ export type ServiceProfileInput = {
   displayName: string;
   bio?: string;
   location?: string;
+  country?: string;
+  languages?: string;
   avatarUrl?: string;
 };
 
@@ -168,7 +170,7 @@ export async function getServiceProfile(userId: number) {
 export async function upsertServiceProfile(userId: number, input: ServiceProfileInput) {
   const db = await getDb();
   if (!db) throw new Error("Database is not available");
-  await db.insert(serviceProfiles).values({ userId, displayName: input.displayName, bio: input.bio || null, location: input.location || null, avatarUrl: input.avatarUrl || null, status: "draft" }).onDuplicateKeyUpdate({ set: { displayName: input.displayName, bio: input.bio || null, location: input.location || null, avatarUrl: input.avatarUrl || null } });
+  await db.insert(serviceProfiles).values({ userId, displayName: input.displayName, bio: input.bio || null, location: input.location || null, country: input.country || null, languages: input.languages || null, avatarUrl: input.avatarUrl || null, status: "draft" }).onDuplicateKeyUpdate({ set: { displayName: input.displayName, bio: input.bio || null, location: input.location || null, country: input.country || null, languages: input.languages || null, avatarUrl: input.avatarUrl || null } });
   return { success: true as const, userId };
 }
 
@@ -178,6 +180,9 @@ export type ServiceInput = {
   category: string;
   description: string;
   location?: string;
+  country?: string;
+  languages?: string;
+  deliveryMode?: "online" | "local" | "hybrid";
   priceCents: number;
   imageUrl?: string;
 };
@@ -185,7 +190,7 @@ export type ServiceInput = {
 export async function createService(input: ServiceInput) {
   const db = await getDb();
   if (!db) throw new Error("Database is not available");
-  const result = await db.insert(services).values({ ...input, location: input.location || null, imageUrl: input.imageUrl || null, status: "pending" });
+  const result = await db.insert(services).values({ ...input, location: input.location || null, country: input.country || null, languages: input.languages || null, deliveryMode: input.deliveryMode ?? "online", imageUrl: input.imageUrl || null, status: "pending" });
   return { success: true as const, serviceId: Number(result[0].insertId) };
 }
 
@@ -206,6 +211,19 @@ export async function listServicesForUser(providerUserId: number) {
   const db = await getDb();
   if (!db) return [];
   return db.select().from(services).where(eq(services.providerUserId, providerUserId)).orderBy(desc(services.createdAt));
+}
+
+export async function getPublicServiceProfile(userId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(serviceProfiles).where(eq(serviceProfiles.userId, userId)).limit(1);
+  return result[0];
+}
+
+export async function listActiveServicesForUser(providerUserId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(services).where(and(eq(services.providerUserId, providerUserId), eq(services.status, "active"))).orderBy(desc(services.createdAt));
 }
 
 export async function listAllServicesForAdmin() {
