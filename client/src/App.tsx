@@ -15,6 +15,7 @@ const Marketplace = lazy(() => import("./pages/Marketplace"));
 const Promotion = lazy(() => import("./pages/Promotion"));
 const PostWizard = lazy(() => import("./pages/PostWizard"));
 const PostDetail = lazy(() => import("./pages/PostDetail"));
+const Auth = lazy(() => import("./pages/Auth"));
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -22,6 +23,7 @@ function Router() {
     <Suspense fallback={<main className="section-page"><p className="section-empty">جاري تحميل SITUN...</p></main>}><Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/admin"} component={Admin} />
+      <Route path={"/auth"} component={Auth} />
       {/* Backward-compatible owner links; Admin still enforces server-side access. */}
       <Route path={"/owner"} component={Admin} />
       <Route path={"/owner-dashboard"} component={Admin} />

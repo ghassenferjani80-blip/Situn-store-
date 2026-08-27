@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, CircleUserRound, EyeOff, Globe2, Plus, ShieldCheck, Trash2 } from "lucide-react";
 import { Link } from "wouter";
-import { startLogin } from "@/const";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 
@@ -26,7 +25,7 @@ export default function Workspace() {
   const [preferredLanguage, setPreferredLanguage] = useState(user?.preferredLanguage ?? "ar");
   const [preferredCurrency, setPreferredCurrency] = useState(user?.preferredCurrency ?? "EUR");
 
-  useEffect(() => { if (!loading && !isAuthenticated) startLogin(); }, [loading, isAuthenticated]);
+  useEffect(() => { if (!loading && !isAuthenticated) window.location.href = "/auth?next=/workspace"; }, [loading, isAuthenticated]);
   if (loading || !isAuthenticated) return <main className="workspace-page"><p>جاري فتح مساحتك...</p></main>;
   const remove = (postId: number) => { if (window.confirm("هل تريد حذف هذا المنشور نهائيًا؟")) deletePost.mutate({ postId }); };
 

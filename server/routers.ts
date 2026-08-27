@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { COOKIE_NAME } from "@shared/const";
+import { authenticateLocalUser, createLocalSession, registerLocalUser, SITUN_SESSION_COOKIE } from "./localAuth";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, publicProcedure, protectedProcedure, router } from "./_core/trpc";
@@ -10,10 +11,37 @@ import { storagePut } from "./storage";
 export const appRouter = router({
   system: systemRouter,
   auth: router({
-    me: publicProcedure.query((opts) => opts.ctx.user),
+    me: publicProcedure.query(({ ctx }) => {
+      if (!ctx.user) return null;
+      const { passwordHash: _passwordHash, ...safeUser } = ctx.user;
+      return safeUser;
+    }),
+    register: publicProcedure.input(z.object({ name: z.string().trim().min(2).max(160), email: z.string().trim().email().max(320), password: z.string().min(8).max(128) })).mutation(async ({ ctx, input }) => {
+      try {
+        const user = await registerLocalUser(input);
+        const sessionToken = await createLocalSession(user);
+        const baseOptions = getSessionCookieOptions(ctx.req);
+        ctx.res.cookie(SITUN_SESSION_COOKIE, sessionToken, { ...baseOptions, sameSite: baseOptions.secure ? "none" : "lax", maxAge: 30 * 24 * 60 * 60 * 1000 });
+        const { passwordHash: _passwordHash, ...safeUser } = user;
+        return safeUser;
+      } catch (error) {
+        if (error instanceof Error && error.message === "EMAIL_ALREADY_REGISTERED") throw new TRPCError({ code: "CONFLICT", message: "هذا البريد مستخدم بالفعل." });
+        throw error;
+      }
+    }),
+    login: publicProcedure.input(z.object({ email: z.string().trim().email().max(320), password: z.string().min(1).max(128) })).mutation(async ({ ctx, input }) => {
+      const user = await authenticateLocalUser(input.email, input.password);
+      if (!user) throw new TRPCError({ code: "UNAUTHORIZED", message: "البريد الإلكتروني أو كلمة المرور غير صحيحة." });
+      const sessionToken = await createLocalSession(user);
+      const baseOptions = getSessionCookieOptions(ctx.req);
+      ctx.res.cookie(SITUN_SESSION_COOKIE, sessionToken, { ...baseOptions, sameSite: baseOptions.secure ? "none" : "lax", maxAge: 30 * 24 * 60 * 60 * 1000 });
+      const { passwordHash: _passwordHash, ...safeUser } = user;
+      return safeUser;
+    }),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
+      ctx.res.clearCookie(SITUN_SESSION_COOKIE, { ...cookieOptions, sameSite: cookieOptions.secure ? "none" : "lax", maxAge: -1 });
       return { success: true } as const;
     }),
   }),

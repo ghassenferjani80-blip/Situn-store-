@@ -469,3 +469,26 @@ export async function updateContentReportStatus(reportId: number, status: "open"
   await db.update(contentReports).set({ status }).where(eq(contentReports.id, reportId));
   return { success: true as const, reportId, status };
 }
+
+export async function getUserByEmail(email: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.email, email)).limit(1);
+  return result[0];
+}
+
+export async function getUserById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.id, id)).limit(1);
+  return result[0];
+}
+
+export async function insertLocalUser(input: InsertUser) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  const result = await db.insert(users).values(input);
+  const user = await getUserById(Number(result[0].insertId));
+  if (!user) throw new Error("Failed to create local user");
+  return user;
+}

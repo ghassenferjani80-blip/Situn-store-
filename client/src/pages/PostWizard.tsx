@@ -1,7 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { ArrowRight, Globe2, Send } from "lucide-react";
 import { Link, useLocation, useRoute } from "wouter";
-import { startLogin } from "@/const";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 
@@ -27,7 +26,7 @@ export default function PostWizard() {
   const [currency, setCurrency] = useState(user?.preferredCurrency ?? "EUR");
   const [price, setPrice] = useState("");
   const [remote, setRemote] = useState("no");
-  useEffect(() => { if (!loading && !isAuthenticated) startLogin(); }, [loading, isAuthenticated]);
+  useEffect(() => { if (!loading && !isAuthenticated) window.location.href = `/auth?next=${editingId > 0 ? `/publish/${editingId}` : "/publish"}`; }, [loading, isAuthenticated, editingId]);
   useEffect(() => { const existing = myPosts.data?.find((post) => post.id === editingId); if (!existing) return; setPostType(existing.postType); setTitle(existing.title); setCategory(existing.category); setDescription(existing.description); setCountry(existing.country ?? ""); setCity(existing.city ?? ""); setLanguage(existing.language); setCurrency(existing.currency); setPrice(existing.priceCents == null ? "" : String(existing.priceCents / 100)); setRemote(existing.remote); }, [editingId, myPosts.data]);
   if (loading || !isAuthenticated) return <main className="workspace-page"><p>جاري فتح صفحة النشر...</p></main>;
   const submit = (event: FormEvent) => { event.preventDefault(); const input = { postType: postType as typeof postTypes[number][0], title, category, description, country: country || undefined, city: city || undefined, language, currency, priceCents: price ? Math.round(Number(price) * 100) : undefined, remote: remote as "yes" | "no" | "hybrid" }; if (editingId > 0) updatePost.mutate({ postId: editingId, ...input }); else createPost.mutate(input); };
