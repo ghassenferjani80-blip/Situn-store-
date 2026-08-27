@@ -1,0 +1,75 @@
+import { useMemo, useState } from "react";
+import { ArrowLeft, BriefcaseBusiness, Check, CircleUserRound, LogIn, MessageCircle, Plus, Search, ShieldCheck, Sparkles, X } from "lucide-react";
+import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
+import { startLogin } from "@/const";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { trpc } from "@/lib/trpc";
+import { SITUN_WHATSAPP } from "@shared/marketplace";
+
+const categories = ["Tous", "Développement", "Création de site", "Design numérique", "Marketing digital", "Rédaction", "Traduction", "Formation en ligne", "Assistance virtuelle", "E-commerce", "Conseil", "Ménage", "Réparation", "Jardinage", "Déménagement", "Livraison", "Courses", "Garde", "Beauté", "Bien-être", "Informatique", "Administratif", "Automobile", "Immobilier", "Transport", "Cours", "Événements", "Autre"];
+const euro = (cents: number) => `${(cents / 100).toFixed(2).replace(".", ",")} €`;
+
+type RequestForm = { name: string; phone: string; message: string };
+type ProfileForm = { displayName: string; bio: string; location: string };
+type ServiceForm = { title: string; category: string; description: string; location: string; price: string };
+
+const emptyRequest: RequestForm = { name: "", phone: "", message: "" };
+const emptyProfile: ProfileForm = { displayName: "", bio: "", location: "" };
+const emptyService: ServiceForm = { title: "", category: "Design", description: "", location: "", price: "" };
+
+export default function Services() {
+  const { user, isAuthenticated } = useAuth();
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("Tous");
+  const [requestId, setRequestId] = useState<number | null>(null);
+  const [requestForm, setRequestForm] = useState<RequestForm>(emptyRequest);
+  const [requestSent, setRequestSent] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [serviceOpen, setServiceOpen] = useState(false);
+  const [profileForm, setProfileForm] = useState<ProfileForm>(emptyProfile);
+  const [serviceForm, setServiceForm] = useState<ServiceForm>(emptyService);
+  const [notice, setNotice] = useState("");
+  const services = trpc.marketplace.services.useQuery();
+  const profile = trpc.marketplace.profile.useQuery(undefined, { enabled: isAuthenticated });
+  const myServices = trpc.marketplace.myServices.useQuery(undefined, { enabled: isAuthenticated });
+  const saveProfile = trpc.marketplace.saveProfile.useMutation({ onSuccess: async () => { setProfileOpen(false); setNotice("تم حفظ ملفك وإرساله للمراجعة."); await profile.refetch(); } });
+  const createService = trpc.marketplace.createService.useMutation({ onSuccess: async () => { setServiceOpen(false); setServiceForm(emptyService); setNotice("تم إرسال الخدمة للمراجعة. ستظهر بعد موافقة المالك."); await myServices.refetch(); } });
+  const requestService = trpc.marketplace.requestService.useMutation({ onSuccess: (result) => { setRequestSent(true); const service = services.data?.find((item) => item.service.id === requestId)?.service; const text = encodeURIComponent(`Bonjour SITUN, je souhaite demander le service « ${service?.title ?? "service"} ». Nom: ${requestForm.name}. Téléphone: ${requestForm.phone}. Message: ${requestForm.message}`); window.open(`https://wa.me/${SITUN_WHATSAPP}?text=${text}`, "_blank", "noopener,noreferrer"); void result; } });
+
+  const filtered = useMemo(() => (services.data ?? []).filter(({ service, profile: provider }) => {
+    const haystack = `${service.title} ${service.description} ${service.category} ${service.location ?? ""} ${provider?.displayName ?? ""}`.toLowerCase();
+    return (category === "Tous" || service.category === category) && haystack.includes(query.toLowerCase());
+  }), [services.data, category, query]);
+
+  const openProfile = () => {
+    if (!isAuthenticated) return startLogin();
+    setProfileForm({ displayName: profile.data?.displayName ?? user?.name ?? "", bio: profile.data?.bio ?? "", location: profile.data?.location ?? "" });
+    setProfileOpen(true);
+  };
+  const openService = () => {
+    if (!isAuthenticated) return startLogin();
+    if (!profile.data) { setNotice("أنشئ ملفك الشخصي أولًا، ثم أضف خدمتك."); setProfileOpen(true); return; }
+    setServiceOpen(true);
+  };
+  const submitRequest = (event: React.FormEvent) => { event.preventDefault(); if (!requestId) return; requestService.mutate({ serviceId: requestId, buyerName: requestForm.name, buyerPhone: requestForm.phone, message: requestForm.message }); };
+  const submitProfile = (event: React.FormEvent) => { event.preventDefault(); saveProfile.mutate(profileForm); };
+  const submitService = (event: React.FormEvent) => { event.preventDefault(); createService.mutate({ ...serviceForm, priceCents: Math.round(Number(serviceForm.price) * 100) }); };
+
+  return <main className="services-page" dir="rtl">
+    <header className="services-header"><Link href="/" className="services-brand"><span>✦</span> SITUN</Link><nav><Link href="/">المتجر</Link><a href="#services">الخدمات</a><a href="#how">كيف تعمل</a></nav><div className="services-header-actions"><button className="services-profile-button" onClick={openProfile}><CircleUserRound size={18} /> {isAuthenticated ? "ملفي" : "أشارك بمهارتي"}</button>{user?.role === "admin" && <Link href="/admin" className="admin-link">الإدارة</Link>}</div></header>
+    <section className="services-hero"><div className="services-hero-copy"><p className="services-kicker"><Sparkles size={15} /> سوق مستقل للأفراد</p><h1>مهارتك.<br /><em>فرصتك.</em></h1><p className="services-lead">اعرض ما تتقنه، عبر الإنترنت أو في الواقع، واكتشف خدمات تساعدك في عملك وحياتك اليومية. SITUN يقرّب الأشخاص، وأنت تختار كيف تعمل وتشتري وتبيع.</p><div className="services-hero-actions"><button className="services-gold-button" onClick={openService}><Plus size={17} /> أعرض خدمتي</button><a className="services-outline-button" href="#services">أكتشف الخدمات <ArrowLeft size={17} /></a></div></div><div className="services-hero-card"><div className="services-card-mark">S<br />I<br />T<br />U<br />N</div><div><p>من الفكرة</p><strong>إلى الفرصة</strong><small>بوساطة واضحة · عمولة معلنة · لا دفع آلي</small></div></div></section>
+    <section className="services-ribbon"><span>أقدّم خدمة</span><b>أبحث عن خدمة</b><span>أعرض منتجًا</span><b>أريد الشراء</b><span>وأبدأ عبر SITUN</span></section>
+    <section className="services-content" id="services"><div className="services-section-heading"><div><p className="services-kicker">اختيارات بشرية، فرص حقيقية</p><h2>اكتشف <em>الخدمات</em></h2></div><p>من البرمجة والتعليم والتسوق الإلكتروني إلى المنزل والسيارات والحرف. كل خدمة تُراجع قبل النشر.</p></div><div className="services-toolbar"><div className="services-categories">{categories.map((item) => <button key={item} className={category === item ? "active" : ""} onClick={() => setCategory(item)}>{item}</button>)}</div><label className="services-search"><Search size={18} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="ابحث عن خدمة أو مهارة..." /></label></div>{services.isLoading ? <div className="services-empty">جاري تحميل الخدمات...</div> : filtered.length === 0 ? <div className="services-empty"><BriefcaseBusiness size={28} /><p>لا توجد خدمات منشورة بعد في هذا الاختيار.</p><button onClick={openService}>كن أول من يعرض خدمته</button></div> : <div className="service-grid">{filtered.map(({ service, profile: provider }) => <article className="service-card" key={service.id}><div className="service-card-top"><span>{service.category}</span><b>{provider?.displayName?.slice(0, 1) ?? "S"}</b></div><h3>{service.title}</h3><p>{service.description}</p><div className="service-card-meta"><span>{provider?.displayName ?? "Membre SITUN"}{service.location ? ` · ${service.location}` : ""}</span><strong>{euro(service.priceCents)}</strong></div><button className="service-request-button" onClick={() => { setRequestId(service.id); setRequestForm(emptyRequest); setRequestSent(false); }}>طلب هذه الخدمة <MessageCircle size={16} /></button></article>)}</div>}</section>
+    <section className="services-how" id="how"><div><p className="services-kicker">طريقة SITUN</p><h2>أنت تعمل.<br /><em>نحن نقرّب.</em></h2></div><div className="services-steps"><div><b>01</b><h3>أنشئ ملفك</h3><p>قدّم اسمك ونبذة عن مهارتك وموقعك أو نطاق عملك عبر الإنترنت، ثم تحكم في حضورك.</p></div><div><b>02</b><h3>اعرض خدمتك</h3><p>اكتب عرضًا واضحًا وسعرًا معلنًا، سواء كانت الخدمة رقمية أو ميدانية. لا تظهر للناس إلا بعد مراجعة المالك.</p></div><div><b>03</b><h3>تواصل واتفق</h3><p>يصل الطلب إلى SITUN، ثم ننسّق التواصل يدويًا وتُتابع العمولة بوضوح.</p></div></div></section>
+    <section className="services-cta"><ShieldCheck size={29} /><div><p className="services-kicker">استقلال ووضوح</p><h2>لا شركات تتدخل.<br /><em>لا دفع آلي.</em></h2><p>منصة مستقلة للأفراد. النشر، الموافقة، التواصل والعمولات تحت إدارة Ghassen Ferjani — Fondateur de SITUN.</p></div><button className="services-gold-button" onClick={openProfile}><LogIn size={17} /> ابدأ ملفك</button></section>
+    <footer className="services-footer"><span>© SITUN · Vaucluse</span><Link href="/informations">المعلومات والشروط</Link><Link href="/">العودة إلى المتجر</Link></footer>
+
+    {requestId && <div className="services-modal-backdrop" onClick={() => setRequestId(null)}><div className="services-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setRequestId(null)}><X /></button>{requestSent ? <div className="modal-success"><Check size={30} /><h2>تم تسجيل طلبك</h2><p>سيفتح WhatsApp لتنسيق التواصل مع SITUN يدويًا.</p><button className="services-gold-button" onClick={() => setRequestId(null)}>إغلاق</button></div> : <><p className="services-kicker">طلب خدمة</p><h2>لنبدأ التواصل.</h2><form onSubmit={submitRequest} className="services-form"><label>الاسم<input required minLength={2} value={requestForm.name} onChange={(event) => setRequestForm({ ...requestForm, name: event.target.value })} /></label><label>الهاتف أو WhatsApp<input required minLength={6} value={requestForm.phone} onChange={(event) => setRequestForm({ ...requestForm, phone: event.target.value })} /></label><label>رسالتك<textarea rows={4} value={requestForm.message} onChange={(event) => setRequestForm({ ...requestForm, message: event.target.value })} placeholder="ما الذي تحتاجه؟" /></label>{requestService.error && <p className="services-error">تعذر تسجيل الطلب. حاول مرة أخرى.</p>}<button className="services-gold-button" disabled={requestService.isPending}>{requestService.isPending ? "جارٍ التسجيل..." : "أرسل الطلب عبر SITUN"}</button></form></>}</div></div>}
+    {profileOpen && <div className="services-modal-backdrop" onClick={() => setProfileOpen(false)}><div className="services-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setProfileOpen(false)}><X /></button><p className="services-kicker">ملفي الشخصي</p><h2>أظهر ما تستطيع.</h2><form onSubmit={submitProfile} className="services-form"><label>الاسم الظاهر<input required minLength={2} value={profileForm.displayName} onChange={(event) => setProfileForm({ ...profileForm, displayName: event.target.value })} placeholder="مثال: محمد — مصمم مستقل" /></label><label>المدينة أو المنطقة<input value={profileForm.location} onChange={(event) => setProfileForm({ ...profileForm, location: event.target.value })} placeholder="Carpentras, Vaucluse" /></label><label>نبذة عنك<textarea required minLength={20} rows={5} value={profileForm.bio} onChange={(event) => setProfileForm({ ...profileForm, bio: event.target.value })} placeholder="ما الذي تتقنه؟ وما القيمة التي تقدمها؟" /></label>{saveProfile.error && <p className="services-error">تعذر حفظ الملف. تحقق من الحقول ثم حاول.</p>}<button className="services-gold-button" disabled={saveProfile.isPending}>{saveProfile.isPending ? "جارٍ الحفظ..." : "حفظ الملف للمراجعة"}</button></form></div></div>}
+    {serviceOpen && <div className="services-modal-backdrop" onClick={() => setServiceOpen(false)}><div className="services-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setServiceOpen(false)}><X /></button><p className="services-kicker">عرض جديد</p><h2>حوّل مهارتك إلى فرصة.</h2><form onSubmit={submitService} className="services-form"><label>عنوان الخدمة<input required minLength={3} value={serviceForm.title} onChange={(event) => setServiceForm({ ...serviceForm, title: event.target.value })} placeholder="مثال: تصميم هوية بصرية" /></label><label>الفئة<select value={serviceForm.category} onChange={(event) => setServiceForm({ ...serviceForm, category: event.target.value })}>{categories.filter((item) => item !== "Tous").map((item) => <option key={item}>{item}</option>)}</select></label><label>السعر المعلن باليورو<input required min="1" step="0.01" type="number" value={serviceForm.price} onChange={(event) => setServiceForm({ ...serviceForm, price: event.target.value })} /></label><label>المكان<input value={serviceForm.location} onChange={(event) => setServiceForm({ ...serviceForm, location: event.target.value })} placeholder="عن بعد أو Vaucluse" /></label><label>وصف الخدمة<textarea required minLength={20} rows={5} value={serviceForm.description} onChange={(event) => setServiceForm({ ...serviceForm, description: event.target.value })} placeholder="اشرح النتيجة التي سيحصل عليها العميل بوضوح." /></label>{createService.error && <p className="services-error">تعذر إرسال الخدمة. أنشئ ملفك أولًا وتحقق من البيانات.</p>}<button className="services-gold-button" disabled={createService.isPending}>{createService.isPending ? "جارٍ الإرسال..." : "إرسال للمراجعة"}</button></form></div></div>}
+    {notice && <button className="services-notice" onClick={() => setNotice("")}>{notice} <X size={15} /></button>}
+  </main>;
+}
+
+void SITUN_WHATSAPP;

@@ -72,6 +72,51 @@ export const orderItems = mysqlTable("orderItems", {
   lineTotalCents: int("lineTotalCents").notNull(),
 });
 
+export const serviceProfiles = mysqlTable("serviceProfiles", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().unique(),
+  displayName: varchar("displayName", { length: 160 }).notNull(),
+  bio: text("bio"),
+  location: varchar("location", { length: 180 }),
+  avatarUrl: text("avatarUrl"),
+  status: mysqlEnum("status", ["draft", "active", "paused"]).default("draft").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const services = mysqlTable("services", {
+  id: int("id").autoincrement().primaryKey(),
+  providerUserId: int("providerUserId").notNull(),
+  title: varchar("title", { length: 180 }).notNull(),
+  category: varchar("category", { length: 80 }).notNull(),
+  description: text("description").notNull(),
+  location: varchar("location", { length: 180 }),
+  priceCents: int("priceCents").notNull(),
+  imageUrl: text("imageUrl"),
+  commissionRateBps: int("commissionRateBps").default(1000).notNull(),
+  status: mysqlEnum("status", ["draft", "pending", "active", "paused", "archived"]).default("pending").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const serviceRequests = mysqlTable("serviceRequests", {
+  id: int("id").autoincrement().primaryKey(),
+  serviceId: int("serviceId").notNull(),
+  providerUserId: int("providerUserId").notNull(),
+  buyerUserId: int("buyerUserId"),
+  buyerName: varchar("buyerName", { length: 160 }).notNull(),
+  buyerPhone: varchar("buyerPhone", { length: 40 }).notNull(),
+  message: text("message"),
+  agreedPriceCents: int("agreedPriceCents").notNull(),
+  commissionCents: int("commissionCents").notNull(),
+  commissionRateBps: int("commissionRateBps").notNull(),
+  status: mysqlEnum("status", ["received", "contacted", "accepted", "completed", "cancelled"]).default("received").notNull(),
+  commissionCollectionStatus: mysqlEnum("commissionCollectionStatus", ["pending", "collected", "waived"]).default("pending").notNull(),
+  commissionCollectedAt: timestamp("commissionCollectedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type Seller = typeof sellers.$inferSelect;
@@ -79,3 +124,6 @@ export type Product = typeof products.$inferSelect;
 export type Order = typeof orders.$inferSelect;
 export type OrderItem = typeof orderItems.$inferSelect;
 export type CommissionSetting = typeof commissionSettings.$inferSelect;
+export type ServiceProfile = typeof serviceProfiles.$inferSelect;
+export type Service = typeof services.$inferSelect;
+export type ServiceRequest = typeof serviceRequests.$inferSelect;
