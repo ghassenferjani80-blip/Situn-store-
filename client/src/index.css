@@ -878,3 +878,41 @@ body { background: var(--paper); }
 .situn-shell .platform-topic-strip span { background: #fff8eb; }
 .situn-shell .platform-topic-strip span:nth-child(3n+2) { border-color: #8ab7a1 !important; background: #f2fbf5; }
 .situn-shell .platform-topic-strip span:nth-child(3n) { border-color: #b89bd0 !important; background: #faf5ff; }
+
+/* Requested gold frames with silver symbols. */
+:root { --situn-gold: #c9954f; --situn-gold-soft: #fff8eb; --situn-silver: #8f989f; }
+.situn-shell .header-spotlight, .situn-shell .header-language-switcher, .situn-shell .profile-trigger, .situn-shell .cart-trigger { border: 1px solid var(--situn-gold) !important; background: var(--situn-gold-soft) !important; color: #111 !important; }
+.situn-shell .header-spotlight svg, .situn-shell .header-language-switcher > svg, .situn-shell .profile-trigger svg, .situn-shell .cart-trigger svg { color: var(--situn-silver) !important; stroke: var(--situn-silver) !important; }
+.situn-shell .header-spotlight:hover, .situn-shell .header-language-switcher:hover, .situn-shell .profile-trigger:hover, .situn-shell .cart-trigger:hover { border-color: #a97025 !important; background: #f6dfb5 !important; color: #111 !important; }
+.situn-shell .header-language-switcher button, .situn-shell .header-language-switcher button.active { color: #111 !important; }
+.situn-shell .header-language-switcher button.active { text-decoration-color: var(--situn-gold); }
+.situn-shell .language-dock-trigger { border-color: var(--situn-gold) !important; background: var(--situn-gold-soft) !important; color: var(--situn-silver) !important; }
+.situn-shell .language-dock-trigger svg { color: var(--situn-silver) !important; stroke: var(--situn-silver) !important; }
+.situn-shell .catalogue-tools .search-box, .situn-shell .catalogue-tools .search-box:nth-child(2), .situn-shell .catalogue-tools .price-box { border-color: var(--situn-gold) !important; background: var(--situn-gold-soft) !important; }
+.situn-shell .path-links a, .situn-shell .path-links a:nth-child(2n), .situn-shell .path-links a:nth-child(3n) { border-color: var(--situn-gold) !important; background: var(--situn-gold-soft) !important; }
+.situn-shell .path-links a svg, .situn-shell .quick-add svg, .situn-shell .platform-route-icon svg, .situn-shell .platform-route-arrow { color: var(--situn-silver) !important; stroke: var(--situn-silver) !important; }
+.situn-shell .product-card, .situn-shell .platform-route-card { border-color: #d5ad6d !important; }
+.situn-shell .quick-add { border-color: var(--situn-gold) !important; background: #fff8eb !important; }
+.situn-shell .quick-add svg { color: var(--situn-silver) !important; }
+.situn-shell .platform-route-icon, .situn-shell .platform-route-card:nth-child(3n+1) .platform-route-icon, .situn-shell .platform-route-card:nth-child(3n+2) .platform-route-icon, .situn-shell .platform-route-card:nth-child(3n) .platform-route-icon { border-color: var(--situn-gold) !important; background: var(--situn-gold-soft) !important; color: var(--situn-silver) !important; }
+
+/* Keep the gold/silver treatment limited to the top navigation. */
+.situn-shell .path-links a, .situn-shell .path-links a:nth-child(2n), .situn-shell .path-links a:nth-child(3n) { display: inline; border: 0 !important; border-bottom: 1px solid #77636b !important; border-radius: 0; padding: 0 0 4px; background: transparent !important; }
+.situn-shell .path-links a svg { color: inherit !important; stroke: currentColor !important; }
+.situn-shell .product-card, .situn-shell .product-card:nth-child(3n+1), .situn-shell .product-card:nth-child(3n+2), .situn-shell .product-card:nth-child(3n) { border: 0 !important; border-radius: 0; padding: 0 0 12px; background: transparent !important; box-shadow: none; }
+.situn-shell .quick-add { border: 1px solid rgba(255,255,255,.75) !important; background: rgba(23,21,19,.6) !important; color: #fff !important; }
+.situn-shell .quick-add svg { color: #fff !important; stroke: #fff !important; }
+.situn-shell .platform-route-icon, .situn-shell .platform-route-card:nth-child(3n+1) .platform-route-icon, .situn-shell .platform-route-card:nth-child(3n+2) .platform-route-icon, .situn-shell .platform-route-card:nth-child(3n) .platform-route-icon { border-color: #80632e !important; background: transparent !important; color: #e4b45f !important; }
+.situn-shell .platform-route-icon svg, .situn-shell .platform-route-arrow { color: #e4b45f !important; stroke: #e4b45f !important; }
+.situn-shell .platform-topic-strip span, .situn-shell .platform-topic-strip span:nth-child(3n+2), .situn-shell .platform-topic-strip span:nth-child(3n) { border-color: #3b3327 !important; background: transparent !important; color: #bdb5a8 !important; }
+
+/* Final top-only palette: gold controls, silver icons, readable light-silver descriptions. */
+.situn-shell .site-header .header-spotlight, .situn-shell .site-header .header-language-switcher, .situn-shell .site-header .profile-trigger, .situn-shell .site-header .cart-trigger { border-color: #c9954f !important; background: #fff8eb !important; color: #111 !important; }
+.situn-shell .site-header .header-spotlight svg, .situn-shell .site-header .header-language-switcher > svg, .situn-shell .site-header .profile-trigger svg, .situn-shell .site-header .cart-trigger svg { color: #9aa1a8 !important; stroke: #9aa1a8 !important; }
+.situn-shell .site-header .header-spotlight:hover, .situn-shell .site-header .header-language-switcher:hover, .situn-shell .site-header .profile-trigger:hover, .situn-shell .site-header .cart-trigger:hover { background: #f3d79f !important; border-color: #a97025 !important; }
+.situn-shell .site-header .header-language-switcher button { color: #111 !important; }
+.situn-shell .site-header .header-language-switcher button.active { color: #9a641f !important; }
+.situn-shell .brand-wordmark { color: #b67b26 !important; text-shadow: 0 1px 0 #f4d99d; }
+.situn-shell .language-dock-trigger { border-color: #c9954f !important; background: #fff8eb !important; color: #9aa1a8 !important; }
+.situn-shell .language-dock-trigger svg { color: #9aa1a8 !important; stroke: #9aa1a8 !important; }
+.situn-shell .hero-intro, .situn-shell .section-note, .situn-shell .seller-copy p, .situn-shell .hero-caption, .situn-shell .platform-map-heading > p:last-child, .situn-shell .platform-route-card small, .situn-shell .trust-intro > p:not(.eyebrow), .situn-shell .trust-steps p, .marketplace-page .section-hero > p:not(.section-kicker), .marketplace-page .section-heading > p, .marketplace-page .market-card p { color: #707880 !important; }
