@@ -840,3 +840,18 @@ body { background: var(--paper); }
   .situn-shell .header-actions { gap: 6px; }
   .situn-shell .header-spotlight, .situn-shell .header-language-switcher { min-width: 38px; min-height: 38px; }
 }
+
+/* Restrained luxury accents: gold wordmark and colorful, high-contrast fields. */
+.situn-shell .brand-wordmark { color: #b67b26; font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; letter-spacing: .18em; text-shadow: 0 1px 0 #f9e4b9; }
+.situn-shell .brand-logo { border-radius: 8px; }
+.situn-shell .catalogue-tools .search-box { min-height: 38px; border: 1px solid #c9954f; border-radius: 10px; padding: 8px 10px; background: #fffaf1; color: #111 !important; box-shadow: 0 3px 10px rgba(201,149,79,.1); }
+.situn-shell .catalogue-tools .search-box:nth-child(2) { border-color: #8ab7a1; background: #f3fbf6; }
+.situn-shell .catalogue-tools .price-box { border-color: #b89bd0; background: #faf5ff; }
+.situn-shell .calculator-fields input { border-color: #c9954f; background: #fffaf1; color: #111 !important; }
+.situn-shell .calculator-fields label:nth-child(2) input { border-color: #8ab7a1; background: #f3fbf6; }
+.situn-shell .catalogue-tools .search-box input { color: #111 !important; }
+.situn-shell .catalogue-tools .search-box input::placeholder { color: #111 !important; opacity: .72; }
+@media (max-width: 560px) {
+  .situn-shell .brand-wordmark { font-size: 23px; letter-spacing: .12em; }
+  .situn-shell .catalogue-tools .search-box { min-height: 42px; }
+}
