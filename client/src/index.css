@@ -766,3 +766,11 @@ body { background: var(--paper); }
 .section-header nav a, .services-header nav a { transition: color .18s ease, transform .18s ease; }
 .section-header nav a:hover, .services-header nav a:hover { transform: translateY(-1px); }
 @media (max-width: 560px) { .commission-notice { align-items: flex-start; gap: 9px; margin: 12px 7vw; padding: 11px 12px; } .commission-notice-icon { width: 32px; height: 32px; } .commission-notice strong { font-size: 11px; } .commission-notice p { font-size: 9px; line-height: 1.5; } .commission-notice-check { width: 16px; height: 16px; } }
+
+/* Fast discovery controls for every listing type. */
+.market-filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: -18px 0 25px; }
+.market-filter-bar button { border: 1px solid #7d6370; border-radius: 999px; padding: 8px 12px; background: #493440; color: #f5e9db; font-size: 10px; cursor: pointer; transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease; }
+.market-filter-bar button:hover { transform: translateY(-1px); border-color: #d6a75e; color: #fff6e8; }
+.market-filter-bar button.active { border-color: #d6a75e; background: #d6a75e; color: #38252f; font-weight: 800; }
+.market-card img { content-visibility: auto; }
+@media (max-width: 560px) { .market-filter-bar { flex-wrap: nowrap; margin: -12px 0 20px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; } .market-filter-bar::-webkit-scrollbar { display: none; } .market-filter-bar button { flex: 0 0 auto; padding: 7px 10px; font-size: 9px; } }
