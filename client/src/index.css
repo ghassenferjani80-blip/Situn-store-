@@ -855,3 +855,26 @@ body { background: var(--paper); }
   .situn-shell .brand-wordmark { font-size: 23px; letter-spacing: .12em; }
   .situn-shell .catalogue-tools .search-box { min-height: 42px; }
 }
+
+/* Color accents for symbols, icons, cards and framed fields. */
+.situn-shell .brand-mark, .situn-shell .ornament { color: #b67b26 !important; }
+.situn-shell .header-spotlight, .situn-shell .header-language-switcher { box-shadow: 0 4px 12px rgba(77,45,55,.08); }
+.situn-shell .path-links a { display: inline-flex; align-items: center; justify-content: center; border: 1px solid #c9954f !important; border-radius: 8px; padding: 7px 10px; background: #fff8eb; }
+.situn-shell .path-links a:nth-child(2n) { border-color: #8ab7a1 !important; background: #f2fbf5; }
+.situn-shell .path-links a:nth-child(3n) { border-color: #b89bd0 !important; background: #faf5ff; }
+.situn-shell .product-card { border: 1px solid #e5d4bd; border-radius: 12px; padding: 8px 8px 12px; background: #fffaf3; box-shadow: 0 8px 22px rgba(81,56,36,.07); }
+.situn-shell .product-card:nth-child(3n+1) { border-color: #d9bd87; }
+.situn-shell .product-card:nth-child(3n+2) { border-color: #a9cbb8; }
+.situn-shell .product-card:nth-child(3n) { border-color: #c6a9d6; }
+.situn-shell .quick-add { border-color: #fff !important; background: #b67b26 !important; color: #fff !important; }
+.situn-shell .product-card:nth-child(3n+2) .quick-add { background: #4e8c73 !important; }
+.situn-shell .product-card:nth-child(3n) .quick-add { background: #816294 !important; }
+.situn-shell .platform-route-card:nth-child(3n+1) .platform-route-icon { border-color: #c9954f; background: rgba(201,149,79,.14); color: #9a641f; }
+.situn-shell .platform-route-card:nth-child(3n+2) .platform-route-icon { border-color: #8ab7a1; background: rgba(138,183,161,.15); color: #3f8065; }
+.situn-shell .platform-route-card:nth-child(3n) .platform-route-icon { border-color: #b89bd0; background: rgba(184,155,208,.16); color: #76528d; }
+.situn-shell .platform-route-card:nth-child(3n+1) .platform-route-arrow { color: #c9954f; }
+.situn-shell .platform-route-card:nth-child(3n+2) .platform-route-arrow { color: #8ab7a1; }
+.situn-shell .platform-route-card:nth-child(3n) .platform-route-arrow { color: #b89bd0; }
+.situn-shell .platform-topic-strip span { background: #fff8eb; }
+.situn-shell .platform-topic-strip span:nth-child(3n+2) { border-color: #8ab7a1 !important; background: #f2fbf5; }
+.situn-shell .platform-topic-strip span:nth-child(3n) { border-color: #b89bd0 !important; background: #faf5ff; }
