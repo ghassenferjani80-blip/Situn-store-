@@ -804,3 +804,39 @@ body { background: var(--paper); }
 .situn-shell .coverage-strip > p:not(.eyebrow), .situn-shell .coverage-places button { color: #5c4f57 !important; }
 .situn-shell .seller-section { background: #fbf8f4 !important; }
 .situn-shell .site-footer { border-top: 1px solid #e3d8cc; }
+
+/* Accessibility contrast pass: no pale text on the white public surface. */
+.situn-shell .topline, .situn-shell .site-header { border-color: #4b3b43 !important; }
+.situn-shell .topline, .situn-shell .topline-note { color: #514149 !important; }
+.situn-shell .header-language-switcher button { color: #513e4a !important; }
+.situn-shell .header-language-switcher button.active { color: #7b531e !important; font-weight: 900; }
+.situn-shell .profile-trigger, .situn-shell .cart-trigger { color: #3a2931 !important; }
+.situn-shell .hero-secondary, .situn-shell .outline-button { border-color: #3a2931 !important; color: #3a2931 !important; font-weight: 700; }
+.situn-shell .hero-secondary:hover, .situn-shell .outline-button:hover { background: #3a2931 !important; color: #fff !important; }
+.situn-shell .path-links a { color: #514149 !important; border-color: #77636b !important; font-weight: 600; }
+.situn-shell .path-links a:hover { color: #7b531e !important; border-color: #c9954f !important; }
+.situn-shell .platform-topic-strip span { border-color: #988b83 !important; color: #514149 !important; }
+.situn-shell .coverage-places button { border-color: #75666d !important; color: #514149 !important; }
+.situn-shell .coverage-places button:hover { color: #fff !important; }
+.situn-shell input, .situn-shell textarea, .situn-shell select { color: #3a2931; }
+.situn-shell input::placeholder, .situn-shell textarea::placeholder { color: #75666d; opacity: 1; }
+
+/* Requested black text on the white surfaces. */
+.situn-shell .topline, .situn-shell .topline-note, .situn-shell .hero-intro, .situn-shell .section-note, .situn-shell .seller-copy p, .situn-shell .hero-caption, .situn-shell .product-category, .situn-shell .calculator-result, .situn-shell .path-links a, .situn-shell .search-box, .situn-shell .search-box input, .situn-shell .platform-map-heading > p:last-child, .situn-shell .coverage-strip > p:not(.eyebrow), .situn-shell .coverage-places button, .situn-shell .platform-topic-strip span { color: #111 !important; }
+.situn-shell .search-box input::placeholder { color: #111 !important; opacity: .78; }
+.situn-shell .section-note, .situn-shell .seller-copy small { font-weight: 500; }
+.marketplace-page .section-hero > p:not(.section-kicker), .marketplace-page .section-heading > p, .marketplace-page .market-card p, .marketplace-page .section-profile, .marketplace-page .section-header nav a { color: #111 !important; }
+.marketplace-page .section-search input { color: #111 !important; }
+.marketplace-page .section-search input::placeholder { color: #111 !important; opacity: .75; }
+
+/* Mobile header balance: keep language access visible without covering the hero. */
+.situn-shell .header-publish-link { color: #8b5a27; background: rgba(201,149,79,.13); }
+.situn-shell .header-publish-link:hover { background: #c9954f; color: #fff; }
+.situn-shell .language-dock { top: 10px; left: 10px; }
+@media (max-width: 560px) {
+  .language-dock-trigger { width: 38px; height: 38px; min-height: 38px; justify-content: center; padding: 0; }
+  .language-dock-trigger span, .language-dock-trigger .language-dock-chevron { display: none; }
+  .language-dock-menu { margin-top: 5px; }
+  .situn-shell .header-actions { gap: 6px; }
+  .situn-shell .header-spotlight, .situn-shell .header-language-switcher { min-width: 38px; min-height: 38px; }
+}
