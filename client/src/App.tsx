@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import LanguageDock from "./components/LanguageDock";
 import { ThemeProvider } from "./contexts/ThemeContext";
 const Home = lazy(() => import("./pages/Home"));
 const Admin = lazy(() => import("./pages/Admin"));
@@ -57,6 +58,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
+          <LanguageDock />
           <Router />
         </TooltipProvider>
       </ThemeProvider>

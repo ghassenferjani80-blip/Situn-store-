@@ -717,3 +717,52 @@ h2 { margin-bottom: 0; font-size: clamp(48px, 6vw, 82px); font-weight: 600; line
 .services-hero-card { min-height: 300px; }
 @media (max-width: 850px) { .brand-logo { width: 116px; height: 44px; } .header-actions { gap: 6px; } .header-spotlight, .header-language-switcher { min-height: 36px; padding: 6px 9px; } .situn-shell .hero-visual { width: min(100%, 330px); } .situn-shell .hero-arch { height: 350px; } .situn-shell .product-image { height: 205px; } }
 @media (max-width: 560px) { .topline-note { display: none; } .brand-logo { width: 106px; height: 40px; } .header-actions { width: 100%; justify-content: space-between; } .header-spotlight span, .header-language-switcher button:not(.active) { display: none; } .header-spotlight, .header-language-switcher { min-width: 38px; justify-content: center; padding: 7px; } .header-language-switcher { gap: 4px; } .situn-shell .hero-arch { height: 285px; } .situn-shell .product-image { height: 165px; } .services-hero-card { min-height: 240px; } }
+
+/* Lighter luxury palette and global language control. */
+:root { --ink: #3a2931; --paper: #f8f1e7; --muted: #74626b; --gold: #c9954f; }
+body { background: var(--paper); }
+.situn-shell, .situn-shell .site-header, .situn-shell .topline, .situn-shell .catalogue-section, .situn-shell .hero-section { background: #493440; }
+.situn-shell .manifesto { background: #5b3d47; }
+.situn-shell .coverage-strip, .situn-shell .seller-section { background: #f1e3d2; color: #3a2931; }
+.services-page, .services-header, .services-hero, .services-how { background: #493440; }
+.services-content { background: #5b3d47; }
+.services-footer { background: #362531; }
+.language-dock { position: fixed; z-index: 100; top: 14px; left: 18px; }
+.language-dock-trigger { display: inline-flex; align-items: center; gap: 6px; min-height: 38px; border: 1px solid #d6a75e; border-radius: 999px; padding: 7px 11px; background: #684653; color: #fff4e5; box-shadow: 0 6px 20px rgba(35,20,29,.22); font-size: 10px; font-weight: 800; cursor: pointer; }
+.language-dock-trigger:hover { background: #825262; }
+.language-dock-chevron { transition: transform .18s ease; }
+.language-dock-chevron.open { transform: rotate(180deg); }
+.language-dock-menu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; min-width: 150px; margin-top: 6px; padding: 6px; border: 1px solid #c9954f; border-radius: 12px; background: #f8f1e7; box-shadow: 0 14px 35px rgba(35,20,29,.25); }
+.language-dock-menu button { border: 0; border-radius: 7px; padding: 7px 4px; background: transparent; color: #493440; font-size: 10px; font-weight: 800; cursor: pointer; }
+.language-dock-menu button:hover, .language-dock-menu button.active { background: #e7c486; color: #362531; }
+.situn-shell .hero-visual { width: min(100%, 350px); }
+.situn-shell .hero-arch { height: 370px; }
+.situn-shell .product-image { height: 210px; }
+.market-card img, .market-image-placeholder { height: 155px; }
+.post-detail-grid > img, .post-detail-grid > .market-image-placeholder { min-height: 300px; }
+.services-hero-card { min-height: 260px; }
+@media (max-width: 850px) { .language-dock { top: 12px; left: 12px; } .situn-shell .hero-visual { width: min(100%, 310px); } .situn-shell .hero-arch { height: 315px; } .situn-shell .product-image { height: 180px; } .market-card img, .market-image-placeholder { height: 140px; } .post-detail-grid > img, .post-detail-grid > .market-image-placeholder { min-height: 250px; } }
+@media (max-width: 560px) { .language-dock { top: 10px; left: 10px; } .language-dock-trigger { min-height: 36px; padding: 6px 9px; } .language-dock-menu { min-width: 142px; } .situn-shell .hero-arch { height: 255px; } .situn-shell .product-image { height: 145px; } .market-card img, .market-image-placeholder { height: 120px; } .post-detail-grid > img, .post-detail-grid > .market-image-placeholder { min-height: 210px; } .services-hero-card { min-height: 215px; } }
+
+/* Calmer product cards: compact imagery and softer information hierarchy. */
+.product-image { height: 185px; }
+.product-index { top: 9px; left: 9px; opacity: .72; font-size: 8px; letter-spacing: .06em; }
+.quick-add { right: 9px; bottom: 9px; width: 31px; height: 31px; }
+.product-meta { padding-top: 9px; }
+.product-category { margin-bottom: 3px; font-size: 8px; }
+.product-meta h3 { font-size: 20px; line-height: 1.05; }
+.product-meta strong { font-size: 18px; }
+.product-description { margin-top: 6px; font-size: 10px; }
+@media (max-width: 850px) { .product-image { height: 165px; } .product-meta h3 { font-size: 19px; } }
+@media (max-width: 560px) { .product-grid { gap: 22px 10px; } .product-image { height: 135px; } .product-index { top: 7px; left: 7px; font-size: 7px; } .quick-add { right: 7px; bottom: 7px; width: 29px; height: 29px; } .product-meta { padding-top: 7px; } .product-category { font-size: 7px; letter-spacing: .08em; } .product-meta h3 { font-size: 17px; line-height: 1.08; } .product-meta strong { margin-top: 5px; font-size: 16px; } .product-description { font-size: 9px; line-height: 1.35; } }
+
+/* Clear, calm commission notice for buyers, sellers and service providers. */
+.commission-notice { display: flex; align-items: center; gap: 13px; max-width: 1120px; margin: 18px auto; border: 1px solid #d6a75e; border-radius: 14px; padding: 13px 17px; background: linear-gradient(110deg, #fff5e5, #f1dfce); color: #493440; box-shadow: 0 8px 24px rgba(62,39,47,.12); }
+.commission-notice-icon { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #c9954f; color: #fffaf1; }
+.commission-notice strong { display: block; color: #6e4738; font-size: 13px; }
+.commission-notice p { margin: 3px 0 0; color: #765f5d; font-size: 11px; line-height: 1.55; }
+.commission-notice-check { margin-inline-start: auto; flex: 0 0 auto; color: #4f8b73; }
+.section-header nav, .services-header nav { align-items: center; }
+.section-header nav a, .services-header nav a { transition: color .18s ease, transform .18s ease; }
+.section-header nav a:hover, .services-header nav a:hover { transform: translateY(-1px); }
+@media (max-width: 560px) { .commission-notice { align-items: flex-start; gap: 9px; margin: 12px 7vw; padding: 11px 12px; } .commission-notice-icon { width: 32px; height: 32px; } .commission-notice strong { font-size: 11px; } .commission-notice p { font-size: 9px; line-height: 1.5; } .commission-notice-check { width: 16px; height: 16px; } }
