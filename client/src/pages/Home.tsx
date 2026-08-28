@@ -15,6 +15,7 @@ import {
   BriefcaseBusiness,
   CarFront,
   House,
+  Globe2,
   Megaphone,
   Trash2,
   X,
@@ -184,11 +185,11 @@ export default function Home() {
 
   return (
     <div className="situn-shell" lang={language} dir={language === "ar" ? "rtl" : "ltr"}>
-      <div className="topline"><span>{language === "ar" ? "اختيارات مستقلة · وساطة واضحة" : language === "en" ? "INDEPENDENT SELECTION · CLEAR INTRODUCTION" : "SÉLECTION INDÉPENDANTE · MISE EN RELATION CLAIRE"}</span><span className="language-switcher" aria-label="Choose language">{(["fr", "ar", "en", "es", "it", "de", "pt", "tr", "nl"] as Language[]).map((item) => <button key={item} className={language === item ? "active" : ""} onClick={() => setLanguage(item)} aria-pressed={language === item}>{item.toUpperCase()}</button>)}</span></div>
+      <div className="topline"><span>{language === "ar" ? "اختيارات مستقلة · وساطة واضحة" : language === "en" ? "INDEPENDENT SELECTION · CLEAR INTRODUCTION" : "SÉLECTION INDÉPENDANTE · MISE EN RELATION CLAIRE"}</span><span className="topline-note">SITUN · WORLDWIDE</span></div>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="SITUN accueil"><span className="brand-mark">✦</span><span>SITUN</span></a>
-        <nav className="main-nav" aria-label="Navigation principale"><a href="/services">{language === "ar" ? "الخدمات والعمل" : language === "en" ? "Services & work" : "Services & travail"}</a><a href="/promotion">{language === "ar" ? "الترويج" : language === "en" ? "Promotion" : "Promotion"}</a><a href="/marketplace">{language === "ar" ? "التسوق والشراء" : language === "en" ? "Shop & buy" : "Acheter"}</a><a href="/workspace">{tx.navWork}</a></nav>
-        <div className="header-actions"><a className="profile-trigger" href="/workspace" aria-label={tx.navProfile}><UserCircle size={20} /><span>{tx.navProfile}</span></a><button className="cart-trigger" onClick={() => setCartOpen(true)} aria-label="Ouvrir le panier"><ShoppingBag size={20} /><span>{tx.cart}</span>{totalItems > 0 && <b>{totalItems}</b>}</button></div>
+        <a className="brand" href="#top" aria-label="SITUN accueil"><img className="brand-logo" src="/manus-storage/situn-logo-luxury_9d09d64e.png" alt="SITUN" /></a>
+        <nav className="main-nav" aria-label="Navigation principale"><a href="/promotion">{language === "ar" ? "الترويج" : language === "en" ? "Promotion" : "Promotion"}</a><a href="/marketplace">{language === "ar" ? "التسوق والشراء" : language === "en" ? "Shop & buy" : "Acheter"}</a><a href="/workspace">{tx.navWork}</a></nav>
+        <div className="header-actions"><a className="header-spotlight header-search-link" href="/marketplace#offers" aria-label={language === "ar" ? "البحث في الإعلانات" : language === "en" ? "Search listings" : "Rechercher une annonce"}><Search size={17} /><span>{language === "ar" ? "بحث" : language === "en" ? "Search" : "Recherche"}</span></a><a className="header-spotlight header-services-link" href="/services" aria-label={language === "ar" ? "الخدمات والعمل" : language === "en" ? "Services and work" : "Services et travail"}><BriefcaseBusiness size={17} /><span>{language === "ar" ? "الخدمات" : language === "en" ? "Services" : "Services"}</span></a><div className="header-language-switcher" aria-label="Choose language"><Globe2 size={16} />{(["fr", "ar", "en", "es", "it", "de", "pt", "tr", "nl"] as Language[]).map((item) => <button key={item} className={language === item ? "active" : ""} onClick={() => setLanguage(item)} aria-pressed={language === item}>{item.toUpperCase()}</button>)}</div><a className="profile-trigger" href="/workspace" aria-label={tx.navProfile}><UserCircle size={20} /><span>{tx.navProfile}</span></a><button className="cart-trigger" onClick={() => setCartOpen(true)} aria-label="Ouvrir le panier"><ShoppingBag size={20} /><span>{tx.cart}</span>{totalItems > 0 && <b>{totalItems}</b>}</button></div>
       </header>
 
       <main id="top"><script type="application/ld+json">{JSON.stringify({ "@context": "https://schema.org", "@type": "ItemList", name: "SITUN marketplace listings", itemListElement: catalogueProducts.map((product, index) => ({ "@type": "ListItem", position: index + 1, name: product.name, category: product.category, offers: { "@type": "Offer", price: product.price, priceCurrency: "EUR", availability: "https://schema.org/InStock" } })) })}</script>

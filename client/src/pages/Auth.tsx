@@ -24,7 +24,7 @@ export default function Auth() {
 
   return (
     <main className="auth-page" dir="rtl">
-      <header className="auth-header"><Link href="/" className="services-brand"><span>✦</span> SITUN</Link><Link href="/" className="profile-back"><ArrowRight size={16} /> العودة للموقع</Link></header>
+      <header className="auth-header"><Link href="/" className="services-brand"><img className="brand-logo" src="/manus-storage/situn-logo-luxury_9d09d64e.png" alt="SITUN" /></Link><Link href="/" className="profile-back"><ArrowRight size={16} /> العودة للموقع</Link></header>
       <section className="auth-shell">
         <div className="auth-intro"><p className="services-kicker"><LockKeyhole size={15} /> حساب SITUN مستقل</p><h1>{mode === "login" ? "مرحبًا بعودتك." : "ابدأ حضورك."}</h1><p>أنشئ حسابك باسم SITUN لإدارة منشوراتك وخدماتك وفرصك، من دون مغادرة منصة SITUN إلى موقع آخر.</p></div>
         <form className="auth-card" onSubmit={submit}>
