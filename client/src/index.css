@@ -774,3 +774,33 @@ body { background: var(--paper); }
 .market-filter-bar button.active { border-color: #d6a75e; background: #d6a75e; color: #38252f; font-weight: 800; }
 .market-card img { content-visibility: auto; }
 @media (max-width: 560px) { .market-filter-bar { flex-wrap: nowrap; margin: -12px 0 20px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; } .market-filter-bar::-webkit-scrollbar { display: none; } .market-filter-bar button { flex: 0 0 auto; padding: 7px 10px; font-size: 9px; } }
+
+/* White-page mode: bright background with luxury accents and readable text. */
+.situn-shell { background: #fff !important; color: #3a2931; }
+.situn-shell .topline, .situn-shell .site-header, .situn-shell .hero-section, .situn-shell .catalogue-section, .situn-shell .coverage-strip, .situn-shell .seller-section, .situn-shell .site-footer { background: #fff !important; color: #3a2931; }
+.situn-shell .manifesto, .situn-shell .platform-map { background: #faf7f2 !important; color: #3a2931; }
+.situn-shell .trust-section { background: #f7f4ef !important; color: #3a2931; }
+.situn-shell .manifesto p, .situn-shell .platform-map-heading h2, .situn-shell .platform-route-card strong, .situn-shell .trust-section h2, .situn-shell .trust-steps h3 { color: #3a2931; }
+.situn-shell .platform-map-heading > p:last-child, .situn-shell .platform-route-card small, .situn-shell .trust-intro > p:not(.eyebrow), .situn-shell .trust-steps p { color: #675b63; }
+.situn-shell .platform-route-card { border-color: #ded2c5; background: #fff; color: #3a2931; }
+.situn-shell .platform-route-card:hover { background: #fff8ed; }
+.situn-shell .trust-steps article { background: #fff; border-color: #d6a75e; }
+.situn-shell .footer-brand { color: #3a2931; }
+.situn-shell .site-footer, .situn-shell .site-footer a { color: #675b63; }
+.marketplace-page .section-header, .marketplace-page .section-hero, .marketplace-page .section-content, .marketplace-page .post-detail { background: #fff !important; color: #3a2931; }
+.marketplace-page .section-hero h1, .marketplace-page .section-heading h2, .marketplace-page .market-card-title, .marketplace-page .market-card h3 { color: #3a2931; }
+.marketplace-page .section-hero > p:not(.section-kicker), .marketplace-page .section-heading > p, .marketplace-page .market-card p { color: #675b63; }
+.marketplace-page .market-card { border-color: #e1d6ca; background: #fff; }
+.marketplace-page .section-footer { background: #faf7f2; color: #675b63; }
+@media (max-width: 560px) { .situn-shell .hero-section { padding-top: 54px; } .situn-shell .manifesto, .situn-shell .platform-map, .situn-shell .trust-section { background: #fff !important; } }
+
+/* Final contrast pass for the white public homepage. */
+.situn-shell h1, .situn-shell h2, .situn-shell h3, .situn-shell .brand, .situn-shell .main-nav a, .situn-shell .cart-trigger { color: #3a2931 !important; }
+.situn-shell .hero-intro, .situn-shell .section-note, .situn-shell .seller-copy p { color: #5c4f57 !important; }
+.situn-shell .hero-caption, .situn-shell .product-category, .situn-shell .calculator-result { color: #766773 !important; }
+.situn-shell .priority-line, .situn-shell .eyebrow { color: #8a6430 !important; }
+.situn-shell .search-box, .situn-shell .search-box input { color: #5c4f57 !important; }
+.situn-shell .search-box input::placeholder { color: #897b83; opacity: 1; }
+.situn-shell .coverage-strip > p:not(.eyebrow), .situn-shell .coverage-places button { color: #5c4f57 !important; }
+.situn-shell .seller-section { background: #fbf8f4 !important; }
+.situn-shell .site-footer { border-top: 1px solid #e3d8cc; }
