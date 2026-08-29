@@ -6,6 +6,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LanguageDock from "./components/LanguageDock";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { CartProvider } from "./contexts/CartContext";
 const Home = lazy(() => import("./pages/Home"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Legal = lazy(() => import("@/pages/Legal"));
@@ -59,7 +60,9 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <LanguageDock />
-          <Router />
+          <CartProvider>
+            <Router />
+          </CartProvider>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

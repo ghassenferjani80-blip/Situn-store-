@@ -916,3 +916,31 @@ body { background: var(--paper); }
 .situn-shell .language-dock-trigger { border-color: #c9954f !important; background: #fff8eb !important; color: #9aa1a8 !important; }
 .situn-shell .language-dock-trigger svg { color: #9aa1a8 !important; stroke: #9aa1a8 !important; }
 .situn-shell .hero-intro, .situn-shell .section-note, .situn-shell .seller-copy p, .situn-shell .hero-caption, .situn-shell .platform-map-heading > p:last-child, .situn-shell .platform-route-card small, .situn-shell .trust-intro > p:not(.eyebrow), .situn-shell .trust-steps p, .marketplace-page .section-hero > p:not(.section-kicker), .marketplace-page .section-heading > p, .marketplace-page .market-card p { color: #707880 !important; }
+
+/* Gold top navigation with blue/black icons, replacing grey accents. */
+.situn-shell .topline, .situn-shell .site-header { background: linear-gradient(110deg, #c9943f 0%, #e2b965 52%, #f0d18c 100%) !important; border-color: #765016 !important; color: #111 !important; }
+.situn-shell .topline, .situn-shell .topline-note, .situn-shell .main-nav a { color: #111 !important; }
+.situn-shell .site-header .brand-wordmark { color: #111 !important; text-shadow: none; }
+.situn-shell .site-header .header-spotlight, .situn-shell .site-header .header-language-switcher, .situn-shell .site-header .profile-trigger, .situn-shell .site-header .cart-trigger { border-color: #111 !important; background: rgba(255,255,255,.48) !important; color: #111 !important; }
+.situn-shell .site-header .header-spotlight svg, .situn-shell .site-header .header-language-switcher > svg, .situn-shell .site-header .profile-trigger svg, .situn-shell .site-header .cart-trigger svg { color: #111 !important; stroke: #111 !important; }
+.situn-shell .site-header > .header-actions > .header-spotlight:nth-child(1) svg, .situn-shell .site-header > .header-actions > .header-spotlight:nth-child(3) svg, .situn-shell .site-header > .header-actions > .cart-trigger svg { color: #0b5ea8 !important; stroke: #0b5ea8 !important; }
+.situn-shell .site-header > .header-actions > .header-spotlight:nth-child(2) svg, .situn-shell .site-header > .header-actions > .header-language-switcher > svg, .situn-shell .site-header > .header-actions > .profile-trigger svg { color: #111 !important; stroke: #111 !important; }
+.situn-shell .site-header .header-language-switcher button, .situn-shell .site-header .header-language-switcher button.active { color: #111 !important; }
+.situn-shell .site-header .header-spotlight:hover, .situn-shell .site-header .header-language-switcher:hover, .situn-shell .site-header .profile-trigger:hover, .situn-shell .site-header .cart-trigger:hover { background: #f8dfaa !important; border-color: #0b5ea8 !important; }
+.situn-shell .language-dock-trigger { border-color: #111 !important; background: #dfb55f !important; color: #0b5ea8 !important; }
+.situn-shell .language-dock-trigger svg { color: #0b5ea8 !important; stroke: #0b5ea8 !important; }
+
+/* Final typography preference: black text everywhere, gold emphasis in descriptions. */
+.situn-shell, .situn-shell h1, .situn-shell h2, .situn-shell h3, .situn-shell p, .situn-shell small, .situn-shell label, .situn-shell a, .situn-shell button, .situn-shell input, .situn-shell textarea, .situn-shell select { color: #111 !important; }
+.situn-shell .eyebrow, .situn-shell .priority-line, .situn-shell .product-category, .situn-shell .calculator-label, .situn-shell .section-kicker, .marketplace-page .section-kicker { color: #b67b26 !important; }
+.situn-shell .brand-wordmark, .situn-shell h1 em, .situn-shell h2 em, .situn-shell .calculator-result strong, .situn-shell .product-meta strong { color: #b67b26 !important; }
+.situn-shell .site-header .header-spotlight svg, .situn-shell .site-header .header-language-switcher > svg, .situn-shell .site-header .profile-trigger svg, .situn-shell .site-header .cart-trigger svg { color: #111 !important; stroke: #111 !important; }
+.situn-shell .site-header > .header-actions > .header-spotlight:nth-child(1) svg, .situn-shell .site-header > .header-actions > .header-spotlight:nth-child(3) svg, .situn-shell .site-header > .header-actions > .cart-trigger svg { color: #0b5ea8 !important; stroke: #0b5ea8 !important; }
+.situn-shell .site-header > .header-actions > .header-spotlight:nth-child(2) svg, .situn-shell .site-header > .header-actions > .header-language-switcher > svg, .situn-shell .site-header > .header-actions > .profile-trigger svg { color: #111 !important; stroke: #111 !important; }
+.situn-shell .language-dock-trigger, .situn-shell .language-dock-trigger svg { color: #0b5ea8 !important; stroke: #0b5ea8 !important; }
+.situn-shell .site-header .header-language-switcher button.active { color: #111 !important; }
+
+/* Description treatment: black body copy with a restrained gold lead. */
+.situn-shell .hero-intro, .situn-shell .section-note, .situn-shell .seller-copy p, .situn-shell .hero-caption, .situn-shell .platform-map-heading > p:last-child, .situn-shell .platform-route-card small, .situn-shell .trust-intro > p:not(.eyebrow), .situn-shell .trust-steps p, .marketplace-page .section-hero > p:not(.section-kicker), .marketplace-page .section-heading > p, .marketplace-page .market-card p, .situn-shell .manifesto p, .situn-shell .manifesto small, .situn-shell .commission-notice p { color: #111 !important; }
+.situn-shell .hero-intro::first-line, .situn-shell .section-note::first-line, .situn-shell .platform-map-heading > p:last-child::first-line, .situn-shell .trust-intro > p:not(.eyebrow)::first-line { color: #b67b26 !important; }
+.situn-shell .seller-copy small { color: #111 !important; }

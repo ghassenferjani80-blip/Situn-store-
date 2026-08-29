@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { startLogin } from "@/const";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
@@ -29,7 +28,7 @@ export default function Admin() {
   const savedSettings = new Map((settings.data ?? []).map((setting) => [setting.category, setting]));
 
   if (loading) return <main className="admin-page"><p>Chargement…</p></main>;
-  if (!isAuthenticated) return <main className="admin-page"><div className="admin-card"><p className="eyebrow">SITUN / OWNER ACCESS</p><h1>Connexion propriétaire.</h1><p>Connectez-vous avec le compte Manus qui a créé le projet SITUN pour gérer les annonces, les commandes et les commissions manuelles.</p><p className="admin-login-note">Utilisez le même compte que celui qui a créé le projet.</p><Button onClick={() => startLogin()}>Se connecter comme propriétaire</Button></div></main>;
+  if (!isAuthenticated) return <main className="admin-page"><div className="admin-card"><p className="eyebrow">SITUN / OWNER ACCESS</p><h1>Connexion propriétaire.</h1><p>Connectez-vous avec votre compte SITUN autorisé pour gérer les annonces, les commandes et les commissions manuelles.</p><p className="admin-login-note">Utilisez l’adresse e-mail du compte propriétaire SITUN.</p><Link href="/auth?next=/admin"><Button>Se connecter comme propriétaire</Button></Link></div></main>;
   if (!isAdmin) return <main className="admin-page"><div className="admin-card"><p className="eyebrow">SITUN / OWNER ACCESS</p><h1>Accès réservé au propriétaire.</h1><p>Ce compte est connecté, mais il n’a pas les droits admin de SITUN. Déconnectez-vous et utilisez le compte qui a créé le projet.</p><div className="admin-actions"><Button onClick={() => logout()}>Changer de compte</Button><Link href="/"><Button variant="outline">Retourner à SITUN</Button></Link></div></div></main>;
 
   const setField = (key: keyof ProductForm, value: string) => setForm((current) => ({ ...current, [key]: value }));

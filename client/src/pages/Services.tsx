@@ -4,7 +4,6 @@ import { ArrowLeft, BriefcaseBusiness, Check, CircleUserRound, LogIn, MessageCir
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import CommissionNotice from "@/components/CommissionNotice";
-import { startLogin } from "@/const";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { SITUN_WHATSAPP } from "@shared/marketplace";
@@ -38,7 +37,7 @@ export default function Services() {
   const myServices = trpc.marketplace.myServices.useQuery(undefined, { enabled: isAuthenticated });
   const saveProfile = trpc.marketplace.saveProfile.useMutation({ onSuccess: async () => { setProfileOpen(false); setNotice("تم حفظ ملفك وإرساله للمراجعة."); await profile.refetch(); } });
   const createService = trpc.marketplace.createService.useMutation({ onSuccess: async () => { setServiceOpen(false); setServiceForm(emptyService); setNotice("تم إرسال الخدمة للمراجعة. ستظهر بعد موافقة المالك."); await myServices.refetch(); } });
-  const requestService = trpc.marketplace.requestService.useMutation({ onSuccess: (result) => { setRequestSent(true); const service = services.data?.find((item) => item.service.id === requestId)?.service; const text = encodeURIComponent(`Bonjour SITUN, je souhaite demander le service « ${service?.title ?? "service"} ». Nom: ${requestForm.name}. Téléphone: ${requestForm.phone}. Message: ${requestForm.message}`); window.open(`https://wa.me/${SITUN_WHATSAPP}?text=${text}`, "_blank", "noopener,noreferrer"); void result; } });
+  const requestService = trpc.marketplace.requestService.useMutation({ onSuccess: (result) => { setRequestSent(true); setNotice("تم إرسال طلبك بنجاح. سيتم فتح WhatsApp للتواصل مع صاحب الخدمة عبر SITUN."); const service = services.data?.find((item) => item.service.id === requestId)?.service; const text = encodeURIComponent(`Bonjour SITUN, je souhaite demander le service « ${service?.title ?? "service"} ». Nom: ${requestForm.name}. Téléphone: ${requestForm.phone}. Message: ${requestForm.message}`); window.open(`https://wa.me/${SITUN_WHATSAPP}?text=${text}`, "_blank", "noopener,noreferrer"); void result; } });
 
   const filtered = useMemo(() => (services.data ?? []).filter(({ service, profile: provider }) => {
     const haystack = `${service.title} ${service.description} ${service.category} ${service.location ?? ""} ${service.country ?? ""} ${service.languages ?? ""} ${provider?.displayName ?? ""}`.toLowerCase();
@@ -46,12 +45,12 @@ export default function Services() {
   }), [services.data, category, query]);
 
   const openProfile = () => {
-    if (!isAuthenticated) return startLogin();
+    if (!isAuthenticated) return window.location.assign(`/auth?next=${encodeURIComponent("/services")}`);
     setProfileForm({ displayName: profile.data?.displayName ?? user?.name ?? "", bio: profile.data?.bio ?? "", location: profile.data?.location ?? "", country: profile.data?.country ?? "", languages: profile.data?.languages ?? "" });
     setProfileOpen(true);
   };
   const openService = () => {
-    if (!isAuthenticated) return startLogin();
+    if (!isAuthenticated) return window.location.assign(`/auth?next=${encodeURIComponent("/services")}`);
     if (!profile.data) { setNotice("أنشئ ملفك الشخصي أولًا، ثم أضف خدمتك."); setProfileOpen(true); return; }
     setServiceOpen(true);
   };
@@ -60,7 +59,7 @@ export default function Services() {
   const submitService = (event: React.FormEvent) => { event.preventDefault(); createService.mutate({ ...serviceForm, priceCents: Math.round(Number(serviceForm.price) * 100) }); };
 
   return <main className="services-page" dir="rtl">
-    <header className="services-header"><Link href="/" className="services-brand"><img className="brand-logo" src="/manus-storage/situn-logo-luxury_9d09d64e.png" alt="SITUN" /></Link><nav><Link href="/marketplace">التسوق والشراء</Link><Link href="/promotion">الترويج</Link><a href="#services">الخدمات والعمل</a><a href="#how">كيف تعمل</a></nav><div className="services-header-actions"><button className="services-profile-button" onClick={openProfile}><CircleUserRound size={18} /> {isAuthenticated ? "ملفي" : "أشارك بمهارتي"}</button>{isAuthenticated && <Link href="/workspace" className="admin-link">مساحة العمل</Link>}{user?.role === "admin" && <Link href="/admin" className="admin-link">الإدارة</Link>}</div></header>
+    <header className="services-header"><Link href="/" className="services-brand"><img className="brand-logo" src="/manus-storage/situn-user-logo_90e86129.jpg" alt="SITUN" /></Link><nav><Link href="/marketplace">التسوق والشراء</Link><Link href="/promotion">الترويج</Link><a href="#services">الخدمات والعمل</a><a href="#how">كيف تعمل</a></nav><div className="services-header-actions"><button className="services-profile-button" onClick={openProfile}><CircleUserRound size={18} /> {isAuthenticated ? "ملفي" : "أشارك بمهارتي"}</button>{isAuthenticated && <Link href="/workspace" className="admin-link">مساحة العمل</Link>}{user?.role === "admin" && <Link href="/admin" className="admin-link">الإدارة</Link>}</div></header>
     <section className="services-hero"><div className="services-hero-copy"><p className="services-kicker"><Sparkles size={15} /> سوق مستقل للأفراد</p><h1>مهارتك.<br /><em>فرصتك.</em></h1><p className="services-lead">اعرض ما تتقنه، عبر الإنترنت أو في الواقع، واكتشف خدمات تساعدك في عملك وحياتك اليومية. SITUN يقرّب الأشخاص، وأنت تختار كيف تعمل وتشتري وتبيع.</p><div className="services-hero-actions"><button className="services-gold-button" onClick={openService}><Plus size={17} /> أعرض خدمتي</button><a className="services-outline-button" href="#services">أكتشف الخدمات <ArrowLeft size={17} /></a></div></div><div className="services-hero-card"><div className="services-card-mark">S<br />I<br />T<br />U<br />N</div><div><p>من الفكرة</p><strong>إلى الفرصة</strong><small>بوساطة واضحة · عمولة معلنة · لا دفع آلي</small></div></div></section>
     <CommissionNotice /><section className="services-ribbon"><span>أقدّم خدمة</span><b>أبحث عن خدمة</b><span>أعرض منتجًا</span><b>أريد الشراء</b><span>وأبدأ عبر SITUN</span></section>
     <section className="services-content" id="services"><div className="services-section-heading"><div><p className="services-kicker">اختيارات بشرية، فرص حقيقية</p><h2>اكتشف <em>الخدمات</em></h2></div><p>من البرمجة والتعليم والتسوق الإلكتروني إلى المنزل والسيارات والحرف. كل خدمة تُراجع قبل النشر.</p></div><div className="services-toolbar"><div className="services-categories">{categories.map((item) => <button key={item} className={category === item ? "active" : ""} onClick={() => setCategory(item)}>{item}</button>)}</div><label className="services-search"><Search size={18} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="ابحث عن خدمة أو مهارة..." /></label></div>{services.isLoading ? <div className="services-empty">جاري تحميل الخدمات...</div> : filtered.length === 0 ? <div className="services-empty"><BriefcaseBusiness size={28} /><p>لا توجد خدمات منشورة بعد في هذا الاختيار.</p><button onClick={openService}>كن أول من يعرض خدمته</button></div> : <div className="service-grid">{filtered.map(({ service, profile: provider }) => <article className="service-card" key={service.id}><div className="service-card-top"><span>{service.category}</span><b>{provider?.displayName?.slice(0, 1) ?? "S"}</b></div><h3>{service.title}</h3><p>{service.description}</p><div className="service-card-meta"><Link href={`/profile/${service.providerUserId}`} className="service-provider-link">{provider?.displayName ?? "Membre SITUN"}</Link>{service.country ? <span> · {service.country}</span> : service.location ? <span> · {service.location}</span> : null}<strong>{euro(service.priceCents)}</strong></div><small className="service-card-details">{service.deliveryMode === "online" ? "عن بعد" : service.deliveryMode === "local" ? "حضوري" : "عن بعد وحضوري"}{service.languages ? ` · ${service.languages}` : ""}</small><button className="service-request-button" onClick={() => { setRequestId(service.id); setRequestForm(emptyRequest); setRequestSent(false); }}>طلب هذه الخدمة <MessageCircle size={16} /></button></article>)}</div>}</section>

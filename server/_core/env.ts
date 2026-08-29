@@ -1,3 +1,6 @@
+export const SHOPIFY_STORE_DOMAIN = process.env.SHOPIFY_STORE_DOMAIN ?? "";
+export const SHOPIFY_STOREFRONT_API_ACCESS_TOKEN = process.env.SHOPIFY_STOREFRONT_API_ACCESS_TOKEN ?? "";
+
 export const ENV = {
   appId: process.env.VITE_APP_ID ?? "",
   cookieSecret: process.env.JWT_SECRET ?? "",

@@ -7,9 +7,11 @@ import { adminProcedure, publicProcedure, protectedProcedure, router } from "./_
 import { TRPCError } from "@trpc/server";
 import { createCashOnDeliveryOrder, createContentReport, createMarketplacePost, createPostInquiry, createProduct, createService, createServiceRequest, deleteMarketplacePost, getMarketplacePost, getPublicServiceProfile, getServiceProfile, getServiceById, listActiveMarketplacePosts, listActiveProducts, listActiveServices, listContentReportsForAdmin, listUsersForAdmin, listMarketplaceTaxonomies, createMarketplaceTaxonomy, updateMarketplaceTaxonomy, listAllMarketplacePostsForAdmin, listAllPostInquiriesForAdmin, listAllProductsForAdmin, listAllServicesForAdmin, listCommissionSettings, listMarketplacePostsForUser, listOrdersForAdmin, listPostInquiriesForOwner, listServiceRequestsForAdmin, listServicesForUser, listSellers, updateCommissionCollectionStatus, updateContentReportStatus, updateMarketplacePost, updateMarketplacePostStatusForAdmin, updateMarketplacePostStatusForUser, updatePostInquiryStatusForOwner, updateUserAccountTypeForAdmin, updateUserPreferences, updateProduct, updateProductStatus, updateServiceRequestCommissionStatus, updateServiceRequestStatus, updateServiceStatus, upsertCommissionSetting, upsertManualServicePayment, upsertServiceProfile, listManualServicePayments } from "./db";
 import { storagePut } from "./storage";
+import { commerceRouter } from "./routers/commerce";
 
 export const appRouter = router({
   system: systemRouter,
+  commerce: commerceRouter,
   auth: router({
     me: publicProcedure.query(({ ctx }) => {
       if (!ctx.user) return null;
