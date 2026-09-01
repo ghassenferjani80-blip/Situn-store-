@@ -21,3 +21,11 @@ SITUN مفتوح لجميع البائعين والمشترين في إقليم 
 ## Latest owner-controlled release
 
 The current owner-controlled release includes the multilingual trust page at `/informations`, owner-managed listings, and transparent service-fee language. The public domain should be rechecked after the managed deployment finishes propagating.
+
+## Shopify ownership handover
+
+The connected Shopify development store is configured for the storefront integration. The owner must claim it from the project management interface under **Settings → Integrations → Shopify** before treating it as an owned production catalog. No customer reviews, ratings, or testimonials are fabricated in the storefront.
+
+## Audit verification
+
+The latest audit ran the automated test suite, TypeScript validation, production build, and responsive visual checks on desktop and mobile. Social login remains intentionally pending until valid Meta credentials and redirect configuration are provided.
