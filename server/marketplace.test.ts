@@ -36,14 +36,15 @@ describe("marketplace calculations", () => {
     expect(getCategoryFees("Transport")).toEqual({ seller: 0.05, buyer: 0.01 });
   });
 
-  it("builds a WhatsApp-ready order summary", () => {
+  it("builds a coordination summary without payment-processing claims", () => {
     const message = buildWhatsAppMessage([{ name: "Noir Élixir", price: 49, quantity: 2 }], 98, {
       name: "Ada Lovelace",
       phone: "0600000000",
       city: "Paris",
     });
     expect(message).toContain("Noir Élixir x2");
-    expect(message).toContain("Paiement à la livraison.");
+    expect(message).toContain("Coordination directe entre les parties");
+    expect(message).not.toContain("Paiement à la livraison");
     expect(message).toContain("Ada Lovelace");
   });
 });

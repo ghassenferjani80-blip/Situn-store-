@@ -344,35 +344,35 @@ h2 { margin-bottom: 0; font-size: clamp(48px, 6vw, 82px); font-weight: 600; line
 @media (max-width: 560px) { .services-header { padding: 17px 6vw; } .services-header nav { display: none; } .services-header-actions { gap: 7px; } .services-profile-button { padding: 8px; font-size: 10px; } .services-hero { min-height: auto; padding: 70px 8vw; } .services-lead { font-size: 15px; } .services-hero-card { min-height: 280px; } .services-content, .services-how { padding: 72px 7vw; } .services-toolbar { grid-template-columns: 1fr; } .service-grid { grid-template-columns: 1fr; } .services-steps { grid-template-columns: 1fr; gap: 30px; } .services-ribbon { justify-content: flex-start; gap: 9px 16px; font-size: 9px; } .services-cta { padding: 42px 7vw; } .services-footer { flex-direction: column; } .services-modal { padding: 28px 20px; } }
 
 /* Unified dark storefront: services, promotion and buying paths share one high-contrast identity */
-.situn-shell { background: #090909; color: #f8f3e9; }
-.situn-shell .topline, .situn-shell .site-header, .situn-shell .catalogue-section { border-color: #2c2924; background: #090909; }
-.situn-shell .topline { color: #aaa092; }
+.situn-shell { background: #ffffff; color: #181411; }
+.situn-shell .topline, .situn-shell .site-header, .situn-shell .catalogue-section { border-color: #d9c9a5; background: #ffffff; }
+.situn-shell .topline { color: #42382d; }
 .situn-shell .language-switcher button { color: #a49b8e; }
-.situn-shell .brand, .situn-shell .main-nav a, .situn-shell .cart-trigger { color: #f8f3e9; }
-.situn-shell .hero-section { background: #090909; }
-.situn-shell h1, .situn-shell h2, .situn-shell h3 { color: #fffaf2; }
-.situn-shell .hero-intro, .situn-shell .section-note, .situn-shell .seller-copy p { color: #c9c1b4; }
-.situn-shell .hero-caption, .situn-shell .product-category, .situn-shell .calculator-result { color: #aaa092; }
-.situn-shell .coverage-strip { background: #151411; color: #f8f3e9; }
-.situn-shell .coverage-strip > p:not(.eyebrow) { color: #e4d9c8; }
-.situn-shell .coverage-places button { border-color: #514631; color: #c9c1b4; }
+.situn-shell .brand, .situn-shell .main-nav a, .situn-shell .cart-trigger { color: #181411; }
+.situn-shell .hero-section { background: #ffffff; }
+.situn-shell h1, .situn-shell h2, .situn-shell h3 { color: #181411; }
+.situn-shell .hero-intro, .situn-shell .section-note, .situn-shell .seller-copy p { color: #3f352d; }
+.situn-shell .hero-caption, .situn-shell .product-category, .situn-shell .calculator-result { color: #54483c; }
+.situn-shell .coverage-strip { background: #fbf8f2; color: #181411; }
+.situn-shell .coverage-strip > p:not(.eyebrow) { color: #3f352d; }
+.situn-shell .coverage-places button { border-color: #b89032; color: #2e261f; }
 .situn-shell .coverage-places button:hover { color: #090909; }
 .situn-shell .catalogue-tools { border-color: #35312a; }
-.situn-shell .category-tabs button { color: #aaa092; }
-.situn-shell .category-tabs button.active, .situn-shell .category-tabs button:hover { color: #fffaf2; }
+.situn-shell .category-tabs button { color: #4a4036; }
+.situn-shell .category-tabs button.active, .situn-shell .category-tabs button:hover { color: #181411; }
 .situn-shell .search-box { border-color: #6b5b3d; color: #e4b45f; }
-.situn-shell .search-box input { color: #fffaf2; }
+.situn-shell .search-box input { color: #181411; }
 .situn-shell .product-image { background: #211e19; }
-.situn-shell .product-meta h3, .situn-shell .calculator-result strong { color: #fffaf2; }
-.situn-shell .seller-section { background: #151411; color: #f8f3e9; }
-.situn-shell .seller-copy small, .situn-shell .calculator-fields label { color: #aaa092; }
+.situn-shell .product-meta h3, .situn-shell .calculator-result strong { color: #181411; }
+.situn-shell .seller-section { background: #fbf8f2; color: #181411; }
+.situn-shell .seller-copy small, .situn-shell .calculator-fields label { color: #4b4035; }
 .situn-shell .calculator-fields input { border-color: #514631; color: #fffaf2; }
 .situn-shell .outline-button { border-color: #e4b45f; color: #f8f3e9; }
 .situn-shell .outline-button:hover { background: #e4b45f; color: #090909; }
-.situn-shell .cart-drawer, .situn-shell .checkout-modal { background: #151411; color: #f8f3e9; }
+.situn-shell .cart-drawer, .situn-shell .checkout-modal { background: #ffffff; color: #181411; }
 .situn-shell .drawer-header, .situn-shell .cart-summary, .situn-shell .checkout-total { border-color: #35312a; }
-.situn-shell .checkout-lead, .situn-shell .checkout-form label { color: #c9c1b4; }
-.situn-shell .checkout-form input, .situn-shell .checkout-form textarea { border-color: #514631; color: #fffaf2; }
+.situn-shell .checkout-lead, .situn-shell .checkout-form label { color: #3f352d; }
+.situn-shell .checkout-form input, .situn-shell .checkout-form textarea { border-color: #b89032; color: #181411; background: #ffffff; }
 
 .profile-page, .workspace-page { min-height: 100vh; background: #090909; color: #f8f3e9; }
 .profile-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #2c2924; padding: 22px 8vw; }
