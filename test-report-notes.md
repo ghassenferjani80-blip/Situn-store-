@@ -91,3 +91,23 @@ FR and EN Services pages show translated navigation, categories, commission noti
 ## Arabic language retest
 
 The Services page in AR renders Arabic navigation, categories, commission notice, workflow section, CTA, footer, and RTL layout correctly. User-created service title/description and language metadata remain in their original language as required. FR/EN request modal tests showed translated fields and no Arabic in the modal. The automated browser-click harness remains unreliable for displaying the modal, while direct React event verification opens it.
+
+## Pre-account verification update
+
+Marketplace loaded without a Manus redirect and showed the public search, category filters, publish route, service route, promotion route, and profile/workspace route. In AR the public Marketplace rendered RTL and Arabic copy. In EN, the first pass exposed Arabic fixed headings, filters, empty-state link, and legal note; these were corrected in source alongside localized type labels and footer. TypeScript passed afterward.
+
+PostDetail was audited and localized for FR/EN/AR without translating user-created title, description, category, or language metadata. The detail copy now includes localized loading/unavailable states, navigation, category/language labels, contact action, non-guarantee note, and reporting footer.
+
+Backend audit confirms post statuses include pending/active/paused/rejected/archived, service submissions are pending for owner review, and commission collection statuses remain manual. No new production data was created.
+
+## Public navigation and promotion retest
+
+Marketplace loaded in AR without a Manus redirect. The EN pass initially exposed Arabic fixed headings, filters, empty-state link, and legal note; source corrections were applied and TypeScript passed. Promotion was rewritten around a three-language copy map. EN and FR browser verification now show translated navigation, hero, CTA, cards, note band, and footer with no fixed Arabic in the extracted page text. User-created listing content remains intentionally untranslated.
+
+## Mobile pre-account audit
+
+A 390x844 preview was captured for `/publish`, `/marketplace`, `/services`, `/promotion`, and `/workspace`. The FR view showed readable controls and no obvious horizontal overflow in the captured viewport. `/publish` now shows French type options, placeholders, work modes, and form copy. `/marketplace`, `/services`, `/promotion`, and `/workspace` showed French navigation and primary content. The service/user-created content remains in its original language. This is a visual smoke check only; it does not replace a real authenticated submit.
+
+## Desktop pre-account audit
+
+A 1280x720 preview was captured for the homepage, Marketplace, Services, Promotion, Publish, and Workspace routes. The FR views loaded with readable high-contrast layouts, visible language control, and no observed horizontal overflow in the captured viewport. Publish labels and placeholders are now French; Workspace primary cards and controls are French. This remains a visual route check, not proof of authenticated creation or moderation.
