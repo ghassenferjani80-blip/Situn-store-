@@ -68,3 +68,26 @@
 
 - The local preview with the safe `requestId !== null` fix loaded correctly, but the public service card still did not expose a request modal after clicking “Demander ce service”. The defect is not explained by the falsy-zero condition alone; it remains a partial/failed UI workflow and should not be marked as fixed.
 - TypeScript and the full suite remain green after the small change: 11 test files, 39 passed and 1 skipped.
+
+## Pre-launch correction retest
+
+- The request button remains present and enabled in local preview, but clicking it and keyboard focus did not expose the request form. DOM inspection showed a normal button with the expected class and no nested link. No console error was reported. The UI issue is reproducible and needs a focused fix rather than a falsy-ID-only change.
+- The page also continues to show Arabic fixed categories and explanatory sections while FR is selected; user-generated French service content remains intentionally untranslated.
+
+- Further isolation found the button has an attached React `onClick` handler. Invoking that actual handler and waiting 150 ms rendered the modal with “طلب خدمة”, الاسم, الهاتف أو WhatsApp, رسالتك and the submit button. This indicates the component logic is wired; the earlier browser-coordinate/DOM click did not trigger React state in the test harness. The form itself still uses Arabic fixed labels in FR, so the remaining work is language copy and a real pointer-event confirmation.
+
+## Pre-launch correction retest 2026-09-04
+
+The local Services page in FR now shows translated category labels, translated commission notice, and translated How it works section. The service card and `Demander ce service` button are present. A browser click on the visible button still did not expose the modal in the automated browser interaction; direct invocation of the React handler did render the modal, proving the state/render path exists but leaving pointer-event behavior unresolved. The request modal copy itself is now translated for FR/EN/AR.
+
+## Correction retest after pointer handler
+
+The Services page in FR now renders the commission notice, categories, How it works section, CTA, and request modal in French. The request button has `type=button`, pointer and click handlers, and the request guard accepts a zero identifier. Automated pointer dispatch opened the modal and returned French fields: Demander un service, Nom, Téléphone ou WhatsApp, Votre message, Envoyer la demande. Main-page text scan for Arabic on the FR Services page returned false. A browser-click tool still does not reflect the modal visually in the preview harness, so human-device confirmation remains recommended.
+
+## FR/EN request form retest
+
+FR and EN Services pages show translated navigation, categories, commission notice, workflow section, CTA, and request modal copy. In EN, direct React handler verification opened the modal with `Request a service`, `Name`, `Phone or WhatsApp`, `Your message`, and `Send request`; no Arabic characters were present in the modal. The automated browser-click harness still did not expose the modal visually, while handler and pointer dispatch did. No authenticated submit was performed to avoid creating production user/test-request data.
+
+## Arabic language retest
+
+The Services page in AR renders Arabic navigation, categories, commission notice, workflow section, CTA, footer, and RTL layout correctly. User-created service title/description and language metadata remain in their original language as required. FR/EN request modal tests showed translated fields and no Arabic in the modal. The automated browser-click harness remains unreliable for displaying the modal, while direct React event verification opens it.
