@@ -230,7 +230,7 @@ export type ServiceInput = {
 export async function createService(input: ServiceInput) {
   const db = await getDb();
   if (!db) throw new Error("Database is not available");
-  const result = await db.insert(services).values({ ...input, location: input.location || null, country: input.country || null, languages: input.languages || null, deliveryMode: input.deliveryMode ?? "online", imageUrl: input.imageUrl || null, status: "pending" });
+  const result = await db.insert(services).values({ ...input, location: input.location || null, country: input.country || null, languages: input.languages || null, deliveryMode: input.deliveryMode ?? "online", imageUrl: input.imageUrl || null, status: "active" });
   return { success: true as const, serviceId: Number(result[0].insertId) };
 }
 
@@ -385,14 +385,14 @@ export async function getMarketplacePost(postId: number) {
 export async function createMarketplacePost(input: MarketplacePostInput) {
   const db = await getDb();
   if (!db) throw new Error("Database is not available");
-  const result = await db.insert(marketplacePosts).values({ ...input, imageUrl: input.imageUrl || null, country: input.country || null, city: input.city || null, priceCents: input.priceCents ?? null, remote: input.remote ?? "no", status: "pending" });
+  const result = await db.insert(marketplacePosts).values({ ...input, imageUrl: input.imageUrl || null, country: input.country || null, city: input.city || null, priceCents: input.priceCents ?? null, remote: input.remote ?? "no", status: "active" });
   return { success: true as const, postId: Number(result[0].insertId) };
 }
 
 export async function updateMarketplacePost(postId: number, ownerId: number, input: Omit<MarketplacePostInput, "ownerId" | "postType"> & { postType: MarketplacePostInput["postType"] }) {
   const db = await getDb();
   if (!db) throw new Error("Database is not available");
-  await db.update(marketplacePosts).set({ ...input, imageUrl: input.imageUrl || null, country: input.country || null, city: input.city || null, priceCents: input.priceCents ?? null, status: "pending" }).where(and(eq(marketplacePosts.id, postId), eq(marketplacePosts.ownerId, ownerId)));
+  await db.update(marketplacePosts).set({ ...input, imageUrl: input.imageUrl || null, country: input.country || null, city: input.city || null, priceCents: input.priceCents ?? null, status: "active" }).where(and(eq(marketplacePosts.id, postId), eq(marketplacePosts.ownerId, ownerId)));
   return { success: true as const, postId };
 }
 
