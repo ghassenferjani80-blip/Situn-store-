@@ -973,3 +973,35 @@ body { background: var(--paper); }
 .situn-shell .trust-contact a { color: #0b6fbd !important; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 850px) { .situn-shell .hero-arch { height: 470px; } }
 @media (max-width: 560px) { .situn-shell .hero-arch { height: 360px; } .situn-shell .hero-actions { align-items: stretch; flex-direction: column; } .situn-shell .hero-actions > a { width: 100%; } }
+
+/* Global messaging shortcut: visible on every route, including mobile. */
+.whatsapp-float {
+  position: fixed;
+  right: 22px;
+  bottom: 30px;
+  z-index: 120;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 0 17px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: #168b55;
+  box-shadow: 0 10px 26px rgba(3, 25, 17, .28), 0 0 0 4px rgba(22, 139, 85, .16);
+  color: #fff !important;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.whatsapp-float:hover { transform: translateY(-3px); background: #20a966; box-shadow: 0 14px 30px rgba(3, 25, 17, .34), 0 0 0 5px rgba(22, 139, 85, .2); }
+.whatsapp-float:focus-visible { outline: 3px solid #f4c95d; outline-offset: 3px; }
+.whatsapp-float svg { color: #fff; stroke: #fff; flex: 0 0 auto; }
+[dir="rtl"] .whatsapp-float { right: auto; left: 22px; }
+@media (max-width: 560px) {
+  .whatsapp-float { right: 14px; bottom: 76px; min-height: 46px; padding: 0 14px; font-size: 10px; }
+  [dir="rtl"] .whatsapp-float { right: auto; left: 14px; }
+}

@@ -5,6 +5,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LanguageDock from "./components/LanguageDock";
+import WhatsAppFloat from "./components/WhatsAppFloat";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CartProvider } from "./contexts/CartContext";
 const Home = lazy(() => import("./pages/Home"));
@@ -60,6 +61,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <LanguageDock />
+          <WhatsAppFloat />
           <CartProvider>
             <Router />
           </CartProvider>
