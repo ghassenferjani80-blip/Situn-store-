@@ -944,3 +944,32 @@ body { background: var(--paper); }
 .situn-shell .hero-intro, .situn-shell .section-note, .situn-shell .seller-copy p, .situn-shell .hero-caption, .situn-shell .platform-map-heading > p:last-child, .situn-shell .platform-route-card small, .situn-shell .trust-intro > p:not(.eyebrow), .situn-shell .trust-steps p, .marketplace-page .section-hero > p:not(.section-kicker), .marketplace-page .section-heading > p, .marketplace-page .market-card p, .situn-shell .manifesto p, .situn-shell .manifesto small, .situn-shell .commission-notice p { color: #111 !important; }
 .situn-shell .hero-intro::first-line, .situn-shell .section-note::first-line, .situn-shell .platform-map-heading > p:last-child::first-line, .situn-shell .trust-intro > p:not(.eyebrow)::first-line { color: #b67b26 !important; }
 .situn-shell .seller-copy small { color: #111 !important; }
+
+/* SITUNSHOP visual refresh: navy, gold and fast, focused hero. */
+.situn-shell .hero-section {
+  position: relative;
+  background: radial-gradient(circle at 80% 18%, rgba(20,101,166,.32), transparent 34%), linear-gradient(135deg, #04162f 0%, #082d58 56%, #061a37 100%) !important;
+  color: #fff !important;
+  overflow: hidden;
+}
+.situn-shell .hero-section::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 0 58%, rgba(221,174,71,.13) 72%, transparent 88%);
+  content: "";
+  pointer-events: none;
+}
+.situn-shell .hero-copy, .situn-shell .hero-visual { position: relative; z-index: 1; }
+.situn-shell .hero-section h1, .situn-shell .hero-section .hero-intro, .situn-shell .hero-section .hero-caption { color: #fff !important; }
+.situn-shell .hero-section h1 em, .situn-shell .hero-section .priority-line, .situn-shell .hero-section .eyebrow { color: #f4c95d !important; }
+.situn-shell .hero-arch { height: 560px; border-color: #f1c65a; background: #061a37; box-shadow: 0 22px 60px rgba(0,0,0,.32); }
+.situn-shell .hero-image { background-color: #061a37; background-image: url('/manus-storage/1000020152_3d9d2a29.png'); background-position: center; background-repeat: no-repeat; background-size: contain; filter: saturate(1.02) contrast(1.03); }
+.situn-shell .hero-stamp { background: #071d3b; color: #f4c95d; border-color: #f4c95d; }
+.situn-shell .hero-caption { color: rgba(255,255,255,.72) !important; }
+.situn-shell .hero-section .hero-secondary { border-color: rgba(255,255,255,.85) !important; background: rgba(4,22,47,.28) !important; color: #fff !important; }
+.situn-shell .hero-section .hero-secondary svg { color: #f4c95d !important; stroke: #f4c95d !important; }
+.situn-shell .whatsapp-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; border: 1px solid #24b66f; padding: 12px 17px; background: #168b55; color: #fff !important; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; transition: transform .18s ease, background .18s ease; }
+.situn-shell .whatsapp-button:hover { transform: translateY(-2px); background: #21a965; }
+.situn-shell .trust-contact a { color: #0b6fbd !important; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 850px) { .situn-shell .hero-arch { height: 470px; } }
+@media (max-width: 560px) { .situn-shell .hero-arch { height: 360px; } .situn-shell .hero-actions { align-items: stretch; flex-direction: column; } .situn-shell .hero-actions > a { width: 100%; } }

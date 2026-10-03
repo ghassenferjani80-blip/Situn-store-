@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildWhatsAppMessage, calculateBuyerFee, calculateBuyerTotal, calculateCommission, calculateSellerNet, calculateSubtotal, getCategoryFees, validateCheckout } from "../shared/marketplace";
+import { buildWhatsAppMessage, calculateBuyerFee, calculateBuyerTotal, calculateCommission, calculateSellerNet, calculateSubtotal, getCategoryFees, SITUN_WHATSAPP, validateCheckout } from "../shared/marketplace";
 
 describe("marketplace calculations", () => {
   it("calculates the basket subtotal from quantities", () => {
@@ -24,7 +24,7 @@ describe("marketplace calculations", () => {
   it("validates the required delivery fields", () => {
     expect(validateCheckout({ name: "", phone: "", city: "" })).toEqual({
       name: "Le nom est obligatoire.",
-      phone: "Le téléphone est obligatoire.",
+      phone: "Le numéro WhatsApp est obligatoire.",
       city: "L’adresse de livraison est obligatoire.",
     });
   });
@@ -46,5 +46,9 @@ describe("marketplace calculations", () => {
     expect(message).toContain("Coordination directe entre les parties");
     expect(message).not.toContain("Paiement à la livraison");
     expect(message).toContain("Ada Lovelace");
+  });
+
+  it("uses the owner's confirmed French WhatsApp contact", () => {
+    expect(SITUN_WHATSAPP).toBe("33602257226");
   });
 });
