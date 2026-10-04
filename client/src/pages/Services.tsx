@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { applySeo, SECTION_SEO } from "@/lib/seo";
 import { ArrowLeft, BriefcaseBusiness, Check, CircleUserRound, LogIn, MessageCircle, Plus, Search, ShieldCheck, Sparkles, X } from "lucide-react";
 import { Link } from "wouter";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import CommissionNotice from "@/components/CommissionNotice";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -55,7 +56,7 @@ export default function Services() {
   const profile = trpc.marketplace.profile.useQuery(undefined, { enabled: isAuthenticated });
   const myServices = trpc.marketplace.myServices.useQuery(undefined, { enabled: isAuthenticated });
   const saveProfile = trpc.marketplace.saveProfile.useMutation({ onSuccess: async () => { setProfileOpen(false); setNotice(language === "ar" ? "تم حفظ ملفك ويمكنك نشر خدماتك مباشرة." : language === "en" ? "Your profile is saved; you can publish services directly." : "Votre profil est enregistré ; vous pouvez publier vos services directement."); await profile.refetch(); } });
-  const createService = trpc.marketplace.createService.useMutation({ onSuccess: async () => { setServiceOpen(false); setServiceForm(emptyService); setNotice(language === "ar" ? "تم نشر خدمتك بنجاح." : language === "en" ? "Your service was published successfully." : "Votre service a été publié avec succès."); await myServices.refetch(); } });
+  const createService = trpc.marketplace.createService.useMutation({ onSuccess: async () => { setServiceOpen(false); setServiceForm(emptyService); const title = language === "ar" ? "تم نشر الخدمة بنجاح" : language === "en" ? "Service published successfully" : "Service publié avec succès"; const description = language === "ar" ? "أصبحت خدمتك ظاهرة ويمكنك إدارتها من مساحتك." : language === "en" ? "Your service is now visible and can be managed from your workspace." : "Votre service est maintenant visible et gérable depuis votre espace."; toast.success(title, { description }); setNotice(`${title}.`); await myServices.refetch(); } });
   const requestService = trpc.marketplace.requestService.useMutation({ onSuccess: (result) => { setRequestSent(true); setNotice("تم إرسال طلبك بنجاح. سيجري تنسيق التواصل مباشرة بين الأطراف عند توفر حساب WhatsApp Business الرسمي."); const service = services.data?.find((item) => item.service.id === requestId)?.service; const text = encodeURIComponent(`Bonjour SITUN, je souhaite demander le service « ${service?.title ?? "service"} ». Nom: ${requestForm.name}. Téléphone: ${requestForm.phone}. Message: ${requestForm.message}`); if (SITUN_WHATSAPP) window.open(`https://wa.me/${SITUN_WHATSAPP}?text=${text}`, "_blank", "noopener,noreferrer"); void result; } });
 
   const filtered = useMemo(() => (services.data ?? []).filter(({ service, profile: provider }) => {

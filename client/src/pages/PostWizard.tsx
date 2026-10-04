@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { ArrowRight, Globe2, Send } from "lucide-react";
 import { Link, useLocation, useRoute } from "wouter";
+import { toast } from "sonner";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 
@@ -20,8 +21,8 @@ export default function PostWizard() {
   const [, params] = useRoute("/publish/:id");
   const editingId = Number(params?.id);
   const myPosts = trpc.marketplace.myPosts.useQuery(undefined, { enabled: isAuthenticated && Number.isInteger(editingId) && editingId > 0 });
-  const createPost = trpc.marketplace.createPost.useMutation({ onSuccess: () => navigate("/workspace") });
-  const updatePost = trpc.marketplace.updatePost.useMutation({ onSuccess: () => navigate("/workspace") });
+  const createPost = trpc.marketplace.createPost.useMutation({ onSuccess: () => { toast.success(languageKey === "ar" ? "تم نشر الإعلان بنجاح" : languageKey === "en" ? "Listing published successfully" : "Annonce publiée avec succès", { description: languageKey === "ar" ? "أصبح إعلانك ظاهرًا ويمكنك إدارته من مساحتك." : languageKey === "en" ? "Your listing is now visible and can be managed from your workspace." : "Votre annonce est maintenant visible et gérable depuis votre espace." }); navigate("/workspace"); } });
+  const updatePost = trpc.marketplace.updatePost.useMutation({ onSuccess: () => { toast.success(languageKey === "ar" ? "تم تحديث الإعلان بنجاح" : languageKey === "en" ? "Listing updated successfully" : "Annonce mise à jour avec succès", { description: languageKey === "ar" ? "تم حفظ التعديلات على إعلانك." : languageKey === "en" ? "Your listing changes have been saved." : "Les modifications de votre annonce sont enregistrées." }); navigate("/workspace"); } });
   const [postType, setPostType] = useState("product");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
