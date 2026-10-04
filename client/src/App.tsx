@@ -6,6 +6,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LanguageDock from "./components/LanguageDock";
 import WhatsAppFloat from "./components/WhatsAppFloat";
+import InboxNotifications from "./components/InboxNotifications";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CartProvider } from "./contexts/CartContext";
 const Home = lazy(() => import("./pages/Home"));
@@ -75,6 +76,7 @@ function App() {
           <Toaster />
           <LanguageDock />
           <WhatsAppFloat />
+          <InboxNotifications />
           <CartProvider>
             <Router />
           </CartProvider>

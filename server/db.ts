@@ -304,6 +304,12 @@ export async function listServiceRequestsForAdmin() {
   return db.select({ request: serviceRequests, service: services, profile: serviceProfiles }).from(serviceRequests).leftJoin(services, eq(serviceRequests.serviceId, services.id)).leftJoin(serviceProfiles, eq(serviceRequests.providerUserId, serviceProfiles.userId)).orderBy(desc(serviceRequests.createdAt));
 }
 
+export async function listServiceRequestsForProvider(providerUserId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ request: serviceRequests, service: services }).from(serviceRequests).leftJoin(services, eq(serviceRequests.serviceId, services.id)).where(eq(serviceRequests.providerUserId, providerUserId)).orderBy(desc(serviceRequests.createdAt));
+}
+
 export async function updateServiceRequestStatus(requestId: number, status: "received" | "contacted" | "accepted" | "completed" | "cancelled") {
   const db = await getDb();
   if (!db) throw new Error("Database is not available");
