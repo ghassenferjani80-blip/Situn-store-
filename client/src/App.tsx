@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -52,6 +52,19 @@ function Router() {
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
+  useEffect(() => {
+    const preload = () => {
+      void Promise.all([
+        import("./pages/Marketplace"),
+        import("./pages/Services"),
+        import("./pages/PostWizard"),
+        import("./pages/Promotion"),
+      ]);
+    };
+    const timer = window.setTimeout(preload, 700);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <ErrorBoundary>
       <ThemeProvider
