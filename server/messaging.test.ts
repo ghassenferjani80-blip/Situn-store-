@@ -47,6 +47,18 @@ describe("direct messaging and negotiation", () => {
     expect(mocks.createConversationMessage).toHaveBeenCalledWith(44, 2, "هل يمكن التفاوض على التفاصيل؟");
   });
 
+  it("rejects a message when the database denies participant access", async () => {
+    mocks.createConversationMessage.mockResolvedValueOnce(null);
+    const caller = appRouter.createCaller(context(99));
+    await expect(caller.marketplace.sendMessage({ conversationId: 44, body: "رسالة غير مصرح بها" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
+  it("rejects reading a conversation when the database denies access", async () => {
+    mocks.listMessagesForUser.mockResolvedValueOnce(null);
+    const caller = appRouter.createCaller(context(99));
+    await expect(caller.marketplace.conversationMessages({ conversationId: 44 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
   it("returns the unread count privately for each authenticated participant", async () => {
     const buyer = appRouter.createCaller(context(2));
     const owner = appRouter.createCaller(context(8));

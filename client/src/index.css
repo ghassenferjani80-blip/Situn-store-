@@ -1064,3 +1064,17 @@ body { background: var(--paper); }
 .listing-help, .communication-help, .listing-help p, .communication-help p, .listing-help li, .communication-help li { color: #171513; font-weight: 600; }
 .service-card p, .service-card-details, .services-lead, .post-detail-description { color: #171513; font-weight: 600; }
 @media (max-width: 560px) { .unread-messages-badge { left: 14px; bottom: 18px; min-height: 42px; padding: 0 11px; font-size: 10px; } [dir="rtl"] .unread-messages-badge { left: auto; right: 14px; } }
+.section-search-wrap { display: grid; gap: 7px; min-width: min(100%, 320px); }
+.search-results-count { color: #171513; font-size: 11px; font-weight: 800; }
+.marketplace-page .section-search { border-color: #171513; background: #fff; color: #171513; }
+.marketplace-page .section-search input { color: #171513 !important; font-weight: 700; }
+.marketplace-page .section-search input::placeholder { color: #3d3832 !important; opacity: 1; }
+.marketplace-page .market-filter-bar button { color: #171513; font-weight: 800; }
+.marketplace-page .market-filter-bar button.active { background: #171513; color: #fff; }
+.market-card > p:not(.section-kicker), .market-card-title, .market-card h3 { color: #171513; }
+@media (max-width: 760px) { .section-search-wrap { min-width: 0; } .search-results-count { font-size: 10px; } }
+.market-direct-link { display: inline-flex; align-items: center; gap: 6px; color: #171513 !important; font-weight: 900; text-decoration: underline; text-underline-offset: 3px; }
+.market-direct-link:hover { color: #8b5d1e !important; }
+.marketplace-page .section-outline-button { border-color: #171513; background: #fff; color: #171513 !important; font-weight: 800; }
+.marketplace-page .section-outline-button:hover { background: #171513; color: #fff !important; }
+.marketplace-page .section-search input::placeholder { color: #171513 !important; opacity: 1; }
