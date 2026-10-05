@@ -1005,3 +1005,11 @@ body { background: var(--paper); }
   .whatsapp-float { right: 14px; bottom: 76px; min-height: 46px; padding: 0 14px; font-size: 10px; }
   [dir="rtl"] .whatsapp-float { right: auto; left: 14px; }
 }
+
+/* Practical listing guidance: concise, readable and mobile-friendly. */
+.listing-help, .communication-help { margin: 18px 0; border: 1px solid rgba(197,150,74,.35); padding: 16px 18px; background: rgba(255,255,255,.42); color: var(--ink); }
+.listing-help p, .communication-help p { margin-bottom: 8px; }
+.listing-help details summary { cursor: pointer; color: var(--gold); font-weight: 600; }
+.listing-help ul, .communication-help ul { margin: 9px 0 0; padding-inline-start: 20px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+.communication-help .outline-button { margin-top: 12px; }
+@media (max-width: 640px) { .listing-help, .communication-help { padding: 13px; } }
