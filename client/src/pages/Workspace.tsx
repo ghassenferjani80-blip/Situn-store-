@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, CircleUserRound, EyeOff, Globe2, Plus, ShieldCheck, Trash2 } from "lucide-react";
+import { ArrowRight, CircleUserRound, EyeOff, Globe2, MessageCircle, Plus, ShieldCheck, Trash2 } from "lucide-react";
 import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
@@ -41,7 +41,7 @@ export default function Workspace() {
     <main className="workspace-page" lang={language} dir={language === "ar" ? "rtl" : "ltr"}>
       <header className="profile-header">
         <Link href="/" className="services-brand"><span>✦</span> SITUN</Link>
-        <Link href="/services" className="profile-back"><ArrowRight size={16} /> {tx.back}</Link>
+        <div className="workspace-header-actions"><Link href="/messages" className="profile-back"><MessageCircle size={16} /> {language === "ar" ? "رسائلي" : language === "en" ? "Messages" : "Messages"}</Link><Link href="/services" className="profile-back"><ArrowRight size={16} /> {tx.back}</Link></div>
       </header>
       <section className="workspace-hero">
         <div className="profile-avatar"><CircleUserRound size={32} /></div>

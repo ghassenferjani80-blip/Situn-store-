@@ -1013,3 +1013,40 @@ body { background: var(--paper); }
 .listing-help ul, .communication-help ul { margin: 9px 0 0; padding-inline-start: 20px; color: var(--muted); font-size: 12px; line-height: 1.8; }
 .communication-help .outline-button { margin-top: 12px; }
 @media (max-width: 640px) { .listing-help, .communication-help { padding: 13px; } }
+
+/* Direct messaging: clear hierarchy, readable bubbles and mobile-first layout. */
+.messages-page { min-height: 100vh; background: var(--paper); color: var(--ink); }
+.messages-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(23,21,19,.16); padding: 24px 6vw; }
+.messages-intro { max-width: 780px; margin: 0 auto; padding: 58px 6vw 35px; text-align: center; }
+.messages-intro h1 { margin-bottom: 18px; font-size: clamp(48px, 7vw, 84px); line-height: .88; }
+.messages-intro > p:last-child { color: var(--muted); line-height: 1.7; }
+.messages-layout { display: grid; grid-template-columns: minmax(220px, 320px) minmax(0, 1fr); gap: 20px; max-width: 1160px; margin: 0 auto 70px; padding: 0 6vw; }
+.conversation-list, .conversation-panel { border: 1px solid rgba(23,21,19,.16); background: rgba(255,255,255,.38); }
+.conversation-list { padding: 18px; }
+.conversation-list h2, .conversation-panel h2 { margin: 0; font-family: 'Cormorant Garamond', serif; font-size: 28px; }
+.conversation-item { display: grid; width: 100%; gap: 4px; margin-top: 10px; border: 1px solid rgba(23,21,19,.13); padding: 13px; background: transparent; color: var(--ink); text-align: start; }
+.conversation-item:hover, .conversation-item.active { border-color: var(--gold); background: rgba(197,150,74,.1); }
+.conversation-item small { color: var(--muted); }
+.conversation-panel { min-height: 510px; padding: 22px; }
+.conversation-panel-header { display: flex; align-items: start; justify-content: space-between; gap: 15px; border-bottom: 1px solid rgba(23,21,19,.14); padding-bottom: 16px; }
+.conversation-messages { display: flex; min-height: 220px; max-height: 390px; flex-direction: column; gap: 10px; overflow: auto; padding: 18px 0; }
+.message-bubble { max-width: min(80%, 620px); border: 1px solid rgba(23,21,19,.12); padding: 10px 13px; background: #fffaf1; }
+.message-bubble.mine { align-self: flex-end; border-color: rgba(197,150,74,.6); background: rgba(197,150,74,.14); }
+.message-bubble p { margin: 0 0 5px; white-space: pre-wrap; line-height: 1.55; }
+.message-bubble small { color: var(--muted); font-size: 10px; }
+.conversation-empty { display: grid; flex: 1; place-items: center; min-height: 220px; color: var(--muted); text-align: center; }
+.message-suggestions { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
+.message-suggestions button { border: 1px solid rgba(197,150,74,.55); padding: 8px 10px; background: transparent; color: var(--ink); font-size: 11px; text-align: start; }
+.message-suggestions button:hover { background: rgba(197,150,74,.12); }
+.message-composer { display: flex; align-items: end; gap: 10px; }
+.message-composer textarea { flex: 1; min-width: 0; resize: vertical; border: 1px solid rgba(23,21,19,.22); padding: 11px; background: #fff; color: var(--ink); outline: none; }
+.message-composer textarea:focus { border-color: var(--gold); }
+.conversation-legal { margin: 13px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+@media (max-width: 720px) { .messages-layout { grid-template-columns: 1fr; padding: 0 4vw; } .conversation-list { max-height: 235px; overflow: auto; } .messages-intro { padding-inline: 4vw; } .messages-header { padding-inline: 4vw; } .conversation-panel { min-height: 470px; padding: 15px; } .message-composer { flex-direction: column; align-items: stretch; } .message-composer .services-gold-button { width: 100%; } .message-bubble { max-width: 92%; } }
+.service-card-actions { display: grid; gap: 8px; margin-top: 15px; }
+.service-card-actions .service-request-button, .service-card-actions .service-message-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
+.service-message-button { border: 1px solid var(--gold); padding: 10px 12px; background: transparent; color: var(--ink); font-size: 11px; }
+.service-message-button:hover { background: rgba(197,150,74,.12); }
+.service-message-button:disabled { opacity: .5; cursor: wait; }
+.workspace-header-actions { display: flex; align-items: center; gap: 14px; }
+@media (max-width: 640px) { .workspace-header-actions { gap: 7px; flex-wrap: wrap; justify-content: flex-end; } }

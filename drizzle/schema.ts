@@ -200,6 +200,26 @@ export const serviceRequests = mysqlTable("serviceRequests", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const conversations = mysqlTable("conversations", {
+  id: int("id").autoincrement().primaryKey(),
+  buyerUserId: int("buyerUserId").notNull(),
+  ownerUserId: int("ownerUserId").notNull(),
+  postId: int("postId"),
+  serviceId: int("serviceId"),
+  status: mysqlEnum("status", ["open", "closed"]).default("open").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const messages = mysqlTable("messages", {
+  id: int("id").autoincrement().primaryKey(),
+  conversationId: int("conversationId").notNull(),
+  senderUserId: int("senderUserId").notNull(),
+  body: text("body").notNull(),
+  readAt: timestamp("readAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export type User = typeof users.$inferSelect;
 export type MarketplacePost = typeof marketplacePosts.$inferSelect;
 export type MarketplaceTaxonomy = typeof marketplaceTaxonomies.$inferSelect;
@@ -215,3 +235,5 @@ export type ServiceProfile = typeof serviceProfiles.$inferSelect;
 export type Service = typeof services.$inferSelect;
 export type ServiceRequest = typeof serviceRequests.$inferSelect;
 export type ServicePayment = typeof servicePayments.$inferSelect;
+export type Conversation = typeof conversations.$inferSelect;
+export type Message = typeof messages.$inferSelect;

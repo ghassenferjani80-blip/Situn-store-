@@ -20,6 +20,7 @@ const Promotion = lazy(() => import("./pages/Promotion"));
 const PostWizard = lazy(() => import("./pages/PostWizard"));
 const PostDetail = lazy(() => import("./pages/PostDetail"));
 const Auth = lazy(() => import("./pages/Auth"));
+const Messages = lazy(() => import("./pages/Messages"));
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -38,6 +39,8 @@ function Router() {
       <Route path={"/marketplace"} component={Marketplace} />
       <Route path={"/profile/:id"} component={Profile} />
       <Route path={"/workspace"} component={Workspace} />
+      <Route path={"/messages/:id"} component={Messages} />
+      <Route path={"/messages"} component={Messages} />
       <Route path={"/publish"} component={PostWizard} />
       <Route path={"/post/:id"} component={PostDetail} />
       <Route path={"/404"} component={NotFound} />

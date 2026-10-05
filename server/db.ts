@@ -1,6 +1,6 @@
-import { and, asc, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq, isNull, or } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { commissionSettings, contentReports, InsertUser, marketplacePosts, marketplaceTaxonomies, orderItems, orders, postInquiries, products, sellers, servicePayments, serviceProfiles, serviceRequests, services, users } from "../drizzle/schema";
+import { commissionSettings, conversations, contentReports, InsertUser, marketplacePosts, marketplaceTaxonomies, messages, orderItems, orders, postInquiries, products, sellers, servicePayments, serviceProfiles, serviceRequests, services, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -454,6 +454,50 @@ export async function updatePostInquiryStatusForOwner(inquiryId: number, ownerId
   if (!db) throw new Error("Database is not available");
   await db.update(postInquiries).set({ status }).where(and(eq(postInquiries.id, inquiryId), eq(postInquiries.ownerId, ownerId)));
   return { success: true as const, inquiryId, status };
+}
+
+export async function getOrCreateConversation(input: { buyerUserId: number; ownerUserId: number; postId?: number; serviceId?: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  const existing = await db.select().from(conversations).where(and(eq(conversations.buyerUserId, input.buyerUserId), eq(conversations.ownerUserId, input.ownerUserId), input.postId ? eq(conversations.postId, input.postId) : eq(conversations.serviceId, input.serviceId ?? -1))).limit(1);
+  if (existing[0]) return existing[0];
+  const result = await db.insert(conversations).values({ buyerUserId: input.buyerUserId, ownerUserId: input.ownerUserId, postId: input.postId ?? null, serviceId: input.serviceId ?? null, status: "open" });
+  const created = await db.select().from(conversations).where(eq(conversations.id, Number(result[0].insertId))).limit(1);
+  if (!created[0]) throw new Error("Conversation could not be created");
+  return created[0];
+}
+
+export async function listConversationsForUser(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ conversation: conversations, post: marketplacePosts, service: services }).from(conversations).leftJoin(marketplacePosts, eq(conversations.postId, marketplacePosts.id)).leftJoin(services, eq(conversations.serviceId, services.id)).where(or(eq(conversations.buyerUserId, userId), eq(conversations.ownerUserId, userId))).orderBy(desc(conversations.updatedAt));
+}
+
+export async function listMessagesForUser(conversationId: number, userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  const access = await db.select({ id: conversations.id }).from(conversations).where(and(eq(conversations.id, conversationId), or(eq(conversations.buyerUserId, userId), eq(conversations.ownerUserId, userId)))).limit(1);
+  if (!access[0]) return null;
+  return db.select().from(messages).where(eq(messages.conversationId, conversationId)).orderBy(asc(messages.createdAt));
+}
+
+export async function createConversationMessage(conversationId: number, senderUserId: number, body: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  const access = await db.select().from(conversations).where(and(eq(conversations.id, conversationId), or(eq(conversations.buyerUserId, senderUserId), eq(conversations.ownerUserId, senderUserId)), eq(conversations.status, "open"))).limit(1);
+  if (!access[0]) return null;
+  const result = await db.insert(messages).values({ conversationId, senderUserId, body: body.trim() });
+  await db.update(conversations).set({ updatedAt: new Date() }).where(eq(conversations.id, conversationId));
+  return { success: true as const, messageId: Number(result[0].insertId) };
+}
+
+export async function markConversationRead(conversationId: number, userId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  const access = await db.select({ id: conversations.id }).from(conversations).where(and(eq(conversations.id, conversationId), or(eq(conversations.buyerUserId, userId), eq(conversations.ownerUserId, userId)))).limit(1);
+  if (!access[0]) return { success: false as const };
+  await db.update(messages).set({ readAt: new Date() }).where(and(eq(messages.conversationId, conversationId), isNull(messages.readAt)));
+  return { success: true as const };
 }
 
 export async function createContentReport(input: { reporterUserId?: number; postId?: number; reportedUserId?: number; reason: string; details?: string }) {
