@@ -1050,3 +1050,17 @@ body { background: var(--paper); }
 .service-message-button:disabled { opacity: .5; cursor: wait; }
 .workspace-header-actions { display: flex; align-items: center; gap: 14px; }
 @media (max-width: 640px) { .workspace-header-actions { gap: 7px; flex-wrap: wrap; justify-content: flex-end; } }
+
+/* High-contrast communication layer and unread-message shortcut. */
+.unread-messages-badge { position: fixed; left: 22px; bottom: 30px; z-index: 121; display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 14px; border: 2px solid #171513; border-radius: 999px; background: #f4c95d; color: #171513 !important; font-size: 11px; font-weight: 900; letter-spacing: .03em; text-decoration: none !important; box-shadow: 0 8px 22px rgba(23,21,19,.22); }
+.unread-messages-badge b { display: inline-grid; min-width: 22px; height: 22px; place-items: center; border-radius: 999px; background: #171513; color: #fff; font-size: 11px; }
+.unread-messages-badge:hover { transform: translateY(-2px); background: #ffd978; }
+[dir="rtl"] .unread-messages-badge { left: auto; right: 22px; }
+.messages-page, .messages-page button, .messages-page input, .messages-page textarea { color: #171513; }
+.messages-intro > p:last-child, .conversation-legal { color: #25221f; font-weight: 600; }
+.conversation-list > p, .conversation-empty, .conversation-item small, .message-bubble small { color: #25221f; font-weight: 600; }
+.message-bubble p, .message-suggestions button, .message-composer textarea { color: #171513; font-weight: 600; }
+.message-composer textarea::placeholder { color: #514b45; opacity: 1; }
+.listing-help, .communication-help, .listing-help p, .communication-help p, .listing-help li, .communication-help li { color: #171513; font-weight: 600; }
+.service-card p, .service-card-details, .services-lead, .post-detail-description { color: #171513; font-weight: 600; }
+@media (max-width: 560px) { .unread-messages-badge { left: 14px; bottom: 18px; min-height: 42px; padding: 0 11px; font-size: 10px; } [dir="rtl"] .unread-messages-badge { left: auto; right: 14px; } }

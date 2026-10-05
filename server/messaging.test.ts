@@ -5,6 +5,7 @@ import type { TrpcContext } from "./_core/context";
 const mocks = vi.hoisted(() => ({
   getMarketplacePost: vi.fn(),
   getServiceById: vi.fn(),
+  countUnreadMessagesForUser: vi.fn().mockResolvedValue(2),
   getOrCreateConversation: vi.fn().mockResolvedValue({ id: 44, buyerUserId: 2, ownerUserId: 8, postId: 17, serviceId: null, status: "open", createdAt: new Date(), updatedAt: new Date() }),
   listConversationsForUser: vi.fn().mockResolvedValue([]),
   listMessagesForUser: vi.fn().mockResolvedValue([]),
@@ -44,5 +45,14 @@ describe("direct messaging and negotiation", () => {
     const caller = appRouter.createCaller(context(2));
     await expect(caller.marketplace.sendMessage({ conversationId: 44, body: "هل يمكن التفاوض على التفاصيل؟" })).resolves.toMatchObject({ messageId: 55 });
     expect(mocks.createConversationMessage).toHaveBeenCalledWith(44, 2, "هل يمكن التفاوض على التفاصيل؟");
+  });
+
+  it("returns the unread count privately for each authenticated participant", async () => {
+    const buyer = appRouter.createCaller(context(2));
+    const owner = appRouter.createCaller(context(8));
+    await expect(buyer.marketplace.unreadMessageCount()).resolves.toBe(2);
+    await expect(owner.marketplace.unreadMessageCount()).resolves.toBe(2);
+    expect(mocks.countUnreadMessagesForUser).toHaveBeenNthCalledWith(1, 2);
+    expect(mocks.countUnreadMessagesForUser).toHaveBeenNthCalledWith(2, 8);
   });
 });

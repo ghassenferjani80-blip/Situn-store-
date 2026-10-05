@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import { toast } from "sonner";
+import { MessageCircle } from "lucide-react";
+import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 
@@ -8,8 +10,10 @@ export default function InboxNotifications() {
   const language = window.localStorage.getItem("situn-language") === "en" ? "en" : window.localStorage.getItem("situn-language") === "ar" ? "ar" : "fr";
   const inquiries = trpc.marketplace.myInquiries.useQuery(undefined, { enabled: isAuthenticated, refetchInterval: 10000 });
   const serviceRequests = trpc.marketplace.myServiceRequests.useQuery(undefined, { enabled: isAuthenticated, refetchInterval: 10000 });
+  const unreadMessages = trpc.marketplace.unreadMessageCount.useQuery(undefined, { enabled: isAuthenticated, refetchInterval: 5000 });
   const seenInquiryIds = useRef<Set<number> | null>(null);
   const seenServiceRequestIds = useRef<Set<number> | null>(null);
+  const previousUnread = useRef<number | null>(null);
 
   useEffect(() => {
     if (!inquiries.data) return;
@@ -41,5 +45,16 @@ export default function InboxNotifications() {
     seenServiceRequestIds.current = ids;
   }, [serviceRequests.data, language]);
 
-  return null;
+  useEffect(() => {
+    if (typeof unreadMessages.data !== "number") return;
+    if (previousUnread.current !== null && unreadMessages.data > previousUnread.current) {
+      toast.info(language === "ar" ? "لديك رسالة جديدة" : language === "en" ? "You have a new message" : "Vous avez un nouveau message", {
+        description: language === "ar" ? "افتح مركز الرسائل للرد والتفاوض." : language === "en" ? "Open messages to reply and negotiate." : "Ouvrez vos messages pour répondre et négocier.",
+      });
+    }
+    previousUnread.current = unreadMessages.data;
+  }, [unreadMessages.data, language]);
+
+  if (!isAuthenticated || !unreadMessages.data) return null;
+  return <Link href="/messages" className="unread-messages-badge" aria-label={`${unreadMessages.data} unread messages`}><MessageCircle size={16} /> <span>{language === "ar" ? "الرسائل" : language === "en" ? "Messages" : "Messages"}</span><b>{unreadMessages.data}</b></Link>;
 }

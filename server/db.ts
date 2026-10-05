@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, isNull, or } from "drizzle-orm";
+import { and, asc, desc, eq, isNull, ne, or } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { commissionSettings, conversations, contentReports, InsertUser, marketplacePosts, marketplaceTaxonomies, messages, orderItems, orders, postInquiries, products, sellers, servicePayments, serviceProfiles, serviceRequests, services, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
@@ -471,6 +471,13 @@ export async function listConversationsForUser(userId: number) {
   const db = await getDb();
   if (!db) return [];
   return db.select({ conversation: conversations, post: marketplacePosts, service: services }).from(conversations).leftJoin(marketplacePosts, eq(conversations.postId, marketplacePosts.id)).leftJoin(services, eq(conversations.serviceId, services.id)).where(or(eq(conversations.buyerUserId, userId), eq(conversations.ownerUserId, userId))).orderBy(desc(conversations.updatedAt));
+}
+
+export async function countUnreadMessagesForUser(userId: number) {
+  const db = await getDb();
+  if (!db) return 0;
+  const unread = await db.select({ id: messages.id }).from(messages).innerJoin(conversations, eq(messages.conversationId, conversations.id)).where(and(isNull(messages.readAt), ne(messages.senderUserId, userId), or(eq(conversations.buyerUserId, userId), eq(conversations.ownerUserId, userId))));
+  return unread.length;
 }
 
 export async function listMessagesForUser(conversationId: number, userId: number) {
